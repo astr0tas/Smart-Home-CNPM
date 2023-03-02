@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-03-02T17:05:18.957Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="psf0zOTw_Psl6RTKC7iA" version="20.8.23" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-02T17:06:05.683Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="UDItWcSr64ZU-LQvNfNL" version="20.8.23" type="github">
   <diagram name="Page-1" id="Gs4qEUFltZ7bUWOozk17">
-    <mxGraphModel dx="2183" dy="1183" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1803" dy="977" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -47,7 +47,7 @@
           <mxGeometry x="747" y="560" width="143" height="60" as="geometry" />
         </mxCell>
         <mxCell id="IxM3IXugmNxA2LXYIeKf-4" value="Xem trạng thái hoạt động của các thiết bị" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="772" y="950" width="158" height="60" as="geometry" />
+          <mxGeometry x="797" y="950" width="128" height="60" as="geometry" />
         </mxCell>
         <mxCell id="IxM3IXugmNxA2LXYIeKf-5" value="Điều khiển các thiết bị&amp;nbsp;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="470" y="720" width="106" height="60" as="geometry" />
@@ -129,7 +129,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="4kdjvfuADfTnEWXonBw7-3" value="Xem dữ liệu trả về của các cảm biến" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="772" y="1020" width="158" height="60" as="geometry" />
+          <mxGeometry x="797" y="1020" width="108" height="60" as="geometry" />
         </mxCell>
         <mxCell id="4kdjvfuADfTnEWXonBw7-4" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#006aff;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;fillColor=#dae8fc;" edge="1" parent="1" source="IxM3IXugmNxA2LXYIeKf-2" target="IxM3IXugmNxA2LXYIeKf-4">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -180,11 +180,11 @@
             <mxPoint x="860" y="1330" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="4kdjvfuADfTnEWXonBw7-14" value="Thống kê thông tin hoạt động của thiết bị" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="770" y="1109" width="158" height="60" as="geometry" />
+        <mxCell id="4kdjvfuADfTnEWXonBw7-14" value="Xem lịch sử hoạt động của thiết bị" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="1109" width="86.5" height="60" as="geometry" />
         </mxCell>
         <mxCell id="4kdjvfuADfTnEWXonBw7-15" value="Thống kê thông số cảm biến" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="760" y="1190" width="158" height="60" as="geometry" />
+          <mxGeometry x="786.5" y="1190" width="100" height="60" as="geometry" />
         </mxCell>
         <mxCell id="4kdjvfuADfTnEWXonBw7-16" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#006aff;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#dae8fc;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="IxM3IXugmNxA2LXYIeKf-2" target="4kdjvfuADfTnEWXonBw7-14">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
