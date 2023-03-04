@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-04T04:32:30.941Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="7ArmNoTY2r59ynN7r0B1" version="21.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-04T04:33:09.142Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="fk0rcVxAsp0P3BxAj3WM" version="21.0.2" type="github">
   <diagram name="Page-1" id="Gs4qEUFltZ7bUWOozk17">
     <mxGraphModel dx="1728" dy="937" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -249,6 +249,19 @@
             <Array as="points">
               <mxPoint x="120" y="1040" />
               <mxPoint x="120" y="910" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HuLzoXBlrntYcY_2X0fd-19" value="Thiết lập cảm biến" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="360" width="106" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HuLzoXBlrntYcY_2X0fd-20" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#dae8fc;strokeColor=#006aff;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="IxM3IXugmNxA2LXYIeKf-2" target="HuLzoXBlrntYcY_2X0fd-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="660" y="530" as="sourcePoint" />
+            <mxPoint x="710" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="110" y="135" />
+              <mxPoint x="110" y="390" />
             </Array>
           </mxGeometry>
         </mxCell>
