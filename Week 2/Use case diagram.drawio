@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-08T14:41:20.963Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="uRW4EdD0QdeZuroCG9Qo" version="21.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-08T15:41:14.061Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="qssv-sqisABE6_8g1sN8" version="21.0.2" type="github">
   <diagram name="Page-1" id="Gs4qEUFltZ7bUWOozk17">
     <mxGraphModel dx="2358" dy="1268" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -279,20 +279,6 @@
             <Array as="points">
               <mxPoint x="1030" y="100" />
               <mxPoint x="1030" y="390" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="mtpYUoKMyulHPlp0uqmc-1" value="Gửi thông tin đến thiết bị ouput" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="379.5" y="1080" width="131.5" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="mtpYUoKMyulHPlp0uqmc-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#e1d5e7;strokeColor=#ae00ff;edgeStyle=orthogonalEdgeStyle;" parent="1" source="HuLzoXBlrntYcY_2X0fd-3" target="mtpYUoKMyulHPlp0uqmc-1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="90" y="1050" as="sourcePoint" />
-            <mxPoint x="317" y="1045" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="80" y="1000" />
-              <mxPoint x="120" y="1000" />
-              <mxPoint x="120" y="1115" />
             </Array>
           </mxGeometry>
         </mxCell>
