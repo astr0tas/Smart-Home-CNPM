@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-03-09T03:28:42.779Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="CjdHxELeXnehlMI0ODl7" version="21.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-09T03:34:02.754Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="FXL3W9WzBUnJThskSAKQ" version="21.0.2" type="github">
   <diagram name="Page-1" id="Gs4qEUFltZ7bUWOozk17">
-    <mxGraphModel dx="1626" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2358" dy="1268" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -92,7 +92,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="4kdjvfuADfTnEWXonBw7-1" value="Thiết lập thông số cho thiết bị" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="630" y="160" width="120" height="70" as="geometry" />
+          <mxGeometry x="630" y="160" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="4kdjvfuADfTnEWXonBw7-2" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="1" source="4kdjvfuADfTnEWXonBw7-1" target="IxM3IXugmNxA2LXYIeKf-5" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
