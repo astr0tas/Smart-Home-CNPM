@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-10T05:20:42.881Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="Gk_d6ehoP4wyp_uPK7P9" version="21.0.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-10T05:21:13.613Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="cRKwlvcFHSg96Mi3hNvy" version="21.0.6" type="github">
   <diagram name="Page-1" id="Gs4qEUFltZ7bUWOozk17">
     <mxGraphModel dx="1965" dy="-112" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -191,7 +191,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Ebhskz-XtMlUNa1snjmE-35" value="Điều khiển thiết bị" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="422.25" y="2120" width="131.75" height="60" as="geometry" />
+          <mxGeometry x="412.75" y="2120" width="131.75" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Ebhskz-XtMlUNa1snjmE-36" value="Nhận thông báo&amp;nbsp;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="519.75" y="2000" width="100.5" height="60" as="geometry" />
@@ -311,6 +311,15 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="832" y="1710" as="sourcePoint" />
             <mxPoint x="760" y="1747" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KNt4OGVIESbMBut9E8HP-1" value="Nhận thông tin thiết lập của người dùng" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="634" y="2070" width="100.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KNt4OGVIESbMBut9E8HP-2" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" edge="1" parent="1" source="KNt4OGVIESbMBut9E8HP-1" target="Ebhskz-XtMlUNa1snjmE-35">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="720" y="1969" as="sourcePoint" />
+            <mxPoint x="618" y="2021" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
