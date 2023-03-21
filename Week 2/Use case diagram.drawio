@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-21T14:25:07.155Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="pIDRzmA3JYvRTibkWTn8" version="21.0.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-21T14:27:06.587Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="BOBPOGDnSTmo-4uinrQy" version="21.0.6" type="github">
   <diagram name="Page-1" id="Gs4qEUFltZ7bUWOozk17">
     <mxGraphModel dx="1626" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -126,8 +126,8 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Ebhskz-XtMlUNa1snjmE-22" value="Xem lịch sử hoạt động" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="827" y="1410" width="83" height="60" as="geometry" />
+        <mxCell id="Ebhskz-XtMlUNa1snjmE-22" value="Xem lịch sử hoạt động thiết bị" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="827" y="1410" width="113" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Ebhskz-XtMlUNa1snjmE-23" value="Thống kê thông số thu được" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="856" y="1680" width="120" height="60" as="geometry" />
@@ -345,7 +345,7 @@
             <mxPoint x="661" y="1759" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="kh4QaWCAT5zSmjW3qF8s-7" value="Xem lịch sử hoạt động" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="kh4QaWCAT5zSmjW3qF8s-7" value="Xem lịch sử hoạt động cảm biến" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="753.5" y="1630" width="99" height="60" as="geometry" />
         </mxCell>
         <mxCell id="kh4QaWCAT5zSmjW3qF8s-8" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" edge="1" parent="1" source="kh4QaWCAT5zSmjW3qF8s-7" target="Ebhskz-XtMlUNa1snjmE-19">
