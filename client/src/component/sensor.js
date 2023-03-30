@@ -10,7 +10,7 @@ const Sensor = () =>
       })
 
       return (
-            <div className="sensor-page">
+            <div className="sensor-page d-flex flex-column justify-content-center">
                   <div className="sensor-page-board">
                         <div className="d-flex justify-content-center mt-5 mb-5">
                               <h1>Chọn thiết bị</h1>

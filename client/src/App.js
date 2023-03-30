@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App()
 {
   return (
-    <div className="App d-flex flex-column justify-content-center">
+    <div className="App">
       <BrowserRouter>
         <Routes>
           <Route index element={ <Login /> } />
