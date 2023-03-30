@@ -1,0 +1,19 @@
+.sensor-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
+
+.sensor-page-board {
+      border: 2px solid black;
+      border-radius: 20px;
+      height: 70vh;
+      width: 70vw;
+      background-color: white;
+}
+
+.devices>*:active {
+      color: rgb(123, 123, 123);
+}
+
+.device_image {}
