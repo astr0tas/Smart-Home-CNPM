@@ -12,7 +12,7 @@ const Device = () =>
       {
             if (render.current)
             {
-                  $("#device").css("color", "blue");
+                  $("#device").css("color", "rgb(153, 153, 153)");
                   render.current = false;
             }
       })
