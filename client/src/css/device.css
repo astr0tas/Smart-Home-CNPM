@@ -76,8 +76,31 @@
             height: auto;
       }
 
-      .device_image {
+      .devices>* {
             font-size: 20px;
+      }
+}
+
+@media (max-height:600px) and (max-width:1024px) {
+
+      .choosing {
+            margin-top: 10px;
+            margin-bottom: 5px;
+      }
+
+      .device-catergory {
+            margin-top: 5px;
+            height: 70%;
+      }
+
+      .devices {
+            width: auto;
+            height: auto;
+      }
+
+      .device_image {
+            height: 35px;
+            width: 35px;
       }
 
       .devices>* {
@@ -103,7 +126,6 @@
       }
 
       .device_image {
-            font-size: 20px;
             height: 40px;
             width: 40px;
       }
