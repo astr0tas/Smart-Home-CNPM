@@ -22,8 +22,10 @@
 }
 
 .devices {
-      width: 100%;
+      width: calc(100%/3.0 - 10%);
       height: 100%;
+      border: 2px solid black;
+      border-radius: 20px;
 }
 
 .devices>*:active {
@@ -31,37 +33,21 @@
 }
 
 .device_image {
+      margin-top: 10px;
       height: 100%;
       width: 100%;
       max-width: 150px;
       max-height: 150px;
 }
 
-.choosing {
+.choose-device {
       margin-top: 20px;
       margin-bottom: 50px;
 }
 
-@media (max-width:1024px) {
-      .device-catergory {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-      }
+/* @media (max-height:900px) {
 
-      .devices {
-            margin-top: 20px;
-      }
-
-      .device_image {
-            height: 70px;
-            width: 70px;
-      }
-}
-
-@media (max-height:900px) {
-
-      .choosing {
+      .choose-device {
             margin-top: 20px;
             margin-bottom: 10px;
       }
@@ -72,18 +58,18 @@
       }
 
       .devices {
-            width: auto;
-            height: auto;
+            width: 20%;
+            height:50%;
       }
 
       .devices>* {
             font-size: 20px;
       }
-}
+} */
 
-@media (max-height:600px) and (max-width:1024px) {
+@media (max-height:700px) and (min-width:1024px) {
 
-      .choosing {
+      .choose-device {
             margin-top: 10px;
             margin-bottom: 5px;
       }
@@ -94,13 +80,13 @@
       }
 
       .devices {
-            width: auto;
-            height: auto;
+            width: 20%;
+            height: 50%;
       }
 
       .device_image {
-            height: 35px;
-            width: 35px;
+            height: 50%;
+            width: 50%;
       }
 
       .devices>* {
@@ -108,9 +94,9 @@
       }
 }
 
-@media (max-height:800px) and (max-width:768px) {
+/* @media (max-height:800px) and (max-width:768px) {
 
-      .choosing {
+      .choose-device {
             margin-top: 20px;
             margin-bottom: 10px;
       }
@@ -121,16 +107,76 @@
       }
 
       .devices {
-            width: auto;
-            height: auto;
+            width: 50%;
+            height: 50%;
       }
 
       .device_image {
-            height: 40px;
-            width: 40px;
+            height: 50%;
+            width: 50%;
       }
 
       .devices>* {
             font-size: 20px;
       }
+} */
+
+@media ((max-width:1024px) and (max-height:900px)) or (max-width:768px) {
+      .device-catergory {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            margin-top: 0;
+      }
+
+      .device-page {
+            height: 100%;
+      }
+
+      .device-page-board {
+            width: 70%;
+            height: 70%;
+      }
+
+      .devices {
+            margin-top: 20px;
+            width: 30%;
+      }
+
+      .devices:last-child {
+            margin-bottom: 20px;
+      }
+
+      .choose-device {
+            margin-top: 20px;
+            margin-bottom: 20px;
+      }
+
+      .device_image {
+            height: 50%;
+            width: 50%;
+      }
 }
+
+/* @media (max-width:768px) {
+      .device-catergory {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+      }
+
+      .devices {
+            margin-top: 20px;
+            width: 30%;
+      }
+
+      .device_image {
+            height: 50%;
+            width: 50%;
+      }
+
+} */

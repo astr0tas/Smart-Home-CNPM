@@ -41,8 +41,8 @@ function AdminNavbar()
       });
 
       return (
-            <div className="UI">
-                  <AiOutlineMenu size={ 40 } className="dropdown" onClick={ toggleMenu }></AiOutlineMenu>
+            <div className='h-100 w-100'>
+                  <AiOutlineMenu size={ 30 } className="dropdown" onClick={ toggleMenu }></AiOutlineMenu>
                   <div className='nav'>
                         <img className='navpic' src="https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig="></img>
                         <ul>
