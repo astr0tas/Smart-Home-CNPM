@@ -1,44 +1,45 @@
 import "../css/sensor.css";
 import { useEffect, useRef } from "react";
 import $ from 'jquery';
-import { BsFan,BsDoorOpen } from "react-icons/bs";
-import { TiLightbulb } from "react-icons/ti";
+import { BsThermometerSnow } from "react-icons/bs";
+import { WiHumidity } from "react-icons/wi";
+import { MdOutlineLightMode,MdOutlineAir } from "react-icons/md";
 
 const Sensor = () =>
 {
       useEffect(() =>
       {
-            $("#sensor").css("color","blue");
+            $("#sensor").css("color","rgb(153, 153, 153)");
       })
 
       return (
-            <div className="sensor-page d-flex flex-column justify-content-center">
-                  <div className="sensor-page-board">
-                        <div className="d-flex justify-content-center mt-5 mb-5">
-                              <h1 id="pageTitle">Chọn thiết bị</h1>
-                        </div>
-                        <div className="d-flex justify-content-around mt-5 mb-5 page">
-                              <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices">
-                                    <div>
-                                          <BsFan className="icons"></BsFan><br></br>
-                                          <h1 className="device">Quạt</h1>
-                                    </div>
-                              </a>
-                              <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices">
-                                    <div>
-                                          <TiLightbulb className="icons"></TiLightbulb><br></br>
-                                          <h1 className="device">Đèn</h1>
-                                    </div>
-                              </a>
-                              <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices">
-                                    <div>
-                                          <BsDoorOpen className="icons"></BsDoorOpen><br></br>
-                                          <h1 className="device">Cửa</h1>
-                                    </div>
-                              </a>
-                        </div>
-                  </div>
+        <div className="sensor-page d-flex flex-column justify-content-center">
+            <div className="sensor-page-board">
+                <div className="d-flex justify-content-center mt-5 mb-5">
+                        <h1 id="pageTitle">Chọn loại cảm biến</h1>
+                </div>
+                <div className="d-flex justify-content-around mt-5 mb-5 page">
+                        <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark sensors">
+                            <BsThermometerSnow className="sensor_image"></BsThermometerSnow>
+                            <h1>Nhiệt độ</h1>
+                        </a>
+                        <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark sensors">
+                            <WiHumidity className="sensor_image"></WiHumidity>
+                            <h1>Độ ẩm</h1>
+                        </a>
+                </div>
+                <div className="d-flex justify-content-around mt-5 mb-5 page">
+                        <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark sensors">
+                            <MdOutlineLightMode className="sensor_image"></MdOutlineLightMode>
+                            <h1>Ánh sáng</h1>
+                        </a>
+                        <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark sensors">
+                            <MdOutlineAir className="sensor_image"></MdOutlineAir>
+                            <h1>Không khí</h1>
+                        </a>
+                </div>
             </div>
+        </div>
       );
 }
 
