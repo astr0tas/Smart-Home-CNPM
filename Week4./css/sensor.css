@@ -1,0 +1,38 @@
+.sensor-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+}
+
+.sensor-page-board {
+    border: 2px solid black;
+    border-radius: 20px;
+    height: 70vh;
+    width: 70vw;
+    background-color: white;
+}
+
+#pageTitle{
+    font-size: 4rem;
+}
+
+.devices{
+    color: black;
+}
+
+.devices>*:active {
+    color: rgb(123, 123, 123);
+}
+
+.icons{
+    scale: 5;
+    display:flexbox;
+    position:absolute;
+}
+
+.device{
+    display:flexbox;
+    position: absolute;
+    margin-top: 1.5rem;
+}
