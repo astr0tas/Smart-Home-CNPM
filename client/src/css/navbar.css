@@ -53,6 +53,7 @@
 
 .userpic:hover {
       cursor: pointer;
+      color: rgb(163, 163, 163);
 }
 
 .userpic:active {
@@ -80,12 +81,6 @@
 .dropdown:active {
       color: rgb(172, 172, 172);
 }
-
-/* .close
-{
-      visibility: hidden;
-      color:red;
-} */
 
 @media(max-width:1200px) {
       .nav ul li a {
@@ -126,11 +121,6 @@
       .navpic {
             margin-top: 50px;
       }
-
-      /* .close
-      {
-            visibility: visible;
-      } */
 
       .nav ul {
             flex-direction: column;

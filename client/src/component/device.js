@@ -1,31 +1,39 @@
-import "../css/sensor.css";
+import "../css/device.css";
 import { useEffect, useRef } from "react";
+import { BsFan, BsDoorOpen } from "react-icons/bs";
+import { TiLightbulb } from "react-icons/ti";
 import $ from 'jquery';
 
-const Sensor = () =>
+const Device = () =>
 {
+      const render = useRef(true);
+
       useEffect(() =>
       {
-            $("#sensor").css("color","blue");
+            if (render.current)
+            {
+                  $("#device").css("color", "blue");
+                  render.current = false;
+            }
       })
 
       return (
-            <div className="sensor-page d-flex flex-column justify-content-center">
-                  <div className="sensor-page-board">
-                        <div className="d-flex justify-content-center mt-5 mb-5">
+            <div className="device-page d-flex flex-column justify-content-center">
+                  <div className="device-page-board">
+                        <div className="d-flex justify-content-center choosing">
                               <h1>Chọn thiết bị</h1>
                         </div>
-                        <div className="d-flex justify-content-around mt-5 mb-5">
+                        <div className="device-catergory">
                               <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices">
-                                    <img src="" alt="picture" className="device_image"></img>
+                                    <BsFan className="device_image" />
                                     <h1>Quạt</h1>
                               </a>
                               <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices">
-                                    <img src="" alt="picture" className="device_image"></img>
+                                    <TiLightbulb className="device_image" />
                                     <h1>Đèn</h1>
                               </a>
                               <a href="#" className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices">
-                                    <img src="" alt="picture" className="device_image"></img>
+                                    <BsDoorOpen className="device_image" />
                                     <h1>Cửa</h1>
                               </a>
                         </div>
@@ -34,4 +42,4 @@ const Sensor = () =>
       );
 }
 
-export default Sensor;
+export default Device;

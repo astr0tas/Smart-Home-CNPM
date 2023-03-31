@@ -1,4 +1,6 @@
 import "../css/login.css"
+import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
+
 
 const Login = () =>
 {
@@ -12,8 +14,14 @@ const Login = () =>
                         <div className='login-box'>
                               <h1 className='title'>Đăng nhập</h1>
                               <form>
-                                    <input type="text" name='uname' placeholder="Tên đăng nhập" className='inp'></input>
-                                    <input type="password" name='password' placeholder="Mật khẩu" className='inp'></input>
+                                    <div className="d-flex align-items-center">
+                                          <AiOutlineUser size={30} className="icons"></AiOutlineUser>
+                                          <input type="text" name='uname' placeholder="Tên đăng nhập" className='inp'></input>
+                                    </div>
+                                    <div className="d-flex align-items-center">
+                                          <AiOutlineLock size={ 30 } className="icons"></AiOutlineLock>
+                                          <input type="password" name='password' placeholder="Mật khẩu" className='inp'></input>
+                                    </div>
                                     <input type="submit" className='button' value="Truy cập" />
                               </form>
                               <a href='#' className='link'>Quên mật khẩu?</a>

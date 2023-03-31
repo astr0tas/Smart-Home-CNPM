@@ -31,6 +31,12 @@ function AdminNavbar()
             {
                   console.log("render");
                   render.current = true;
+
+                  window.addEventListener('resize', () =>
+                  {
+                        if (window.innerWidth > 768)
+                              $(".nav").css("visibility", "visible");
+                  });
             }
       });
 
@@ -41,7 +47,7 @@ function AdminNavbar()
                         <img className='navpic' src="https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig="></img>
                         <ul>
                               <li>
-                                    <a href='#' id="device"><TiLightbulb></TiLightbulb>Thiết bị</a>
+                                    <a href='/admin/device' id="device"><TiLightbulb></TiLightbulb>Thiết bị</a>
                               </li>
                               <li>
                                     <a href='/admin/sensor' id="sensor"><BsThermometerHalf></BsThermometerHalf>Cảm biến</a>

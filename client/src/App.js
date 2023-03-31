@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './component/login';
 import AdminNavbar from './component/adminnavbar';
 import UserNavbar from './component/usernavbar';
-import Sensor from './component/sensor';
+import Device from './component/device';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -16,11 +16,11 @@ function App()
         <Routes>
           <Route index element={ <Login /> } />
           <Route element={ <UserNavbar /> }>
-            <Route path="/sensor" element={ <Sensor /> } />
+            <Route path="/device" element={ <Device /> } />
           </Route>
           <Route path="/admin">
             <Route element={ <AdminNavbar /> }>
-              <Route path="sensor" element={ <Sensor /> } />
+              <Route path="device" element={ <Device /> } />
             </Route>
           </Route>
         </Routes>
