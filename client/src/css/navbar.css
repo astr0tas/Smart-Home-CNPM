@@ -40,30 +40,121 @@
       color: rgb(71, 71, 71);
 }
 
-.navpic:first-child {
+.userpic {
+      height: 70px;
+      width: 70px;
+      margin-right: 20px;
+}
+
+.navpic {
       height: 100px;
       width: 100px;
 }
 
-.navpic:last-child {
-      height: 70px;
-      width: 70px;
-      min-height: 70px;
-      min-width: 70px;
-      margin-right: 20px;
-}
-
-.navpic:last-child:hover {
+.userpic:hover {
       cursor: pointer;
 }
 
-.navpic:last-child:active {
+.userpic:active {
       color: rgb(71, 71, 71);
 }
-
-@media(max-width:1200px) {}
 
 .child-page {
       margin-top: 100px;
       height: calc(100% - 100px);
+}
+
+.dropdown {
+      visibility: hidden;
+      top: 10px;
+      left: 10px;
+      position: fixed;
+      color: rgb(0, 0, 0);
+      z-index: 2;
+}
+
+.dropdown:hover {
+      cursor: pointer;
+}
+
+.dropdown:active {
+      color: rgb(172, 172, 172);
+}
+
+/* .close
+{
+      visibility: hidden;
+      color:red;
+} */
+
+@media(max-width:1200px) {
+      .nav ul li a {
+            font-size: 20px;
+      }
+
+      .userpic {
+            height: 50px;
+            width: 50px;
+      }
+
+      .group {
+            height: 70px;
+            width: 70px;
+      }
+
+      .navpic {
+            height: 80px;
+            width: 80px;
+      }
+
+      .nav ul li {
+            margin-left: 20px;
+            margin-right: 20px;
+      }
+}
+
+@media(max-width:768px) {
+      .nav {
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            width: 150px;
+            visibility: hidden;
+      }
+
+      .navpic {
+            margin-top: 50px;
+      }
+
+      /* .close
+      {
+            visibility: visible;
+      } */
+
+      .nav ul {
+            flex-direction: column;
+      }
+
+      .nav ul li a {
+            font-size: 20px;
+      }
+
+      .child-page {
+            margin-top: 0;
+            height: 100%;
+      }
+
+      .nav ul li {
+            margin-top: 20px;
+            margin-bottom: 20px;
+      }
+
+      .userpic {
+            margin-right: 0;
+      }
+
+      .dropdown {
+            visibility: visible;
+      }
 }

@@ -1,9 +1,12 @@
 import '../css/navbar.css';
-import React from 'react';
+import { React, useEffect, useRef } from 'react';
 import { BsFillBellFill, BsFillPersonFill, BsThermometerHalf } from "react-icons/bs";
 import { TiLightbulb } from "react-icons/ti";
 import { FaUserCircle } from "react-icons/fa";
 import { Outlet } from 'react-router-dom';
+import $ from 'jquery';
+import { AiOutlineMenu } from "react-icons/ai";
+
 
 
 function AdminNavbar()
@@ -11,10 +14,31 @@ function AdminNavbar()
       /*
       https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig=
       */
+
+      const render = useRef(false);
+
+      const toggleMenu = () =>
+      {
+            if ($(".nav").css("visibility") === "hidden")
+                  $(".nav").css("visibility", "visible");
+            else
+                  $(".nav").css("visibility", "hidden");
+      }
+
+      useEffect(() =>
+      {
+            if (!render.current)
+            {
+                  console.log("render");
+                  render.current = true;
+            }
+      });
+
       return (
-            <>
+            <div className="UI">
+                  <AiOutlineMenu size={ 40 } className="dropdown" onClick={ toggleMenu }></AiOutlineMenu>
                   <div className='nav'>
-                        <img class='navpic' src={ require('../image/home.jpg') }></img>
+                        <img className='navpic' src="https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig="></img>
                         <ul>
                               <li>
                                     <a href='#' id="device"><TiLightbulb></TiLightbulb>Thiết bị</a>
@@ -29,12 +53,12 @@ function AdminNavbar()
                                     <a href='#' id="account"><BsFillPersonFill></BsFillPersonFill>Tài khoản</a>
                               </li>
                         </ul>
-                        <FaUserCircle class='navpic' />
+                        <FaUserCircle className='userpic' />
                   </div>
                   <div className='child-page'>
                         <Outlet />
                   </div>
-            </>
+            </div>
       );
 }
 
