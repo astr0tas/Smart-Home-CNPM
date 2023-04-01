@@ -140,6 +140,7 @@
       color: black;
       text-decoration: none;
       width: 40%;
+      height:100%;
 }
 
 .sensor-page .sensors:hover {
@@ -169,6 +170,7 @@
 
       .sensor-page .sensors {
             width: 70%;
+            height: 40%;
       }
 
       .sensor-page .group {
