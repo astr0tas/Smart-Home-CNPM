@@ -1,4 +1,4 @@
-.nav {
+/* .nav {
       background-color: rgb(255, 255, 255);
       color: rgb(0, 0, 0);
       display: flex;
@@ -162,5 +162,141 @@
 
       .nav ul li a {
             font-size: 15px;
+      }
+} */
+
+.nav {
+      background-color: rgb(255, 255, 255);
+      height: 100px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: auto;
+      visibility: visible;
+}
+
+.smart-home {
+      height: 100px;
+      width: 100px;
+      margin-left: 10px;
+}
+
+.userpic {
+      height: 80px;
+      width: 80px;
+      margin-right: 20px;
+}
+
+.userpic:hover {
+      cursor: pointer;
+}
+
+.userpic:active {
+      color: rgb(150, 150, 150);
+}
+
+a {
+      font-size: 30px;
+}
+
+.tab:active {
+      color: rgb(130, 130, 130);
+}
+
+.page {
+      padding-top: 100px;
+      width: 100%;
+      height: 100%;
+}
+
+.tabs {
+      width: 50%;
+}
+
+.dropdown {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      margin-top: 10px;
+      margin-left: 10px;
+      align-self: flex-start;
+}
+
+@media only screen and (max-width:1400px) {
+      a {
+            font-size: 25px;
+      }
+}
+
+@media only screen and (max-width:1200px) {
+      a {
+            font-size: 20px;
+      }
+
+      .userpic {
+            height: 60px;
+            width: 60px;
+      }
+}
+
+@media only screen and (max-width:992px) {
+      a {
+            font-size: 18px;
+      }
+}
+
+@media only screen and (max-width:768px) {
+      .nav {
+            height: 100%;
+            width: 150px;
+            justify-content: flex-start;
+            align-items: center;
+      }
+
+      .smart-home {
+            margin-top: 10px;
+            height: 150px;
+            width: 150px;
+            margin-left: 0;
+      }
+
+      .userpic {
+            margin-right: 0;
+            height: 40px;
+            width: 40px;
+      }
+
+      a {
+            font-size: 20px;
+      }
+
+      .tabs {
+            margin-top: 15px;
+            margin-bottom: 50px;
+            height: 30%;
+            width: 100%;
+      }
+
+      .page {
+            padding-top: 0;
+            padding-left: 0;
+      }
+
+      .dropdown:first-child {
+            display: block;
+            margin-top: 10px;
+            margin-left: 10px;
+            align-self: flex-start;
+      }
+}
+
+@media only screen and (max-height:450px) and (max-width:768px) {
+      .nav {
+            height: 450px;
       }
 }

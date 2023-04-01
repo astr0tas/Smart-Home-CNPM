@@ -1,4 +1,4 @@
-.sensor-page {
+/* .sensor-page {
       height: 100%;
 }
 
@@ -117,4 +117,10 @@
             width: 40%;
             height: 70%;
       }
+} */
+
+.sensor-page-board {
+      border: 2px solid black;
+      border-radius: 20px;
+      background-color: white;
 }
