@@ -221,19 +221,19 @@ a {
 .dropdown {
       display: none;
       position: fixed;
-      z-index: 1;
+      z-index: 1000;
       margin-top: 10px;
       margin-left: 10px;
       align-self: flex-start;
 }
 
-@media only screen and (max-width:1400px) {
+@media only screen and (max-width:1399px) {
       a {
             font-size: 25px;
       }
 }
 
-@media only screen and (max-width:1200px) {
+@media only screen and (max-width:1199px) {
       a {
             font-size: 20px;
       }
@@ -244,13 +244,13 @@ a {
       }
 }
 
-@media only screen and (max-width:992px) {
+@media only screen and (max-width:991px) {
       a {
             font-size: 18px;
       }
 }
 
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:767px) {
       .nav {
             height: 100%;
             width: 150px;
@@ -295,7 +295,7 @@ a {
       }
 }
 
-@media only screen and (max-height:450px) and (max-width:768px) {
+@media only screen and (max-height:450px) and (max-width:767px) {
       .nav {
             height: 450px;
       }
