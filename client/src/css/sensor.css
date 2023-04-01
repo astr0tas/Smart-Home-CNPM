@@ -119,13 +119,22 @@
       }
 } */
 
-.sensor-page-board {
+.sensor-page .groups {
+      flex-direction: column;
+}
+
+.sensor-page .group {
+      flex-direction: column;
+      justify-content: space-between
+}
+
+.sensor-page .sensor-page-board {
       border: 2px solid black;
       border-radius: 20px;
       background-color: white;
 }
 
-.sensors {
+.sensor-page .sensors {
       border: 2px solid black;
       border-radius: 20px;
       color: black;
@@ -133,58 +142,71 @@
       width: 40%;
 }
 
-.sensor_image {
-      height: 100px;
-      width: 100px;
+.sensor-page .sensors:hover {
+      cursor: pointer;
 }
 
-.sensors>p {
+.sensor-page .sensor_image {
+      height: 80%;
+      width: 80%;
+      max-height: 150px;
+      max-width: 150px;
+}
+
+.sensor-page .sensors>p {
       font-size: 20px;
 }
 
-.select-sensor {
+.sensor-page .select-sensor {
       margin: auto;
 }
 
 @media only screen and (max-width:767px) {
-      .sensor_image {
+      .sensor-page .sensor_image {
             height: 50px;
             width: 50px;
       }
 
-      .sensors {
+      .sensor-page .sensors {
             width: 70%;
       }
 
-      .group {
-            height: 50%;
+      .sensor-page .group {
+            justify-content: space-evenly;
+            height: 25%;
       }
 
-      .select-sensor {
+      .sensor-page .select-sensor {
             margin: 0;
       }
 
-      .sensors>p {
+      .sensor-page .sensors>p {
             font-size: 15px;
       }
 }
 
 @media only screen and (max-height:750px) and (max-width:767px) {
-      .sensor_image {
+      .sensor-page .sensor_image {
             height: 30px;
             width: 30px;
       }
 
-      .sensors>p {
+      .sensor-page .sensors>p {
             font-size: 10px;
       }
 }
 
-/* @media only screen and (max-height:650px) and (min-width:768px) {
-      
+@media only screen and (max-height:820px) and (min-width:768px) {
+      .sensor-page .groups {
+            flex-direction: row;
+      }
+
+      .sensor-page .group {
+            justify-content: space-evenly;
+      }
 }
 
-@media only screen and (max-height:540px) and (max-width:767px){
+/*@media only screen and (max-height:540px) and (max-width:767px){
       .groups {
             margin: 0;
       }
