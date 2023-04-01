@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-04-01T15:47:28.775Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="uyV_obUUPDzGLpTWeAv5" version="21.1.2" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-04-01T15:47:44.702Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="9MiRf24RxbM5jKto5dEd" version="21.1.2" type="github" pages="2">
   <diagram id="aBMzIkLXz1yRVOYzShiP" name="Main">
-    <mxGraphModel dx="2174" dy="1894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3601" dy="2661" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -356,42 +356,6 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="167" y="850" as="sourcePoint" />
             <mxPoint x="207" y="850" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="qpDYERSgckwAivpAdX6R-72" value="Lịch sử" style="ellipse;shape=doubleEllipse;margin=3;whiteSpace=wrap;html=1;align=center;fillColor=#FFFF88;strokeColor=#36393d;" parent="1" vertex="1">
-          <mxGeometry x="1430" y="695" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="qpDYERSgckwAivpAdX6R-73" value="Thời gian" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#ffff88;strokeColor=#36393d;" parent="1" vertex="1">
-          <mxGeometry x="1450" y="830" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="qpDYERSgckwAivpAdX6R-74" value="Nội dung" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#ffff88;strokeColor=#36393d;" parent="1" vertex="1">
-          <mxGeometry x="1554" y="715" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="qpDYERSgckwAivpAdX6R-75" value="" style="endArrow=none;html=1;rounded=0;" parent="1" source="Jqu8XaU1EDlUcJZMT5x3-9" target="qpDYERSgckwAivpAdX6R-72" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1050" y="832" as="sourcePoint" />
-            <mxPoint x="1155" y="690" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="qpDYERSgckwAivpAdX6R-76" value="" style="endArrow=none;html=1;rounded=0;" parent="1" source="qpDYERSgckwAivpAdX6R-72" target="qpDYERSgckwAivpAdX6R-73" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1060" y="842" as="sourcePoint" />
-            <mxPoint x="1127" y="844" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="qpDYERSgckwAivpAdX6R-77" value="" style="endArrow=none;html=1;rounded=0;" parent="1" source="qpDYERSgckwAivpAdX6R-72" target="qpDYERSgckwAivpAdX6R-74" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1217" y="833" as="sourcePoint" />
-            <mxPoint x="1267" y="817" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="qpDYERSgckwAivpAdX6R-78" value="Loại thông báo" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#ffff88;strokeColor=#36393d;" parent="1" vertex="1">
-          <mxGeometry x="1530" y="770" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="qpDYERSgckwAivpAdX6R-79" value="" style="endArrow=none;html=1;rounded=0;" parent="1" source="qpDYERSgckwAivpAdX6R-72" target="qpDYERSgckwAivpAdX6R-78" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1207" y="845" as="sourcePoint" />
-            <mxPoint x="1247" y="845" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="qpDYERSgckwAivpAdX6R-80" value="Trạng thái" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
