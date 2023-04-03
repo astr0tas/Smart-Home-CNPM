@@ -21,12 +21,14 @@ function AdminNavbar()
       {
             if ($(".nav").css("visibility") === "hidden")
             {
+                  $(".nav").css("opacity", "1");
                   $(".nav").css("visibility", "visible");
                   $(".dropdown").first().css("display", "block");
                   $(".dropdown").last().css("display", "block");
             }
             else
             {
+                  $(".nav").css("opacity", "0");
                   $(".nav").css("visibility", "hidden");
                   $(".dropdown").first().css("display", "block");
                   $(".dropdown").last().css("display", "none");
@@ -81,7 +83,7 @@ function AdminNavbar()
             //             <Outlet />
             //       </div>
             // </div>
-            
+
             <div className='h-100 w-100 nav-page'>
                   <AiOutlineMenu size={ 25 } className="dropdown" onClick={ toggleMenu } type='button'></AiOutlineMenu>
                   <div className='d-flex flex-column flex-md-row nav'>

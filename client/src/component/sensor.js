@@ -15,6 +15,7 @@ const Sensor = () =>
       {
             if (render.current)
             {
+                  console.log("Render sensor page!");
                   $("#sensor").css("color", "blue");
                   render.current = false;
             }

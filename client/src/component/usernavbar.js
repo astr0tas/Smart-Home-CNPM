@@ -21,12 +21,14 @@ function UserNavbar()
       {
             if ($(".nav").css("visibility") === "hidden")
             {
+                  $(".nav").css("opacity", "1");
                   $(".nav").css("visibility", "visible");
                   $(".dropdown").first().css("display", "block");
                   $(".dropdown").last().css("display", "block");
             }
             else
             {
+                  $(".nav").css("opacity", "0");
                   $(".nav").css("visibility", "hidden");
                   $(".dropdown").first().css("display", "block");
                   $(".dropdown").last().css("display", "none");
