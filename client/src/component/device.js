@@ -58,10 +58,13 @@ const Device = () =>
             //             </div>
             //       </div>
             // </div>
-            <div className="h-100 w-100 d-flex flex-column justify-content-center align-items-center device-page">
-                  <div className="h-75 w-75 device-page-board d-flex flex-column">
+            <div className="h-100 w-100 d-flex flex-column justify-content-center align-items-center device-page" style={ {
+                  minHeight: "350px",
+                  overflow: "auto"
+            } }>
+                  <div className="h-75 w-75 device-page-board d-flex flex-column" >
                         <div className="d-flex justify-content-center select-device">
-                              <h1>Chọn cảm biến</h1>
+                              <h1>Chọn thiết bị</h1>
                         </div>
                         <div className="d-flex flex-column flex-md-row w-100 h-75 justify-content-around justify-content-md-around align-items-center m-auto">
                               <div className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices" onClick={ (e) => handleClick(e, "fan") }>

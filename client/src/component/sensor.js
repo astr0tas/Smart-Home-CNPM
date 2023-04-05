@@ -39,7 +39,10 @@ const Sensor = () =>
 
       return (
             <>
-                  <div className="h-100 w-100 d-flex flex-column justify-content-center align-items-center sensor-page">
+                  <div className="h-100 w-100 d-flex flex-column justify-content-center align-items-center sensor-page" style={ {
+                        minHeight: "350px",
+                        overflow: "auto"
+                  } }>
                         <div className="h-75 w-75 sensor-page-board d-flex flex-column">
                               <div className="d-flex justify-content-center select-sensor">
                                     <h1>Chọn cảm biến</h1>
