@@ -1,5 +1,5 @@
 import "../css/device.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, React } from "react";
 import { BsFan, BsDoorOpen } from "react-icons/bs";
 import { TiLightbulb } from "react-icons/ti";
 import $ from 'jquery';
@@ -64,7 +64,7 @@ const Device = () =>
                               <h1>Chọn cảm biến</h1>
                         </div>
                         <div className="d-flex flex-column flex-md-row w-100 h-75 justify-content-around justify-content-md-around align-items-center m-auto">
-                              <div  className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices" onClick={ (e) => handleClick(e, "fan") }>
+                              <div className="d-flex flex-column justify-content-center align-items-center text-decoration-none text-dark devices" onClick={ (e) => handleClick(e, "fan") }>
                                     <BsFan className="device_image fan" />
                                     <p className="fan">Quạt</p>
                               </div>
