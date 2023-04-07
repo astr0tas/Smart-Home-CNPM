@@ -5,8 +5,8 @@ connection = pymysql.connect(
     host='localhost',
     user='smarthome',
     password='smarthome123',
-    db='smart_home'
-    # cursorclass=pymysql.cursors.DictCursor
+    db='smart_home',
+    cursorclass=pymysql.cursors.DictCursor
 )
 
 # Define a function to execute MySQL queries
@@ -20,3 +20,6 @@ def execute_query(id):
     except Exception as e:
         print(e)
         return None
+
+# Close the connection
+connection.close()
