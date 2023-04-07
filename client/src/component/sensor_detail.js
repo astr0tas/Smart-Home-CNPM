@@ -4,11 +4,28 @@ import { useParams } from 'react-router-dom';
 import styles from '../css/sensor_detail.module.css';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-// import axios from 'axios';
+import axios from 'axios';
 import $ from 'jquery';
 
 const RenderHeatSensorDetail = () =>
 {
+      const render=useRef(false);
+      useEffect(()=>{
+            if(!render.current)
+            {
+                  axios.post('http://localhost:5000/sensor_detail', {
+                        id:"HEAT01"
+                      })
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  render.current=true;
+            }
+      });
+
       return (
             <>
                   <div className='d-flex flex-column align-items-center justify-content-around w-100 mt-auto' style={ { height: '80%' } }>
