@@ -1,0 +1,63 @@
+.container{
+    margin-top: 10rem;
+}
+table{
+    position:absolute;
+    transform: translateY(50px);
+}
+th{
+    padding: 20px;
+}
+td{
+    padding: 20px;
+    text-align: center;
+}
+.control{
+    display:flexbox;
+    max-height: 15px;
+}
+.control>*{
+    margin: 10px;
+}
+.control button{
+    border-radius: 10px;
+    color: white;
+    background-color: red;
+}
+#longbtn{
+    background-color:#4080FF;
+}.control button:active{
+    border-radius: 10px;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.599);
+}
+#longbtn:active{
+    background-color:#4080ff9d;
+}
+.inp{
+    margin-top: 10px;
+    background-color: white;
+    color: dimgray;
+    max-height: 15px;
+    margin-left: 25px;
+    font-size: small;
+    display: inline;
+}
+.status{
+    color: white;
+    border: 1px solid black;
+}
+.off{
+    background-color: rgba(255, 0, 0, 0.7);
+}
+.on{
+    background-color: #0BB563;
+}
+table button{
+    background-color: #49ACC1;
+    color: white;
+}
+table button:active{
+    background-color: #49abc19f;
+    color: white;
+}
