@@ -1,10 +1,10 @@
-from flask import Flask
+from controller import sensor_detail_api
 from flask_cors import CORS
+from flask import Flask
+import sys
 import os
 script_dir = os.path.dirname(os.path.abspath(__file__))
-import sys
 sys.path.append(script_dir+'\\controller')
-from controller import sensor_detail_api
 
 # Initialize the Flask application
 app = Flask(__name__)

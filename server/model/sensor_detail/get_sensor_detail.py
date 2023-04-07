@@ -1,20 +1,20 @@
 import mysql.connector
 
-config = {
-  'user': 'smarthome',
-  'password': 'smarthome123',
-  'host': 'localhost',
-  'database': 'smart_home',
-}
-
-try:
-    connection = mysql.connector.connect(**config)
-except Exception as e:
-    print("Error connecting to MySQL:", e)
-
 # Define a function to execute MySQL queries
+
+
 def execute_query(id):
     try:
+        config = {
+            'user': 'smarthome',
+            'password': 'smarthome123',
+            'host': 'localhost',
+            'database': 'smart_home',
+        }
+        try:
+            connection = mysql.connector.connect(**config)
+        except Exception as e:
+            print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
             query = "SELECT DU_LIEU_CAM_BIEN.GIA_TRI," \
                     "DU_LIEU_CAM_BIEN.THOI_GIAN," \
@@ -34,5 +34,5 @@ def execute_query(id):
         return None
 
     # Close the connection
-    # finally:
-    #     connection.close()
+    finally:
+        connection.close()

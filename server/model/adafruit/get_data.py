@@ -1,4 +1,5 @@
 import random
+import string
 import time
 import sys
 import Adafruit_IO
@@ -76,14 +77,16 @@ client.loop_background()
 # url = 'https://io.adafruit.com/pttien/feeds/temp/data'
 # feed = feedparser.parse(url)
 
-def generate_random_string(length):
-    letters = [chr(random.randint(65, 90)) for i in range(length)]
-    return ''.join(letters)
+def generate_random_string():
+    length = 10
+    """Generate a random string of given length consisting of uppercase letters and digits"""
+    chars = string.ascii_uppercase + string.digits
+    return ''.join(random.choice(chars) for _ in range(length))
 
 
 count = 10
 while count:
-    random_string = generate_random_string(10)
+    random_string = generate_random_string()
     # đưa dữ liệu lên feed
     temperature_feed = client1.feeds("yolo-temp")
     value = client1.receive(temperature_feed.key)

@@ -9,25 +9,28 @@ import $ from 'jquery';
 
 const RenderHeatSensorDetail = () =>
 {
-      const render=useRef(false);
-      useEffect(()=>{
-            if(!render.current)
+      const render = useRef(false);
+      useEffect(() =>
+      {
+            if (!render.current)
             {
                   axios.post('http://localhost:5000/sensor_detail', {
-                        id:"HEAT01"
-                      })
-                      .then(function (response) {
-                        console.log(response);
-                        $(".sensor_name").text(response.data[0][2]);
-                        $(".sensor_temp").val(response.data[0][0]);
-                        $(".sensor_min").val(response.data[0][3]);
-                        $(".sensor_max").val(response.data[0][4]);
+                        id: "HEAT01"
+                  })
+                        .then(function (response)
+                        {
+                              console.log(response);
+                              $(".sensor_name").text(response.data[0][2]);
+                              $(".sensor_temp").val(response.data[0][0]);
+                              $(".sensor_min").val(response.data[0][3]);
+                              $(".sensor_max").val(response.data[0][4]);
 
-                      })
-                      .catch(function (error) {
-                        console.log(error);
-                      });
-                  render.current=true;
+                        })
+                        .catch(function (error)
+                        {
+                              console.log(error);
+                        });
+                  render.current = true;
             }
       });
 
@@ -63,7 +66,7 @@ const RenderHeatSensorDetail = () =>
                                           borderWidth: "1px",
                                           paddingLeft: "10px",
                                           borderColor: "black"
-                                    } } className='sensor_temp'/>
+                                    } } className='sensor_temp' />
                               </div>
                         </div>
                         <div className="row w-100">
