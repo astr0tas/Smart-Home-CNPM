@@ -13,7 +13,7 @@ import feedparser
 # Kết nối đến Adafruit IO
 AIO_FEED_ID =  "temp" 
 AIO_USERNAME = "pttien"
-AIO_KEY = "aio_OFVi08Y3IReiJ3EyFI6Es6tvj2pM"
+AIO_KEY = "aio_nbXp096429s3YNwqKJPmKDo5zaEa"
 client1 = Adafruit_IO.Client(AIO_USERNAME , AIO_KEY)
 client = MQTTClient(AIO_USERNAME , AIO_KEY)
 def  connected1(client):
@@ -67,17 +67,16 @@ client.loop_background()
 #feed = feedparser.parse(url)
 
 def generate_random_string(length):
-    letters = [chr(random.randint(97, 122)) for i in range(length)]
+    letters = [chr(random.randint(65, 90)) for i in range(length)]
     return ''.join(letters)
 
-random_string = generate_random_string(10)
 
 
 
-count = 1
+count = 10
 while count :
 
-
+    random_string = generate_random_string(10)
    #đưa dữ liệu lên feed
     temperature_feed = client1.feeds("temp")
     value = client1.receive(temperature_feed.key)
@@ -94,7 +93,7 @@ while count :
     #  cursor.execute("UPDATE users SET age = 30, gender = 'Male' WHERE name = 'John'")
     #  mydb.commit()
     #else:
-    cursor.execute("INSERT INTO cam_bien (MA_CB,TEN,TRANG_THAI,NGUONG_TREN,NGUONG_DUOI) VALUES (%s,%s,%s,%s,%s)", ('HEAT01','metvcl',0,3.1,3.2))
+    cursor.execute("UPDATE cam_bien SET TEN=%s, TRANG_THAI=%s, NGUONG_TREN=%s, NGUONG_DUOI=%s WHERE MA_CB=%s", ('metvcl', 0, 3.1, 3.2, 'HEAT01'))
     cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)", ('HEAT01',random_string,dt1,value.value))
     mydb.commit()
     
