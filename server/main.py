@@ -14,5 +14,4 @@ app.register_blueprint(sensor_detail_api.api)
 
 # Run the server
 if __name__ == '__main__':
-    #app.run(debug=True)
-    app.run(debug=False)
+    app.run(debug=True)

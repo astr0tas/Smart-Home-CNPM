@@ -18,6 +18,11 @@ const RenderHeatSensorDetail = () =>
                       })
                       .then(function (response) {
                         console.log(response);
+                        $(".sensor_name").text(response.data[0][2]);
+                        $(".sensor_temp").val(response.data[0][0]);
+                        $(".sensor_min").val(response.data[0][3]);
+                        $(".sensor_max").val(response.data[0][4]);
+
                       })
                       .catch(function (error) {
                         console.log(error);
@@ -34,7 +39,7 @@ const RenderHeatSensorDetail = () =>
                                     <strong className={ `${ styles.font } ` }>Tên thiết bị</strong>
                               </div>
                               <div className="col-md-7 col-3 text-md-start text-center my-auto">
-                                    <p className={ `${ styles.font }` }>data</p>
+                                    <p className={ `${ styles.font } sensor_name` }></p>
                               </div>
                         </div>
                         <div className="row w-100">
@@ -42,12 +47,12 @@ const RenderHeatSensorDetail = () =>
                                     <strong className={ `${ styles.font }` }>Trạng thái</strong>
                               </div>
                               <div className="col-md-7 col-3 text-md-start text-center my-auto">
-                                    <p className={ `${ styles.font }` }>data</p>
+                                    <p className={ `${ styles.font } sensor_status` }>N/A</p>
                               </div>
                         </div>
                         <div className="row w-100">
                               <div className="col-md-5 col-6 my-auto">
-                                    <strong className={ `${ styles.font }` }>Nhiệt độ hiện tại (<sup>o</sup>C)</strong>
+                                    <strong className={ `${ styles.font } ` }>Nhiệt độ hiện tại (<sup>o</sup>C)</strong>
 
                               </div>
                               <div className="col-md-7 col-3 text-md-start text-center my-auto">
@@ -58,7 +63,7 @@ const RenderHeatSensorDetail = () =>
                                           borderWidth: "1px",
                                           paddingLeft: "10px",
                                           borderColor: "black"
-                                    } } />
+                                    } } className='sensor_temp'/>
                               </div>
                         </div>
                         <div className="row w-100">
@@ -74,7 +79,7 @@ const RenderHeatSensorDetail = () =>
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
                                                 paddingLeft: "10px"
-                                          } } className='mx-md-2' />
+                                          } } className='mx-md-2 sensor_min' />
                                     </div>
                               </div>
                               <div className="col-3 my-auto">
@@ -86,7 +91,7 @@ const RenderHeatSensorDetail = () =>
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
                                                 paddingLeft: "10px"
-                                          } } className='mx-md-2' />
+                                          } } className='mx-md-2 sensor_max' />
                                     </div>
                               </div>
                         </div>
