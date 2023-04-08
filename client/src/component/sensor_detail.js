@@ -98,32 +98,6 @@ const RenderHeatSensorDetail = () =>
                                     </div>
                               </div>
                         </div>
-                        {/* <div className="row w-100">
-                              <div className="row w-100">
-                                    <div className="col-5 my-auto">
-                                          <strong className={ `${ styles.font }` }>Lịch sử hoạt động</strong>
-                                    </div>
-                                    <div className="col-md-2 col text-end text-md-center my-auto">
-                                          <button style={ {
-                                                borderRadius: "10px",
-                                                backgroundColor: "#4080FF",
-                                                color: "white",
-                                                borderColor: "#4080FF"
-                                          } } className={ `${ styles.font }` }>
-                                                Thống kê
-                                          </button>
-                                    </div>
-                              </div>
-                              <div className="row w-100">
-                                    <div className="col-md-7">
-                                          <hr style={ {
-                                                border: "1px solid black",
-                                                opacity: "1",
-                                                borderRadius: "10px"
-                                          } } />
-                                    </div>
-                              </div>
-                        </div> */}
                   </div >
                   <div className="row w-100" style={ { marginLeft: "0px" } }>
                         <div className="row w-100">

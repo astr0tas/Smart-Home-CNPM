@@ -41,7 +41,7 @@ function UserNavbar()
 
                   window.addEventListener('resize', () =>
                   {
-                        if (window.innerWidth > 768)
+                        if (window.innerWidth >= 768)
                         {
                               $(".nav").css("opacity", "1");
                               $(".nav").css("visibility", "visible");
@@ -57,7 +57,7 @@ function UserNavbar()
             <>
                   <div className='nav_bar'>
                         <AiOutlineMenu size={ 25 } className="dropdown" onClick={ toggleMenu } type='button'></AiOutlineMenu>
-                        <div className='d-flex flex-column flex-md-row align-items-center nav'>
+                        <div className='d-flex flex-column flex-md-row align-items-center nav w-100 h-100'>
                               <AiOutlineMenu size={ 25 } className="dropdown" onClick={ toggleMenu } type='button'></AiOutlineMenu>
                               <img className='smart-home' src="https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig="></img>
                               <div className='d-flex flex-column flex-md-row align-items-center justify-content-around tabs'>

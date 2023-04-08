@@ -47,8 +47,8 @@ const Sensor = () =>
                               <div className="d-flex justify-content-center select-sensor">
                                     <h1>Chọn cảm biến</h1>
                               </div>
-                              <div className="d-flex w-100 h-75 justify-content-md-between align-items-center m-auto groups">
-                                    <div className="d-flex flex-md-row align-items-center w-50 h-50 m-auto group">
+                              <div className="d-flex w-100 justify-content-md-between align-items-center overflow-auto" style={ { height: "85%" } }>
+                                    <div className="d-flex flex-column flex-md-row justify-content-around align-items-center w-50 h-100 m-auto">
                                           <div className="d-flex flex-column justify-content-center align-items-center sensors" onClick={ (e) => handleClick(e, 'thermal') }>
                                                 <BsThermometerSnow className="sensor_image thermal"></BsThermometerSnow>
                                                 <p className="thermal">Nhiệt độ</p>
@@ -58,7 +58,7 @@ const Sensor = () =>
                                                 <p className="humid" >Độ ẩm</p>
                                           </div>
                                     </div>
-                                    <div className="d-flex flex-md-row align-items-center w-50  h-50 m-auto group" >
+                                    <div className="d-flex flex-column flex-md-row justify-content-around align-items-center w-50 h-100 m-auto" >
                                           <div className="d-flex flex-column justify-content-center align-items-center sensors" onClick={ (e) => handleClick(e, 'ligh_intensity') }>
                                                 <MdOutlineLightMode className="sensor_image ligh_intensity"></MdOutlineLightMode>
                                                 <p className="ligh_intensity">Ánh sáng</p>

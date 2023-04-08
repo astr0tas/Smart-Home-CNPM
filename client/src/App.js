@@ -6,6 +6,7 @@ import UserNavbar from './component/usernavbar';
 import Device from './component/device';
 import Sensor from './component/sensor';
 import SensorDetail from './component/sensor_detail';
+import DeviceList from './component/device_list';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -18,11 +19,14 @@ function App()
           <Route index element={ <Login /> } />
           <Route element={ <UserNavbar /> }>
 
-            <Route path="/device" element={ <Device /> } />
+            <Route>
+              <Route path="/device" element={ <Device /> } />
+              <Route path="/device/:type/list" element={ <DeviceList /> } />
+            </Route>
 
             <Route>
               <Route path="/sensor" element={ <Sensor /> } />
-              <Route path='/sensor/:id' element={ <SensorDetail /> } />
+              <Route path='/sensor/:type/:id' element={ <SensorDetail /> } />
             </Route>
 
           </Route>
@@ -30,11 +34,14 @@ function App()
           <Route path="/admin">
             <Route element={ <AdminNavbar /> }>
 
-              <Route path="device" element={ <Device /> } />
+              <Route>
+                <Route path="device" element={ <Device /> } />
+                <Route path="device/:type/list" element={ <DeviceList /> } />
+              </Route>
 
               <Route>
                 <Route path="sensor" element={ <Sensor /> } />
-                <Route path='sensor/:id' element={ <SensorDetail /> } />
+                <Route path='sensor/:type/:id' element={ <SensorDetail /> } />
               </Route>
 
             </Route>

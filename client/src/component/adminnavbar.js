@@ -41,7 +41,7 @@ function AdminNavbar()
 
                   window.addEventListener('resize', () =>
                   {
-                        if (window.innerWidth > 768)
+                        if (window.innerWidth >= 768)
                         {
                               $(".nav").css("opacity", "1");
                               $(".nav").css("visibility", "visible");
