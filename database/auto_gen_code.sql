@@ -18,8 +18,13 @@ FOR EACH ROW
 BEGIN
 	DECLARE ma_chen INT;
 	SET ma_chen = (SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'smart_home' AND TABLE_NAME = 'THIET_BI');
-
-	SET NEW.MA_TB = CONCAT('DEVICE', LPAD(ma_chen, 2, '0'));
+	if new.LOAI_TB =0 then
+	SET NEW.MA_TB = CONCAT('DOOR', LPAD(ma_chen, 2, '0'));
+    elseif new.LOAI_TB =1 then
+	SET NEW.MA_TB = CONCAT('FAN', LPAD(ma_chen, 2, '0'));
+    elseif new.LOAI_TB =2 then
+	SET NEW.MA_TB = CONCAT('LIGHT', LPAD(ma_chen, 2, '0'));
+    end if;
     
 END $$
 
@@ -27,4 +32,7 @@ DELIMITER ;
 
 drop trigger tao_ma;
 
-insert into THIET_BI(LOAI_TB,TEN,TRANG_THAI,TU_DONG) values (0,'cua nha',0,0);
+
+insert into THIET_BI(LOAI_TB,TEN,TRANG_THAI,TU_DONG) values (0,'cua truoc',0,0);
+insert into THIET_BI(LOAI_TB,TEN,TRANG_THAI,TU_DONG) values (1,'quat tran',0,0);
+insert into THIET_BI(LOAI_TB,TEN,TRANG_THAI,TU_DONG) values (2,'den ngu',0,0);
