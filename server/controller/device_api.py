@@ -1,17 +1,17 @@
-from model.device_list import get_device_list
+from model.device import get_device_list
 import sys
 from flask import Blueprint, request, jsonify
 import os
 script_dir = os.path.abspath(os.path.dirname(__file__))
 parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
-sys.path.append(parent_dir+'\\model\\device_list')
+sys.path.append(parent_dir+'\\model\\device')
 
 
-api = Blueprint('device_list_api', __name__)
+api = Blueprint('device_api', __name__)
 
 
 @api.route('/device_list', methods=['POST'])
-def post_data():
+def post_device_list():
     data = request.get_json()
     if data:
         result = []

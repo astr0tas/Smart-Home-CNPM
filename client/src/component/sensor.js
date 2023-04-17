@@ -32,7 +32,7 @@ const Sensor = () =>
                   $("." + class_name).css("color", "black");
                   window.setTimeout(() =>
                   {
-                        Nav("./" + class_name);
+                        Nav("./" + class_name + "/list");
                   }, 0);
             }, 100);
       }

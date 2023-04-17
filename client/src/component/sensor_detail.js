@@ -1,6 +1,6 @@
 import { React, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from '../css/sensor_detail.module.css';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
@@ -459,6 +459,8 @@ const SensorDetail = () =>
       const currentURL = useParams();
       const id = (currentURL.id).replace(/[0-9]/g, '');
 
+      const Navigate = useNavigate();
+
       useEffect(() =>
       {
             if (!render.current)
@@ -490,6 +492,12 @@ const SensorDetail = () =>
             }
       });
 
+      const goback = (event) =>
+      {
+            event.preventDefault();
+            Navigate(-1);
+      }
+
       return (
             <div className='h-100 w-100 d-flex flex-column justify-content-center align-items-center' style={ {
                   minHeight: "350px",
@@ -498,7 +506,7 @@ const SensorDetail = () =>
                   <div className={ `h-75 w-75 d-flex flex-column align-items-center ${ styles['sensor_detail'] }` }>
                         <div className="d-flex flex-row justify-content-between align-items-center w-100" style={ { height: "30px" } }>
                               <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } />
-                              <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.icons }` } />
+                              <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.icons }` } onClick={ goback } />
                         </div>
                         <div className="w-100 d-flex flex-column align-items-center flex-md-row justify-content-around" style={ { height: "calc(100% - 40px)" } }>
                               <div className={ `align-items-center mt-0 mt-md-2 ${ styles.image }` }>
