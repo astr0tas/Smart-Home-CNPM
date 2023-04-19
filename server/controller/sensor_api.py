@@ -1,5 +1,5 @@
 import sys
-from model.sensor import get_sensor_detail, get_sensor_list
+from model.sensor import sensor
 from flask import Blueprint, request, jsonify
 import os
 script_dir = os.path.abspath(os.path.dirname(__file__))
@@ -26,19 +26,46 @@ api = Blueprint('sensor_api', __name__)
 def post_sensor_list():
     data = request.get_json()
     if data:
-        result = []
-        if len(data) == 1:
-            result += [get_sensor_list.execute_query_1(data['type'])]
-            temp = get_sensor_list.execute_query_2(data['type'])
-            if temp:
-                result += [temp]
+        result = sensor.get_sensor_list(data['type'])
+        # result = []
+        # if len(data) == 1:
+        #     result += [sensor.get_sensor_list(data['type'])]
+        #     temp = sensor.get_sensor_data(data['type'])
+        #     if temp:
+        #         result += [temp]
+        # else:
+        #     result += [sensor.get_sensor_list_by_name(
+        #         data['type'], data['name'])]
+        #     print(result[0])
+        #     temp = sensor.get_sensor_data_by_name(data['type'], data['name'])
+        #     if temp:
+        #         result += [temp]
+        if result:
+            return jsonify(result)
         else:
-            result += [get_sensor_list.execute_query_3(
-                data['type'], data['name'])]
-            print(result[0])
-            temp = get_sensor_list.execute_query_4(data['type'], data['name'])
-            if temp:
-                result += [temp]
+            return jsonify({'error': 'Failed to get data from database'})
+    else:
+        return jsonify({'error': 'No data received'})
+    
+
+@api.route('/sensor_list/find', methods=['POST'])
+def post_sensor_list_by_name():
+    data = request.get_json()
+    if data:
+        result = sensor.get_sensor_list_by_name(data['type'],data['name'])
+        # result = []
+        # if len(data) == 1:
+        #     result += [sensor.get_sensor_list(data['type'])]
+        #     temp = sensor.get_sensor_data(data['type'])
+        #     if temp:
+        #         result += [temp]
+        # else:
+        #     result += [sensor.get_sensor_list_by_name(
+        #         data['type'], data['name'])]
+        #     print(result[0])
+        #     temp = sensor.get_sensor_data_by_name(data['type'], data['name'])
+        #     if temp:
+        #         result += [temp]
         if result:
             return jsonify(result)
         else:
@@ -51,14 +78,53 @@ def post_sensor_list():
 def post_sensor_detail():
     data = request.get_json()
     if data:
-        # query = f"SELECT * FROM DU_LIEU_CAM_bIEN WHERE MA_CB='{data['id']}'"
-        result = get_sensor_detail.execute_query(data['id'])
+        result = sensor.get_sensor_detail(data['id'])
         if result:
             return jsonify(result)
         else:
             return jsonify({'error': 'Failed to get data from database'})
     else:
         return jsonify({'error': 'No data received'})
+
+
+@api.route('/sensor_status', methods=['POST'])
+def post_update_sensor_status():
+    data = request.get_json()
+    if data:
+        result = sensor.update_sensor_status(data['id'], data['status'])
+        if result:
+            return jsonify({"message": "Database updated!"})
+        else:
+            return jsonify({'error': 'Failed to update data to database'})
+    else:
+        return jsonify({'error': 'No data received'})
+
+
+@api.route('/sensor_min', methods=['POST'])
+def post_update_sensor_min():
+    data = request.get_json()
+    if data:
+        result = sensor.update_sensor_min(data['id'], data['value'])
+        if result:
+            return jsonify({"message": "Database updated!"})
+        else:
+            return jsonify({'error': 'Failed to update data to database'})
+    else:
+        return jsonify({'error': 'No data received'})
+
+
+@api.route('/sensor_max', methods=['POST'])
+def post_update_sensor_max():
+    data = request.get_json()
+    if data:
+        result = sensor.update_sensor_max(data['id'], data['value'])
+        if result:
+            return jsonify({"message": "Database updated!"})
+        else:
+            return jsonify({'error': 'Failed to update data to database'})
+    else:
+        return jsonify({'error': 'No data received'})
+
 
 # Define a route to handle PUT requests
 # @app.route('/api/put', methods=['PUT'])

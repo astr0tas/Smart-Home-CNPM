@@ -13,6 +13,11 @@ const Tempature = (props) =>
 {
       const render = useRef(false);
 
+      const toggle = () =>
+      {
+
+      }
+
       useEffect(() =>
       {
             $(".table_body").empty();
@@ -34,12 +39,12 @@ const Tempature = (props) =>
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -51,13 +56,13 @@ const Tempature = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    ////////////////////////////////
                                     {
+                                          table_row.append($("<td>"));
                                     }
+                                    ////////////////////////////////
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_CB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -70,19 +75,19 @@ const Tempature = (props) =>
             }
             else
             {
-                  axios.post('http://localhost:5000/sensor_list', {
+                  axios.post('http://localhost:5000/sensor_list/find', {
                         type: "HEAT",
                         name: props.name
                   })
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -94,13 +99,13 @@ const Tempature = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    ////////////////////////////////
                                     {
+                                          table_row.append($("<td>"));
                                     }
+                                    ////////////////////////////////
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_CB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -139,12 +144,12 @@ const Humid = (props) =>
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -156,13 +161,13 @@ const Humid = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    ////////////////////////////////
                                     {
+                                          table_row.append($("<td>"));
                                     }
+                                    ////////////////////////////////
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_CB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -175,19 +180,19 @@ const Humid = (props) =>
             }
             else
             {
-                  axios.post('http://localhost:5000/sensor_list', {
+                  axios.post('http://localhost:5000/sensor_list/find', {
                         type: "HUMID",
                         name: props.name
                   })
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -199,13 +204,13 @@ const Humid = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    ////////////////////////////////
                                     {
+                                          table_row.append($("<td>"));
                                     }
+                                    ////////////////////////////////
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_CB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -244,12 +249,12 @@ const LightSensor = (props) =>
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -261,13 +266,13 @@ const LightSensor = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    ////////////////////////////////
                                     {
+                                          table_row.append($("<td>"));
                                     }
+                                    ////////////////////////////////
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_CB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -280,19 +285,19 @@ const LightSensor = (props) =>
             }
             else
             {
-                  axios.post('http://localhost:5000/sensor_list', {
+                  axios.post('http://localhost:5000/sensor_list/find', {
                         type: "LIGHT_INTENSE",
                         name: props.name
                   })
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -304,13 +309,13 @@ const LightSensor = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    ////////////////////////////////
                                     {
+                                          table_row.append($("<td>"));
                                     }
+                                    ////////////////////////////////
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_CB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -349,12 +354,12 @@ const InfraredSensor = (props) =>
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -366,13 +371,13 @@ const InfraredSensor = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    ////////////////////////////////
                                     {
+                                          table_row.append($("<td>"));
                                     }
+                                    ////////////////////////////////
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_CB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -385,19 +390,19 @@ const InfraredSensor = (props) =>
             }
             else
             {
-                  axios.post('http://localhost:5000/sensor_list', {
+                  axios.post('http://localhost:5000/sensor_list/find', {
                         type: "IR",
                         name: props.name
                   })
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -409,13 +414,13 @@ const InfraredSensor = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    ////////////////////////////////
                                     {
+                                          table_row.append($("<td>"));
                                     }
+                                    ////////////////////////////////
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_CB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }

@@ -56,19 +56,38 @@
 }
 
 .font {
-      font-size: 15px;
+      font-size: 18px;
       margin-bottom: 0;
 }
 
 .irdetail {
+      height: 30%;
+}
+
+.switch {
+      width: 50px !important;
+      height: 25px !important;
+}
+
+.switch:hover {
+      cursor: pointer;
+}
+
+.ir_sensor_history {
+      overflow: scroll;
       height: 50%;
+      width: 56%;
+}
+
+.irhistory {
+      margin-top: 10%
 }
 
 @media only screen and (max-width:1300px) {
 
       .font,
       .history_font {
-            font-size: 14px;
+            font-size: 15px;
       }
 }
 
@@ -76,7 +95,7 @@
 
       .font,
       .history_font {
-            font-size: 12px;
+            font-size: 13px;
       }
 }
 
@@ -84,7 +103,7 @@
 
       .font,
       .history_font {
-            font-size: 10px;
+            font-size: 11px;
       }
 }
 
@@ -94,7 +113,7 @@
       }
 
       .irhistory {
-            margin-top:10%
+            margin-top: 15%
       }
 
       .detail {
@@ -132,6 +151,24 @@
       .sensor_history {
             overflow: scroll;
             height: 30%;
+            width: 94%
+      }
+
+      .ir_sensor_history {
+            overflow: scroll;
+            height: 65%;
+            width: 94%
+      }
+}
+
+@media only screen and (max-width:576px) {
+      .irhistory {
+            margin-top: 20%
+      }
+
+      .ir_sensor_history {
+            overflow: scroll;
+            height: 60%;
             width: 94%
       }
 }
