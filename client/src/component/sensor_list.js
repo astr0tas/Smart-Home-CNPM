@@ -7,15 +7,44 @@ import { BsSearch } from "react-icons/bs";
 import { TbPlus } from "react-icons/tb";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { formatDateAndTime } from "../tools/time";
 
 
 const Tempature = (props) =>
 {
       const render = useRef(false);
 
-      const toggle = () =>
+      const toggle = (event, MA_CB) =>
       {
-
+            const value = event.target.value;
+            if (value === "true")
+            {
+                  axios.post(
+                        'http://localhost:5000/sensor_status', {
+                        id: MA_CB,
+                        status: false
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  $(`.button_${ MA_CB }`).text("Tắt").attr('value', false).removeClass(styles.on).addClass(styles.off);
+                  $(`.currentValue_${ MA_CB }`).empty();
+            }
+            else
+            {
+                  axios.post(
+                        'http://localhost:5000/sensor_status', {
+                        id: MA_CB,
+                        status: true
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  $(`.button_${ MA_CB }`).text("Bật").attr('value', true).removeClass(styles.off).addClass(styles.on);
+                  axios.post('http://localhost:5000/sensor_list/latest_data', {
+                        id: MA_CB,
+                  }).then(res =>
+                  {
+                        if (!('error' in res.data))
+                        {
+                              $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                        }
+                  }).catch(error => { console.log(error); })
+            }
       }
 
       useEffect(() =>
@@ -38,7 +67,6 @@ const Tempature = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -47,20 +75,26 @@ const Tempature = (props) =>
                                     if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Tắt").addClass(styles.off))
+                                                .append($("<button>").text("Bật").addClass(styles.on).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', true).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
                                     else
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Bật").addClass(styles.on))
+                                                .append($("<button>").text("Tắt").addClass(styles.off).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', false).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
-                                    ////////////////////////////////
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_CB }`));
+                                    axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                          id: response.data[i].MA_CB,
+                                    }).then(res =>
                                     {
-                                          table_row.append($("<td>"));
-                                    }
-                                    ////////////////////////////////
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
@@ -81,7 +115,6 @@ const Tempature = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -90,20 +123,26 @@ const Tempature = (props) =>
                                     if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Tắt").addClass(styles.off))
+                                                .append($("<button>").text("Bật").addClass(styles.on).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', true).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
                                     else
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Bật").addClass(styles.on))
+                                                .append($("<button>").text("Tắt").addClass(styles.off).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', false).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
-                                    ////////////////////////////////
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_CB }`));
+                                    axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                          id: response.data[i].MA_CB,
+                                    }).then(res =>
                                     {
-                                          table_row.append($("<td>"));
-                                    }
-                                    ////////////////////////////////
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
@@ -122,6 +161,39 @@ const Tempature = (props) =>
 const Humid = (props) =>
 {
       const render = useRef(false);
+
+      const toggle = (event, MA_CB) =>
+      {
+            const value = event.target.value;
+            if (value === "true")
+            {
+                  axios.post(
+                        'http://localhost:5000/sensor_status', {
+                        id: MA_CB,
+                        status: false
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  $(`.button_${ MA_CB }`).text("Tắt").attr('value', false).removeClass(styles.on).addClass(styles.off);
+                  $(`.currentValue_${ MA_CB }`).empty();
+            }
+            else
+            {
+                  axios.post(
+                        'http://localhost:5000/sensor_status', {
+                        id: MA_CB,
+                        status: true
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  $(`.button_${ MA_CB }`).text("Bật").attr('value', true).removeClass(styles.off).addClass(styles.on);
+                  axios.post('http://localhost:5000/sensor_list/latest_data', {
+                        id: MA_CB,
+                  }).then(res =>
+                  {
+                        if (!('error' in res.data))
+                        {
+                              $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                        }
+                  }).catch(error => { console.log(error); })
+            }
+      }
 
       useEffect(() =>
       {
@@ -143,7 +215,6 @@ const Humid = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -152,20 +223,26 @@ const Humid = (props) =>
                                     if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Tắt").addClass(styles.off))
+                                                .append($("<button>").text("Bật").addClass(styles.on).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', true).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
                                     else
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Bật").addClass(styles.on))
+                                                .append($("<button>").text("Tắt").addClass(styles.off).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', false).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
-                                    ////////////////////////////////
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_CB }`));
+                                    axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                          id: response.data[i].MA_CB,
+                                    }).then(res =>
                                     {
-                                          table_row.append($("<td>"));
-                                    }
-                                    ////////////////////////////////
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
@@ -186,7 +263,6 @@ const Humid = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -195,20 +271,26 @@ const Humid = (props) =>
                                     if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Tắt").addClass(styles.off))
+                                                .append($("<button>").text("Bật").addClass(styles.on).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', true).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
                                     else
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Bật").addClass(styles.on))
+                                                .append($("<button>").text("Tắt").addClass(styles.off).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', false).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
-                                    ////////////////////////////////
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_CB }`));
+                                    axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                          id: response.data[i].MA_CB,
+                                    }).then(res =>
                                     {
-                                          table_row.append($("<td>"));
-                                    }
-                                    ////////////////////////////////
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
@@ -227,6 +309,39 @@ const Humid = (props) =>
 const LightSensor = (props) =>
 {
       const render = useRef(false);
+
+      const toggle = (event, MA_CB) =>
+      {
+            const value = event.target.value;
+            if (value === "true")
+            {
+                  axios.post(
+                        'http://localhost:5000/sensor_status', {
+                        id: MA_CB,
+                        status: false
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  $(`.button_${ MA_CB }`).text("Tắt").attr('value', false).removeClass(styles.on).addClass(styles.off);
+                  $(`.currentValue_${ MA_CB }`).empty();
+            }
+            else
+            {
+                  axios.post(
+                        'http://localhost:5000/sensor_status', {
+                        id: MA_CB,
+                        status: true
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  $(`.button_${ MA_CB }`).text("Bật").attr('value', true).removeClass(styles.off).addClass(styles.on);
+                  axios.post('http://localhost:5000/sensor_list/latest_data', {
+                        id: MA_CB,
+                  }).then(res =>
+                  {
+                        if (!('error' in res.data))
+                        {
+                              $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                        }
+                  }).catch(error => { console.log(error); })
+            }
+      }
 
       useEffect(() =>
       {
@@ -248,7 +363,6 @@ const LightSensor = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -257,20 +371,26 @@ const LightSensor = (props) =>
                                     if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Tắt").addClass(styles.off))
+                                                .append($("<button>").text("Bật").addClass(styles.on).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', true).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
                                     else
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Bật").addClass(styles.on))
+                                                .append($("<button>").text("Tắt").addClass(styles.off).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', false).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
-                                    ////////////////////////////////
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_CB }`));
+                                    axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                          id: response.data[i].MA_CB,
+                                    }).then(res =>
                                     {
-                                          table_row.append($("<td>"));
-                                    }
-                                    ////////////////////////////////
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
@@ -291,7 +411,6 @@ const LightSensor = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -300,20 +419,26 @@ const LightSensor = (props) =>
                                     if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Tắt").addClass(styles.off))
+                                                .append($("<button>").text("Bật").addClass(styles.on).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', true).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
                                     else
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Bật").addClass(styles.on))
+                                                .append($("<button>").text("Tắt").addClass(styles.off).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', false).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
-                                    ////////////////////////////////
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_CB }`));
+                                    axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                          id: response.data[i].MA_CB,
+                                    }).then(res =>
                                     {
-                                          table_row.append($("<td>"));
-                                    }
-                                    ////////////////////////////////
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
@@ -332,6 +457,39 @@ const LightSensor = (props) =>
 const InfraredSensor = (props) =>
 {
       const render = useRef(false);
+
+      const toggle = (event, MA_CB) =>
+      {
+            const value = event.target.value;
+            if (value === "true")
+            {
+                  axios.post(
+                        'http://localhost:5000/sensor_status', {
+                        id: MA_CB,
+                        status: false
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  $(`.button_${ MA_CB }`).text("Tắt").attr('value', false).removeClass(styles.on).addClass(styles.off);
+                  $(`.currentValue_${ MA_CB }`).empty();
+            }
+            else
+            {
+                  axios.post(
+                        'http://localhost:5000/sensor_status', {
+                        id: MA_CB,
+                        status: true
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  $(`.button_${ MA_CB }`).text("Bật").attr('value', true).removeClass(styles.off).addClass(styles.on);
+                  axios.post('http://localhost:5000/sensor_list/latest_data', {
+                        id: MA_CB,
+                  }).then(res =>
+                  {
+                        if (!('error' in res.data))
+                        {
+                              $(`.currentValue_${ MA_CB }`).append($("<p>").text(formatDateAndTime(res.data[0].THOI_GIAN)).addClass(styles.current_value_ir));
+                        }
+                  }).catch(error => { console.log(error); })
+            }
+      }
 
       useEffect(() =>
       {
@@ -353,7 +511,6 @@ const InfraredSensor = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -362,20 +519,26 @@ const InfraredSensor = (props) =>
                                     if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Tắt").addClass(styles.off))
+                                                .append($("<button>").text("Bật").addClass(styles.on).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', true).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
                                     else
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Bật").addClass(styles.on))
+                                                .append($("<button>").text("Tắt").addClass(styles.off).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', false).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
-                                    ////////////////////////////////
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_CB }`));
+                                    axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                          id: response.data[i].MA_CB,
+                                    }).then(res =>
                                     {
-                                          table_row.append($("<td>"));
-                                    }
-                                    ////////////////////////////////
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(formatDateAndTime(res.data[0].THOI_GIAN)).addClass(styles.current_value_ir));
+                                          }
+                                    }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );
@@ -396,7 +559,6 @@ const InfraredSensor = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -405,20 +567,26 @@ const InfraredSensor = (props) =>
                                     if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Tắt").addClass(styles.off))
+                                                .append($("<button>").text("Bật").addClass(styles.on).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', true).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
                                     else
                                     {
                                           table_row.append($("<td>").addClass("text-center")
-                                                .append($("<button>").text("Bật").addClass(styles.on))
+                                                .append($("<button>").text("Tắt").addClass(styles.off).on('click', (event) => { toggle(event, response.data[i].MA_CB) }).attr('value', false).addClass(`button_${ response.data[i].MA_CB }`))
                                           );
                                     }
-                                    ////////////////////////////////
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_CB }`));
+                                    axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                          id: response.data[i].MA_CB,
+                                    }).then(res =>
                                     {
-                                          table_row.append($("<td>"));
-                                    }
-                                    ////////////////////////////////
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value_ir));
+                                          }
+                                    }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_CB; }))
                                     );

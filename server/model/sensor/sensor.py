@@ -64,6 +64,7 @@ def update_sensor_status(id, status):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
+            print(id,status)
             query = "UPDATE CAM_BIEN SET TRANG_THAI=%s WHERE MA_CB=%s"
             cursor.execute(query, (status, id))
             connection.commit()
@@ -138,7 +139,7 @@ def get_sensor_list(type):
         connection.close()
 
 
-def get_sensor_data(type):
+def get_sensor_data(id):
     try:
         config = {
             'user': 'smarthome',
@@ -151,8 +152,8 @@ def get_sensor_data(type):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor(dictionary=True) as cursor:
-            query = "SELECT GIA_TRI FROM DU_LIEU_CAM_BIEN WHERE MA_CB LIKE '{}%' ORDER BY THOI_GIAN DESC LIMIT 1".format(
-                type)
+            query = "SELECT GIA_TRI,THOI_GIAN FROM DU_LIEU_CAM_BIEN WHERE MA_CB='{}' ORDER BY THOI_GIAN DESC LIMIT 1".format(
+                id)
             cursor.execute(query)
             result = cursor.fetchall()
             cursor.close()
@@ -181,35 +182,6 @@ def get_sensor_list_by_name(type, name):
         with connection.cursor(dictionary=True) as cursor:
             query = "SELECT MA_CB,TEN,TRANG_THAI FROM CAM_BIEN WHERE MA_CB LIKE '{}%' AND TEN LIKE '%{}%'".format(
                 type, name)
-            cursor.execute(query)
-            result = cursor.fetchall()
-            cursor.close()
-            return result
-    except Exception as e:
-        print("Error executing query:", e)
-        return None
-
-    # Close the connection
-    finally:
-        connection.close()
-
-
-def get_sensor_data_by_name(type, name):
-    try:
-        config = {
-            'user': 'smarthome',
-            'password': 'smarthome123',
-            'host': 'localhost',
-            'database': 'smart_home',
-        }
-        try:
-            connection = mysql.connector.connect(**config)
-        except Exception as e:
-            print("Error connecting to MySQL:", e)
-        with connection.cursor(dictionary=True) as cursor:
-            query = "SELECT GIA_TRI FROM DU_LIEU_CAM_BIEN JOIN CAM_BIEN ON DU_LIEU_CAM_BIEN.MA_CB=CAM_BIEN.MA_CB"\
-                "WHERE MA_CB LIKE '{}%' AND TEN LIKE '%{}%' ORDER BY THOI_GIAN DESC LIMIT 1".format(
-                    type, name)
             cursor.execute(query)
             result = cursor.fetchall()
             cursor.close()

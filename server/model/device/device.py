@@ -4,7 +4,7 @@ import mysql.connector
 # Define a function to execute MySQL queries
 
 
-def execute_query_1(type):
+def get_device_list(type):
     try:
         config = {
             'user': 'smarthome',
@@ -32,7 +32,7 @@ def execute_query_1(type):
         connection.close()
 
 
-def execute_query_2(type):
+def get_device_data(type):
     try:
         config = {
             'user': 'smarthome',
@@ -60,7 +60,7 @@ def execute_query_2(type):
         connection.close()
 
 
-def execute_query_3(type, name):
+def get_device_list_by_name(type, name):
     try:
         config = {
             'user': 'smarthome',
@@ -88,7 +88,7 @@ def execute_query_3(type, name):
         connection.close()
 
 
-def execute_query_4(type, name):
+def get_device_data_by_name(type, name):
     try:
         config = {
             'user': 'smarthome',

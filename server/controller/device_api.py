@@ -1,4 +1,4 @@
-from model.device import get_device_list
+from model.device import device
 import sys
 from flask import Blueprint, request, jsonify
 import os
@@ -16,15 +16,15 @@ def post_device_list():
     if data:
         result = []
         if len(data) == 1:
-            result += [get_device_list.execute_query_1(data['type'])]
-            temp = get_device_list.execute_query_2(data['type'])
+            result += [device.get_device_list(data['type'])]
+            temp = device.get_device_data(data['type'])
             if temp:
                 result += [temp]
         else:
-            result += [get_device_list.execute_query_3(
+            result += [device.get_device_list_by_name(
                 data['type'], data['name'])]
             print(result[0])
-            temp = get_device_list.execute_query_4(data['type'], data['name'])
+            temp = device.get_device_data_by_name(data['type'], data['name'])
             if temp:
                 result += [temp]
         if result:

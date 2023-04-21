@@ -19,7 +19,6 @@ const RenderHeatSensorDetail = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
                               $(".sensor_name").text(response.data[0].TEN);
                               $(".sensor_temp").val(response.data[0].GIA_TRI);
                               $(".sensor_min").val(response.data[0].NGUONG_DUOI);
@@ -42,6 +41,23 @@ const RenderHeatSensorDetail = (props) =>
                   id: props.id,
                   status: $(`.${ styles.switch }`).is(":checked")
             }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            if (!$(`.${ styles.switch }`).is(":checked"))
+                  $(".sensor_temp").val("");
+            else
+            {
+                  axios.post('http://localhost:5000/sensor_detail', {
+                        id: props.id
+                  })
+                        .then(function (response)
+                        {
+                              $(".sensor_temp").val(response.data[0].GIA_TRI);
+
+                        })
+                        .catch(function (error)
+                        {
+                              console.log(error);
+                        });
+            }
       }
 
       const changeMinimum = () =>
@@ -203,6 +219,23 @@ const RenderHumidSensorDetail = (props) =>
                   id: props.id,
                   status: $(`.${ styles.switch }`).is(":checked")
             }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            if (!$(`.${ styles.switch }`).is(":checked"))
+                  $(".sensor_humid").val("");
+            else
+            {
+                  axios.post('http://localhost:5000/sensor_detail', {
+                        id: props.id
+                  })
+                        .then(function (response)
+                        {
+                              $(".sensor_humid").val(response.data[0].GIA_TRI);
+
+                        })
+                        .catch(function (error)
+                        {
+                              console.log(error);
+                        });
+            }
       }
 
       const changeMinimum = () =>
@@ -362,6 +395,23 @@ const RenderLightSensorDetail = (props) =>
                   id: props.id,
                   status: $(`.${ styles.switch }`).is(":checked")
             }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            if (!$(`.${ styles.switch }`).is(":checked"))
+                  $(".sensor_light").val("");
+            else
+            {
+                  axios.post('http://localhost:5000/sensor_detail', {
+                        id: props.id
+                  })
+                        .then(function (response)
+                        {
+                              $(".sensor_light").val(response.data[0].GIA_TRI);
+
+                        })
+                        .catch(function (error)
+                        {
+                              console.log(error);
+                        });
+            }
       }
 
       const changeMinimum = () =>
