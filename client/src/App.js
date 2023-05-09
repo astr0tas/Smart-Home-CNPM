@@ -8,6 +8,8 @@ import Sensor from './component/sensor';
 import SensorDetail from './component/sensor_detail';
 import DeviceList from './component/device_list';
 import SensorList from './component/sensor_list';
+import Info from './component/info';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -22,6 +24,8 @@ function App()
 
             <Route>
               <Route path="/device" element={ <Device /> } />
+              
+
               <Route path="/device/:type/list" element={ <DeviceList /> } />
             </Route>
 
@@ -37,6 +41,8 @@ function App()
 
               <Route>
                 <Route path="device" element={ <Device /> } />
+                <Route path="info" element={ <Info /> } />
+
                 <Route path="device/:type/list" element={ <DeviceList /> } />
               </Route>
 
