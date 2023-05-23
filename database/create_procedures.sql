@@ -1,0 +1,24 @@
+DROP PROCEDURE IF EXISTS getHistory;
+DELIMITER $$
+CREATE PROCEDURE getHistory(
+	IN MA_CB VARCHAR(20)
+)
+BEGIN
+	-- create temporary table temp(MA VARCHAR(10),THOI_GIAN DATETIME);
+    -- insert into temp (select MA,THOI_GIAN from DU_LIEU_CAM_BIEN union select MA,THOI_GIAN from THIET_LAP_CAM_BIEN order by THOI_GIAN desc);
+    drop table if exists result;
+    create table result(
+		THOI_GIAN DATETIME,
+        GIA_TRI FLOAT DEFAULT NULL,
+        TRANG_THAI BOOL DEFAULT NULL,
+		NGUONG_TREN FLOAT DEFAULT NULL,
+		NGUONG_DUOI FLOAT DEFAULT NULL,
+        TEN VARCHAR(255) DEFAULT NULL
+    );
+    insert into result(THOI_GIAN,GIA_TRI) select THOI_GIAN,GIA_TRI from DU_LIEU_CAM_BIEN where DU_LIEU_CAM_BIEN.MA_CB=MA_CB;
+    insert into result(THOI_GIAN,TRANG_THAI,NGUONG_TREN,NGUONG_DUOI,TEN) select THOI_GIAN,TRANG_THAI,NGUONG_TREN,NGUONG_DUOI,TEN from THIET_LAP_CAM_BIEN join USER on THIET_LAP_CAM_BIEN.MA_USER=USER.MA_USER where THIET_LAP_CAM_BIEN.MA_CB=MA_CB;
+    select * from result order by THOI_GIAN desc;
+END $$
+DELIMITER ;
+
+call getHistory('HEAT01');

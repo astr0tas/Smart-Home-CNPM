@@ -80,7 +80,7 @@
 }
 
 .irhistory {
-      margin-top: 10%
+      margin-top: 10% !important;
 }
 
 @media only screen and (max-width:1300px) {
@@ -113,7 +113,7 @@
       }
 
       .irhistory {
-            margin-top: 15%
+            margin-top: 20% !important;
       }
 
       .detail {
@@ -163,7 +163,7 @@
 
 @media only screen and (max-width:576px) {
       .irhistory {
-            margin-top: 20%
+            margin-top: 30% !important;
       }
 
       .ir_sensor_history {

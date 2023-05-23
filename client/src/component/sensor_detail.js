@@ -6,6 +6,7 @@ import { BsFillTrashFill } from 'react-icons/bs';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import axios from 'axios';
 import $ from 'jquery';
+import { formatDateAndTime } from '../tools/time';
 
 const RenderHeatSensorDetail = (props) =>
 {
@@ -19,17 +20,81 @@ const RenderHeatSensorDetail = (props) =>
                   })
                         .then(function (response)
                         {
+                              console.log(response)
+
                               $(".sensor_name").text(response.data[0].TEN);
-                              $(".sensor_temp").val(response.data[0].GIA_TRI);
                               $(".sensor_min").val(response.data[0].NGUONG_DUOI);
                               $(".sensor_max").val(response.data[0].NGUONG_TREN);
                               $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
-
+                              axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                    id: props.id,
+                              }).then(res =>
+                              {
+                                    if (!('error' in res.data))
+                                    {
+                                          if (response.data[0].TRANG_THAI)
+                                                $(".sensor_temp").val(res.data[0].GIA_TRI);
+                                    }
+                              }).catch(error => { console.log(error); })
                         })
                         .catch(function (error)
                         {
                               console.log(error);
                         });
+                  axios.post('http://localhost:5000/sensor_history', {
+                        id: props.id
+                  })
+                        .then(function (response)
+                        {
+                              console.log(response)
+                              const min = parseFloat($(".sensor_min").val());
+                              const max = parseFloat($(".sensor_max").val());
+                              for (let i = 0; i < response.data.length; i++)
+                              {
+                                    if (response.data[i].GIA_TRI === null)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                          if (response.data[i].GIA_TRI > max)
+                                          {
+                                                $(`.${ styles.sensor_history }`).append(
+                                                      $("<div>").addClass("row").addClass("w-100").append(
+                                                            $("<div>").addClass("col").append(
+                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ quá nóng: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C').append(` (giới hạn ${ max }`).append($('<sup>').text('o')).append('C)').css("color", "red")
+                                                            )
+                                                      )
+                                                );
+                                          }
+                                          else if (response.data[i].GIA_TRI < min)
+                                          {
+                                                $(`.${ styles.sensor_history }`).append(
+                                                      $("<div>").addClass("row").addClass("w-100").append(
+                                                            $("<div>").addClass("col").append(
+                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ quá lạnh: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C').append(` (giới hạn ${ min }`).append($('<sup>').text('o')).append('C)').css("color", "blue")
+                                                            )
+                                                      )
+                                                );
+                                          }
+                                          else
+                                          {
+                                                $(`.${ styles.sensor_history }`).append(
+                                                      $("<div>").addClass("row").addClass("w-100").append(
+                                                            $("<div>").addClass("col").append(
+                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ hiện tại: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C')
+                                                            )
+                                                      )
+                                                );
+                                          }
+                                    }
+                              }
+                        })
+                        .catch(function (error)
+                        {
+                              console.log(error);
+                        });
+
                   render.current = true;
             }
       });
@@ -45,39 +110,53 @@ const RenderHeatSensorDetail = (props) =>
                   $(".sensor_temp").val("");
             else
             {
-                  axios.post('http://localhost:5000/sensor_detail', {
-                        id: props.id
-                  })
-                        .then(function (response)
+                  axios.post('http://localhost:5000/sensor_list/latest_data', {
+                        id: props.id,
+                  }).then(res =>
+                  {
+                        if (!('error' in res.data))
                         {
-                              $(".sensor_temp").val(response.data[0].GIA_TRI);
-
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
+                              $(".sensor_temp").val(res.data[0].GIA_TRI);
+                        }
+                  }).catch(error => { console.log(error); })
             }
       }
 
+      var debounceTimeout1 = 2000;
+      var debounceTimer1;
+
       const changeMinimum = () =>
       {
-            if (parseInt($(".sensor_min").val()) >= parseInt($(".sensor_max").val()))
-                  $(".sensor_min").val(parseInt($(".sensor_max").val()) - 1);
-            axios.post(
-                  'http://localhost:5000/sensor_min', {
-                  id: props.id,
-                  value: $(".sensor_min").val() === "" ? 0 : parseInt($(".sensor_min").val())
-            }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            clearTimeout(debounceTimer1);
+            debounceTimer1 = setTimeout(function ()
+            {
+                  if ($(".sensor_min").val() === "") $(".sensor_min").val(0);
+                  if (parseFloat($(".sensor_min").val()) >= parseFloat($(".sensor_max").val()))
+                        $(".sensor_min").val(parseFloat($(".sensor_max").val()) - 1);
+                  axios.post(
+                        'http://localhost:5000/sensor_min', {
+                        id: props.id,
+                        value: parseFloat($(".sensor_min").val())
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            }, debounceTimeout1);
       }
 
+      var debounceTimeout2 = 2000;
+      var debounceTimer2;
       const changeMaximum = () =>
       {
-            axios.post(
-                  'http://localhost:5000/sensor_max', {
-                  id: props.id,
-                  value: $(".sensor_max").val() === "" ? 0 : parseInt($(".sensor_max").val())
-            }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            clearTimeout(debounceTimer2);
+            debounceTimer2 = setTimeout(function ()
+            {
+                  if ($(".sensor_max").val() === "") $(".sensor_max").val(0);
+                  if (parseFloat($(".sensor_max").val()) <= parseFloat($(".sensor_min").val()))
+                        $(".sensor_max").val(parseFloat($(".sensor_min").val()) + 1);
+                  axios.post(
+                        'http://localhost:5000/sensor_max', {
+                        id: props.id,
+                        value: parseFloat($(".sensor_max").val())
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            }, debounceTimeout2);
       }
 
       return (
@@ -174,11 +253,6 @@ const RenderHeatSensorDetail = (props) =>
                         </div>
                   </div>
                   <div className={ `d-flex flex-column align-items-center ${ styles.sensor_history }` }>
-                        <div className="row w-100">
-                              <div className="col">
-                                    <p className={ `${ styles.history_font }` }>Test</p>
-                              </div>
-                        </div>
                   </div>
             </>
       );
@@ -198,11 +272,73 @@ const RenderHumidSensorDetail = (props) =>
                         {
                               console.log(response);
                               $(".sensor_name").text(response.data[0].TEN);
-                              $(".sensor_humid").val(response.data[0].GIA_TRI);
                               $(".sensor_min").val(response.data[0].NGUONG_DUOI);
                               $(".sensor_max").val(response.data[0].NGUONG_TREN);
                               $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
+                              axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                    id: props.id,
+                              }).then(res =>
+                              {
+                                    if (!('error' in res.data))
+                                    {
+                                          if (response.data[0].TRANG_THAI)
+                                                $(".sensor_humid").val(res.data[0].GIA_TRI);
+                                    }
+                              }).catch(error => { console.log(error); })
 
+                        })
+                        .catch(function (error)
+                        {
+                              console.log(error);
+                        });
+                  axios.post('http://localhost:5000/sensor_history', {
+                        id: props.id
+                  })
+                        .then(function (response)
+                        {
+                              console.log(response)
+                              const min = parseFloat($(".sensor_min").val());
+                              const max = parseFloat($(".sensor_max").val());
+                              for (let i = 0; i < response.data.length; i++)
+                              {
+                                    if (response.data[i].GIA_TRI === null)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                          if (response.data[i].GIA_TRI > max)
+                                          {
+                                                $(`.${ styles.sensor_history }`).append(
+                                                      $("<div>").addClass("row").addClass("w-100").append(
+                                                            $("<div>").addClass("col").append(
+                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm cao: ${ response.data[i].GIA_TRI }%`).append(` (giới hạn ${ max }%)`).css("color", "red")
+                                                            )
+                                                      )
+                                                );
+                                          }
+                                          else if (response.data[i].GIA_TRI < min)
+                                          {
+                                                $(`.${ styles.sensor_history }`).append(
+                                                      $("<div>").addClass("row").addClass("w-100").append(
+                                                            $("<div>").addClass("col").append(
+                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm thấp: ${ response.data[i].GIA_TRI }%`).append(` (giới hạn ${ min }%)`).css("color", "blue")
+                                                            )
+                                                      )
+                                                );
+                                          }
+                                          else
+                                          {
+                                                $(`.${ styles.sensor_history }`).append(
+                                                      $("<div>").addClass("row").addClass("w-100").append(
+                                                            $("<div>").addClass("col").append(
+                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm hiện tại: ${ response.data[i].GIA_TRI }%`)
+                                                            )
+                                                      )
+                                                );
+                                          }
+                                    }
+                              }
                         })
                         .catch(function (error)
                         {
@@ -223,42 +359,56 @@ const RenderHumidSensorDetail = (props) =>
                   $(".sensor_humid").val("");
             else
             {
-                  axios.post('http://localhost:5000/sensor_detail', {
-                        id: props.id
-                  })
-                        .then(function (response)
+                  axios.post('http://localhost:5000/sensor_list/latest_data', {
+                        id: props.id,
+                  }).then(res =>
+                  {
+                        if (!('error' in res.data))
                         {
-                              $(".sensor_humid").val(response.data[0].GIA_TRI);
-
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
+                              $(".sensor_humid").val(res.data[0].GIA_TRI);
+                        }
+                  }).catch(error => { console.log(error); })
             }
       }
 
+      var debounceTimeout1 = 2000;
+      var debounceTimer1;
+
       const changeMinimum = () =>
       {
-            if (parseInt($(".sensor_min").val()) >= parseInt($(".sensor_max").val()))
-                  $(".sensor_min").val(parseInt($(".sensor_max").val()) - 1);
-            axios.post(
-                  'http://localhost:5000/sensor_min', {
-                  id: props.id,
-                  value: $(".sensor_min").val() === "" ? 0 : parseInt($(".sensor_min").val())
-            }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            clearTimeout(debounceTimer1);
+            debounceTimer1 = setTimeout(function ()
+            {
+                  if ($(".sensor_min").val() === "") $(".sensor_min").val(0);
+                  if (parseFloat($(".sensor_min").val()) >= parseFloat($(".sensor_max").val()))
+                        $(".sensor_min").val(parseFloat($(".sensor_max").val()) - 1);
+                  axios.post(
+                        'http://localhost:5000/sensor_min', {
+                        id: props.id,
+                        value: parseFloat($(".sensor_min").val())
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            }, debounceTimeout1);
       }
+
+      var debounceTimeout2 = 2000;
+      var debounceTimer2;
 
       const changeMaximum = () =>
       {
-            if (parseInt($(".sensor_max").val()) > 100)
-                  $(".sensor_max").val("100");
-
-            axios.post(
-                  'http://localhost:5000/sensor_max', {
-                  id: props.id,
-                  value: $(".sensor_max").val() === "" ? 0 : parseInt($(".sensor_max").val())
-            }).then(res => { console.log(res); }).catch(error => { console.log(error); })
+            clearTimeout(debounceTimer2);
+            debounceTimer2 = setTimeout(function ()
+            {
+                  if ($(".sensor_max").val() === "") $(".sensor_max").val(0);
+                  if (parseFloat($(".sensor_max").val()) <= parseFloat($(".sensor_min").val()))
+                        $(".sensor_max").val(parseFloat($(".sensor_min").val()) + 1);
+                  if (parseFloat($(".sensor_max").val()) > 100)
+                        $(".sensor_max").val("100");
+                  axios.post(
+                        'http://localhost:5000/sensor_max', {
+                        id: props.id,
+                        value: parseFloat($(".sensor_max").val())
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            }, debounceTimeout2);
       }
 
       return (
@@ -374,11 +524,66 @@ const RenderLightSensorDetail = (props) =>
                         {
                               console.log(response);
                               $(".sensor_name").text(response.data[0].TEN);
-                              $(".sensor_light").val(response.data[0].GIA_TRI);
                               $(".sensor_min").val(response.data[0].NGUONG_DUOI);
                               $(".sensor_max").val(response.data[0].NGUONG_TREN);
                               $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
+                              axios.post('http://localhost:5000/sensor_list/latest_data', {
+                                    id: props.id,
+                              }).then(res =>
+                              {
+                                    if (!('error' in res.data))
+                                    {
+                                          if (response.data[0].TRANG_THAI)
+                                                $(".sensor_light").val(res.data[0].GIA_TRI);
+                                    }
+                              }).catch(error => { console.log(error); })
 
+                        })
+                        .catch(function (error)
+                        {
+                              console.log(error);
+                        });
+                  axios.post('http://localhost:5000/sensor_history', {
+                        id: props.id
+                  })
+                        .then(function (response)
+                        {
+                              console.log(response)
+                              const min = parseFloat($(".sensor_min").val());
+                              const max = parseFloat($(".sensor_max").val());
+                              for (let i = 0; i < response.data.length; i++)
+                              {
+                                    if (response.data[i].GIA_TRI > max)
+                                    {
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Cường độ ánh sáng mạnh: ${ response.data[i].GIA_TRI }%`).append(` (giới hạn ${ max }%)`).css("color", "red")
+                                                      )
+                                                )
+                                          );
+                                    }
+                                    else if (response.data[i].GIA_TRI < min)
+                                    {
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Cường độ ánh sáng yếu: ${ response.data[i].GIA_TRI }%`).append(` (giới hạn ${ min }%)`).css("color", "blue")
+                                                      )
+                                                )
+                                          );
+                                    }
+                                    else
+                                    {
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Cường độ ánh sáng hiện tại: ${ response.data[i].GIA_TRI }%`)
+                                                      )
+                                                )
+                                          );
+                                    }
+                              }
                         })
                         .catch(function (error)
                         {
@@ -399,42 +604,56 @@ const RenderLightSensorDetail = (props) =>
                   $(".sensor_light").val("");
             else
             {
-                  axios.post('http://localhost:5000/sensor_detail', {
-                        id: props.id
-                  })
-                        .then(function (response)
+                  axios.post('http://localhost:5000/sensor_list/latest_data', {
+                        id: props.id,
+                  }).then(res =>
+                  {
+                        if (!('error' in res.data))
                         {
-                              $(".sensor_light").val(response.data[0].GIA_TRI);
-
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
+                              $(".sensor_light").val(res.data[0].GIA_TRI);
+                        }
+                  }).catch(error => { console.log(error); })
             }
       }
 
+      var debounceTimeout1 = 2000;
+      var debounceTimer1;
+
       const changeMinimum = () =>
       {
-            if (parseInt($(".sensor_min").val()) >= parseInt($(".sensor_max").val()))
-                  $(".sensor_min").val(parseInt($(".sensor_max").val()) - 1);
-            axios.post(
-                  'http://localhost:5000/sensor_min', {
-                  id: props.id,
-                  value: $(".sensor_min").val() === "" ? 0 : parseInt($(".sensor_min").val())
-            }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            clearTimeout(debounceTimer1);
+            debounceTimer1 = setTimeout(function ()
+            {
+                  if ($(".sensor_min").val() === "") $(".sensor_min").val(0);
+                  if (parseFloat($(".sensor_min").val()) >= parseFloat($(".sensor_max").val()))
+                        $(".sensor_min").val(parseFloat($(".sensor_max").val()) - 1);
+                  axios.post(
+                        'http://localhost:5000/sensor_min', {
+                        id: props.id,
+                        value: parseFloat($(".sensor_min").val())
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            }, debounceTimeout1);
       }
+
+      var debounceTimeout2 = 2000;
+      var debounceTimer2;
 
       const changeMaximum = () =>
       {
-            if (parseInt($(".sensor_max").val()) > 100)
-                  $(".sensor_max").val("100");
-
-            axios.post(
-                  'http://localhost:5000/sensor_max', {
-                  id: props.id,
-                  value: $(".sensor_max").val() === "" ? 0 : parseInt($(".sensor_max").val())
-            }).then(res => { console.log(res); }).catch(error => { console.log(error); })
+            clearTimeout(debounceTimer2);
+            debounceTimer2 = setTimeout(function ()
+            {
+                  if ($(".sensor_max").val() === "") $(".sensor_max").val(0);
+                  if (parseFloat($(".sensor_max").val()) <= parseFloat($(".sensor_min").val()))
+                        $(".sensor_max").val(parseFloat($(".sensor_min").val()) + 1);
+                  if (parseFloat($(".sensor_max").val()) > 100)
+                        $(".sensor_max").val("100");
+                  axios.post(
+                        'http://localhost:5000/sensor_max', {
+                        id: props.id,
+                        value: parseFloat($(".sensor_max").val())
+                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            }, debounceTimeout2);
       }
 
       return (
@@ -550,9 +769,29 @@ const RenderIRDetail = (props) =>
                         {
                               console.log(response);
                               $(".sensor_name").text(response.data[0].TEN);
-                              $(".sensor_ir").val(response.data[0].GIA_TRI);
                               $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
 
+                        })
+                        .catch(function (error)
+                        {
+                              console.log(error);
+                        });
+                  axios.post('http://localhost:5000/sensor_history', {
+                        id: props.id
+                  })
+                        .then(function (response)
+                        {
+                              console.log(response)
+                              for (let i = 0; i < response.data.length; i++)
+                              {
+                                    $(`.${ styles.ir_sensor_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Phát hiện chuyển động`)
+                                                )
+                                          )
+                                    );
+                              }
                         })
                         .catch(function (error)
                         {

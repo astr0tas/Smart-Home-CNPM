@@ -1,6 +1,5 @@
 import mysql.connector
 
-
 # Define a function to execute MySQL queries
 
 

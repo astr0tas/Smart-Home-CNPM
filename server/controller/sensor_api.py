@@ -71,6 +71,19 @@ def post_sensor_detail():
             return jsonify({'error': 'Failed to get data from database'})
     else:
         return jsonify({'error': 'No data received'})
+    
+
+@api.route('/sensor_history', methods=['POST'])
+def post_sensor_history():
+    data = request.get_json()
+    if data:
+        result = sensor.get_sensor_history(data['id'])
+        if result:
+            return jsonify(result)
+        else:
+            return jsonify({'error': 'Failed to get data from database'})
+    else:
+        return jsonify({'error': 'No data received'})
 
 
 @api.route('/sensor_status', methods=['POST'])
