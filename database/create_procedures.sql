@@ -1,6 +1,6 @@
-DROP PROCEDURE IF EXISTS getHistory;
+DROP PROCEDURE IF EXISTS getSensorHistory;
 DELIMITER $$
-CREATE PROCEDURE getHistory(
+CREATE PROCEDURE getSensorHistory(
 	IN MA_CB VARCHAR(20)
 )
 BEGIN
@@ -21,4 +21,26 @@ BEGIN
 END $$
 DELIMITER ;
 
-call getHistory('HEAT01');
+DROP PROCEDURE IF EXISTS getDeviceHistory;
+DELIMITER $$
+CREATE PROCEDURE getDeviceHistory(
+	IN MA_TB VARCHAR(20)
+)
+BEGIN
+    drop table if exists result;
+    create table result(
+		THOI_GIAN DATETIME,
+        GIA_TRI FLOAT DEFAULT NULL,
+        TRANG_THAI BOOL DEFAULT NULL,
+		TU_DONG BOOL DEFAULT NULL,
+        GIO_BAT_DAU TIME,
+		GIO_KET_THUC TIME,
+        TEN VARCHAR(255) DEFAULT NULL
+    );
+    insert into result(THOI_GIAN,GIA_TRI) select THOI_GIAN,GIA_TRI from DU_LIEU_THIET_BI where DU_LIEU_THIET_BI.MA_TB=MA_TB;
+    insert into result(THOI_GIAN,TRANG_THAI,TU_DONG,TEN,GIO_BAT_DAU,GIO_KET_THUC) select THOI_GIAN,TRANG_THAI,TU_DONG,TEN,GIO_BAT_DAU,GIO_KET_THUC from THIET_LAP_THIET_BI join USER on THIET_LAP_THIET_BI.MA_USER=USER.MA_USER where THIET_LAP_THIET_BI.MA_TB=MA_TB;
+    select * from result order by THOI_GIAN desc;
+END $$
+DELIMITER ;
+
+select * from thiet_bi where ma_tb='FAN01';

@@ -27,11 +27,11 @@
 
 .search {
       width: 40%;
-      min-width: 100px;
+      min-width: 80px;
       padding-left: 30px;
       border: 2px solid black;
       border-radius: 10px;
-      max-width: 250px;
+      max-width: 200px;
 }
 
 .add {
@@ -39,7 +39,6 @@
       color: white;
       border: 1px solid black;
       border-radius: 5px;
-      width: 150px;
 }
 
 .add:active {
@@ -158,16 +157,3 @@
             width: 15px;
       }
 }
-
-/* @media only screen and (max-width:500px) {
-
-    .add,
-    .search {
-          font-size: 1px;
-    }
-
-    .search_icon {
-          height: 12px;
-          width: 12px;
-    }
-} */

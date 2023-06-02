@@ -27,11 +27,11 @@
 
 .search {
       width: 40%;
-      min-width: 100px;
+      min-width: 80px;
       padding-left: 30px;
       border: 2px solid black;
       border-radius: 10px;
-      max-width: 250px;
+      max-width: 200px;
 }
 
 .add {
@@ -39,7 +39,6 @@
       color: white;
       border: 1px solid black;
       border-radius: 5px;
-      width: 125px;
 }
 
 .add:active {
@@ -100,6 +99,14 @@
       background-color: #adecfa;
 }
 
+.current_value {
+      border: 1px solid black;
+      border-radius: 20px;
+      width: 50px;
+      margin: 0;
+      display: inline-block;
+}
+
 @media only screen and (max-width:995px) {
       .button_list {
             display: flex;
@@ -142,16 +149,3 @@
             width: 15px;
       }
 }
-
-/* @media only screen and (max-width:500px) {
-
-      .add,
-      .search {
-            font-size: 1px;
-      }
-
-      .search_icon {
-            height: 12px;
-            width: 12px;
-      }
-} */

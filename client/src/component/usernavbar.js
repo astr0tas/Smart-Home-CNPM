@@ -36,7 +36,6 @@ function UserNavbar()
       {
             if (!render.current)
             {
-                  console.log("render");
                   render.current = true;
 
                   window.addEventListener('resize', () =>

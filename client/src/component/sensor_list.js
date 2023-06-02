@@ -40,16 +40,14 @@ const Tempature = (props) =>
                   }).then(res =>
                   {
                         if (!('error' in res.data))
-                        {
-                              $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
-                        }
+                              if (!$(`.currentValue_${ MA_CB }`).children().length)
+                                    $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                   }).catch(error => { console.log(error); })
             }
       }
 
       useEffect(() =>
       {
-            $(".table_body").empty();
             if (typeof (props.name) === "undefined" || props.name === '')
             {
                   if (!render.current)
@@ -67,6 +65,7 @@ const Tempature = (props) =>
                   })
                         .then(function (response)
                         {
+                              $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -92,7 +91,8 @@ const Tempature = (props) =>
                                           if (!('error' in res.data))
                                           {
                                                 if (response.data[i].TRANG_THAI)
-                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                                      if (!$(`.currentValue_${ response.data[i].MA_CB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                                           }
                                     }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
@@ -115,6 +115,7 @@ const Tempature = (props) =>
                   })
                         .then(function (response)
                         {
+                              $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -140,7 +141,8 @@ const Tempature = (props) =>
                                           if (!('error' in res.data))
                                           {
                                                 if (response.data[i].TRANG_THAI)
-                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                                      if (!$(`.currentValue_${ response.data[i].MA_CB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                                           }
                                     }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
@@ -188,16 +190,14 @@ const Humid = (props) =>
                   }).then(res =>
                   {
                         if (!('error' in res.data))
-                        {
-                              $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
-                        }
+                              if (!$(`.currentValue_${ MA_CB }`).children().length)
+                                    $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                   }).catch(error => { console.log(error); })
             }
       }
 
       useEffect(() =>
       {
-            $(".table_body").empty();
             if (typeof (props.name) === "undefined" || props.name === '')
             {
                   if (!render.current)
@@ -215,6 +215,7 @@ const Humid = (props) =>
                   })
                         .then(function (response)
                         {
+                              $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -240,7 +241,8 @@ const Humid = (props) =>
                                           if (!('error' in res.data))
                                           {
                                                 if (response.data[i].TRANG_THAI)
-                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                                      if (!$(`.currentValue_${ response.data[i].MA_CB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                                           }
                                     }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
@@ -263,6 +265,7 @@ const Humid = (props) =>
                   })
                         .then(function (response)
                         {
+                              $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -288,7 +291,8 @@ const Humid = (props) =>
                                           if (!('error' in res.data))
                                           {
                                                 if (response.data[i].TRANG_THAI)
-                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                                      if (!$(`.currentValue_${ response.data[i].MA_CB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                                           }
                                     }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
@@ -336,16 +340,14 @@ const LightSensor = (props) =>
                   }).then(res =>
                   {
                         if (!('error' in res.data))
-                        {
-                              $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
-                        }
+                              if (!$(`.currentValue_${ MA_CB }`).children().length)
+                                    $(`.currentValue_${ MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                   }).catch(error => { console.log(error); })
             }
       }
 
       useEffect(() =>
       {
-            $(".table_body").empty();
             if (typeof (props.name) === "undefined" || props.name === '')
             {
                   if (!render.current)
@@ -363,6 +365,7 @@ const LightSensor = (props) =>
                   })
                         .then(function (response)
                         {
+                              $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -388,7 +391,8 @@ const LightSensor = (props) =>
                                           if (!('error' in res.data))
                                           {
                                                 if (response.data[i].TRANG_THAI)
-                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                                      if (!$(`.currentValue_${ response.data[i].MA_CB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                                           }
                                     }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
@@ -411,6 +415,7 @@ const LightSensor = (props) =>
                   })
                         .then(function (response)
                         {
+                              $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -436,7 +441,8 @@ const LightSensor = (props) =>
                                           if (!('error' in res.data))
                                           {
                                                 if (response.data[i].TRANG_THAI)
-                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                                      if (!$(`.currentValue_${ response.data[i].MA_CB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                                           }
                                     }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
@@ -484,16 +490,14 @@ const InfraredSensor = (props) =>
                   }).then(res =>
                   {
                         if (!('error' in res.data))
-                        {
-                              $(`.currentValue_${ MA_CB }`).append($("<p>").text(formatDateAndTime(res.data[0].THOI_GIAN)).addClass(styles.current_value_ir));
-                        }
+                              if (!$(`.currentValue_${ MA_CB }`).children().length)
+                                    $(`.currentValue_${ MA_CB }`).append($("<p>").text(formatDateAndTime(res.data[0].THOI_GIAN)).addClass(styles.current_value_ir));
                   }).catch(error => { console.log(error); })
             }
       }
 
       useEffect(() =>
       {
-            $(".table_body").empty();
             if (typeof (props.name) === "undefined" || props.name === '')
             {
                   if (!render.current)
@@ -511,6 +515,7 @@ const InfraredSensor = (props) =>
                   })
                         .then(function (response)
                         {
+                              $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -536,7 +541,8 @@ const InfraredSensor = (props) =>
                                           if (!('error' in res.data))
                                           {
                                                 if (response.data[i].TRANG_THAI)
-                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(formatDateAndTime(res.data[0].THOI_GIAN)).addClass(styles.current_value_ir));
+                                                      if (!$(`.currentValue_${ response.data[i].MA_CB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(formatDateAndTime(res.data[0].THOI_GIAN)).addClass(styles.current_value_ir));
                                           }
                                     }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
@@ -559,6 +565,7 @@ const InfraredSensor = (props) =>
                   })
                         .then(function (response)
                         {
+                              $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
@@ -584,7 +591,8 @@ const InfraredSensor = (props) =>
                                           if (!('error' in res.data))
                                           {
                                                 if (response.data[i].TRANG_THAI)
-                                                      $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value_ir));
+                                                      if (!$(`.currentValue_${ response.data[i].MA_CB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_CB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value_ir));
                                           }
                                     }).catch(error => { console.log(error); })
                                     table_row.append($("<td>")
@@ -653,10 +661,10 @@ const SensorList = () =>
                               <div className="w-75 d-flex justify-content-start align-items-center" style={ { marginLeft: "10px", position: "relative" } }>
                                     <BsSearch id='scope' className={ `${ styles.search_icon }` } onClick={ search } />
                                     <input className={ `${ styles.search }` } id='search' type='text' placeholder='Find' />
-                                    <button className={ `mx-sm-4 ${ styles.add } d-flex align-items-center` }><TbPlus />Thêm cảm biến</button>
+                                    <button className={ `mx-sm-4 ${ styles.add } d-flex align-items-center` }><TbPlus />Thêm</button>
                               </div>
                               <div className="w-25 d-flex justify-content-end align-items-center">
-                                    <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.close }` } onClick={ goBack } />
+                                    <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "5px" } } className={ `${ styles.close }` } onClick={ goBack } />
                               </div>
                         </div>
                         <div className="w-100 overflow-auto" style={ { height: "calc(100% - 50px)" } }>

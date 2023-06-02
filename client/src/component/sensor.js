@@ -1,5 +1,5 @@
 import "../css/sensor.css";
-import { useEffect, useRef, React } from "react";
+import { useEffect, React } from "react";
 import $ from 'jquery';
 import { BsThermometerSnow } from "react-icons/bs";
 import { WiHumidity } from "react-icons/wi";
@@ -9,16 +9,9 @@ import { useNavigate, Outlet } from "react-router-dom"
 
 const Sensor = () =>
 {
-      const render = useRef(true);
-
       useEffect(() =>
       {
-            if (render.current)
-            {
-                  console.log("Render sensor page!");
-                  $("#sensor").css("color", "blue");
-                  render.current = false;
-            }
+            $("#sensor").css("color", "blue");
       })
 
       const Nav = useNavigate();

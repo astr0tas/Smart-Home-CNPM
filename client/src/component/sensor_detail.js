@@ -1,4 +1,4 @@
-import { React, useEffect, useRef } from 'react';
+import { React, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from '../css/sensor_detail.module.css';
@@ -10,94 +10,88 @@ import { formatDateAndTime } from '../tools/time';
 
 const RenderHeatSensorDetail = (props) =>
 {
-      const render = useRef(false);
+      const [renderPage, setRenderPage] = useState(false);
+
       useEffect(() =>
       {
-            if (!render.current)
-            {
-                  axios.post('http://localhost:5000/sensor_detail', {
-                        id: props.id
-                  })
-                        .then(function (response)
+            axios.post('http://localhost:5000/sensor_detail', {
+                  id: props.id
+            })
+                  .then(function (response)
+                  {
+                        $(".sensor_name").text(response.data[0].TEN);
+                        $(".sensor_min").val(response.data[0].NGUONG_DUOI);
+                        $(".sensor_max").val(response.data[0].NGUONG_TREN);
+                        $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
+                        axios.post('http://localhost:5000/sensor_list/latest_data', {
+                              id: props.id,
+                        }).then(res =>
                         {
-                              console.log(response)
-
-                              $(".sensor_name").text(response.data[0].TEN);
-                              $(".sensor_min").val(response.data[0].NGUONG_DUOI);
-                              $(".sensor_max").val(response.data[0].NGUONG_TREN);
-                              $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
-                              axios.post('http://localhost:5000/sensor_list/latest_data', {
-                                    id: props.id,
-                              }).then(res =>
+                              if (!('error' in res.data))
                               {
-                                    if (!('error' in res.data))
+                                    if (response.data[0].TRANG_THAI)
+                                          $(".sensor_temp").val(res.data[0].GIA_TRI);
+                              }
+                        }).catch(error => { console.log(error); })
+                  })
+                  .catch(function (error)
+                  {
+                        console.log(error);
+                  });
+
+            axios.post('http://localhost:5000/sensor_history', {
+                  id: props.id
+            })
+                  .then(function (response)
+                  {
+                        // console.log(response)
+
+                        $(`.${ styles.sensor_history }`).empty();
+
+                        const min = parseFloat($(".sensor_min").val());
+                        const max = parseFloat($(".sensor_max").val());
+                        for (let i = 0; i < response.data.length; i++)
+                        {
+                              if (response.data[i].GIA_TRI)
+                              {
+                                    if (response.data[i].GIA_TRI > max)
                                     {
-                                          if (response.data[0].TRANG_THAI)
-                                                $(".sensor_temp").val(res.data[0].GIA_TRI);
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ quá nóng: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C').append(` (giới hạn ${ max }`).append($('<sup>').text('o')).append('C)').css("color", "red")
+                                                      )
+                                                )
+                                          );
                                     }
-                              }).catch(error => { console.log(error); })
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
-                  axios.post('http://localhost:5000/sensor_history', {
-                        id: props.id
-                  })
-                        .then(function (response)
-                        {
-                              console.log(response)
-                              const min = parseFloat($(".sensor_min").val());
-                              const max = parseFloat($(".sensor_max").val());
-                              for (let i = 0; i < response.data.length; i++)
-                              {
-                                    if (response.data[i].GIA_TRI === null)
+                                    else if (response.data[i].GIA_TRI < min)
                                     {
-
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ quá lạnh: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C').append(` (giới hạn ${ min }`).append($('<sup>').text('o')).append('C)').css("color", "blue")
+                                                      )
+                                                )
+                                          );
                                     }
                                     else
                                     {
-                                          if (response.data[i].GIA_TRI > max)
-                                          {
-                                                $(`.${ styles.sensor_history }`).append(
-                                                      $("<div>").addClass("row").addClass("w-100").append(
-                                                            $("<div>").addClass("col").append(
-                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ quá nóng: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C').append(` (giới hạn ${ max }`).append($('<sup>').text('o')).append('C)').css("color", "red")
-                                                            )
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ hiện tại: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C')
                                                       )
-                                                );
-                                          }
-                                          else if (response.data[i].GIA_TRI < min)
-                                          {
-                                                $(`.${ styles.sensor_history }`).append(
-                                                      $("<div>").addClass("row").addClass("w-100").append(
-                                                            $("<div>").addClass("col").append(
-                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ quá lạnh: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C').append(` (giới hạn ${ min }`).append($('<sup>').text('o')).append('C)').css("color", "blue")
-                                                            )
-                                                      )
-                                                );
-                                          }
-                                          else
-                                          {
-                                                $(`.${ styles.sensor_history }`).append(
-                                                      $("<div>").addClass("row").addClass("w-100").append(
-                                                            $("<div>").addClass("col").append(
-                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Nhiệt độ hiện tại: ${ response.data[i].GIA_TRI }`).append($('<sup>').text('o')).append('C')
-                                                            )
-                                                      )
-                                                );
-                                          }
+                                                )
+                                          );
                                     }
                               }
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
-
-                  render.current = true;
-            }
-      });
+                        }
+                  })
+                  .catch(function (error)
+                  {
+                        console.log(error);
+                  });
+      }, [renderPage]);
 
       const toggleStatus = () =>
       {
@@ -105,7 +99,7 @@ const RenderHeatSensorDetail = (props) =>
                   'http://localhost:5000/sensor_status', {
                   id: props.id,
                   status: $(`.${ styles.switch }`).is(":checked")
-            }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            }).then(res => { console.log(res); }).catch(error => { console.log(error); })
             if (!$(`.${ styles.switch }`).is(":checked"))
                   $(".sensor_temp").val("");
             else
@@ -115,14 +109,13 @@ const RenderHeatSensorDetail = (props) =>
                   }).then(res =>
                   {
                         if (!('error' in res.data))
-                        {
                               $(".sensor_temp").val(res.data[0].GIA_TRI);
-                        }
+                        setRenderPage(!renderPage);
                   }).catch(error => { console.log(error); })
             }
       }
 
-      var debounceTimeout1 = 2000;
+      var debounceTimeout1 = 500;
       var debounceTimer1;
 
       const changeMinimum = () =>
@@ -137,11 +130,11 @@ const RenderHeatSensorDetail = (props) =>
                         'http://localhost:5000/sensor_min', {
                         id: props.id,
                         value: parseFloat($(".sensor_min").val())
-                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  }).then(res => { console.log(res); }).catch(error => { console.log(error); })
             }, debounceTimeout1);
       }
 
-      var debounceTimeout2 = 2000;
+      var debounceTimeout2 = 500;
       var debounceTimer2;
       const changeMaximum = () =>
       {
@@ -155,7 +148,7 @@ const RenderHeatSensorDetail = (props) =>
                         'http://localhost:5000/sensor_max', {
                         id: props.id,
                         value: parseFloat($(".sensor_max").val())
-                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  }).then(res => { console.log(res); }).catch(error => { console.log(error); })
             }, debounceTimeout2);
       }
 
@@ -163,15 +156,15 @@ const RenderHeatSensorDetail = (props) =>
             <>
                   <div className='d-flex flex-column align-items-center justify-content-around w-100 mt-auto' style={ { height: '80%' } }>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
-                                    <strong className={ `${ styles.font } ` }>Tên thiết bị</strong>
+                              <div className="col-md-5 col-5 my-auto">
+                                    <strong className={ `${ styles.font } ` }>Tên cảm biến</strong>
                               </div>
                               <div className="col-md-7 col my-auto">
                                     <p className={ `${ styles.font } sensor_name` }></p>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Trạng thái</strong>
                               </div>
                               <div className="col-md-7 col my-auto">
@@ -181,13 +174,13 @@ const RenderHeatSensorDetail = (props) =>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font } ` }>Nhiệt độ hiện tại (<sup>o</sup>C)</strong>
 
                               </div>
                               <div className="col-md-7 col my-auto">
                                     <input type="number" disabled="disabled" style={ {
-                                          width: "60px",
+                                          width: "50px",
                                           backgroundColor: "#D8D8D8",
                                           borderRadius: "10px",
                                           borderWidth: "1px",
@@ -197,14 +190,14 @@ const RenderHeatSensorDetail = (props) =>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Ngưỡng hoạt động (<sup>o</sup>C)</strong>
                               </div>
                               <div className="col-3 my-auto">
                                     <div className="d-flex flex-column flex-md-row">
                                           <strong className={ `${ styles.font }` }>Tối thiểu</strong>
                                           <input type="number" style={ {
-                                                width: "60px",
+                                                width: "50px",
                                                 backgroundColor: "#D8D8D8",
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
@@ -216,7 +209,7 @@ const RenderHeatSensorDetail = (props) =>
                                     <div className="d-flex flex-column flex-md-row">
                                           <strong className={ `${ styles.font }` }>Tối đa</strong>
                                           <input type="number" style={ {
-                                                width: "60px",
+                                                width: "50px",
                                                 backgroundColor: "#D8D8D8",
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
@@ -260,93 +253,88 @@ const RenderHeatSensorDetail = (props) =>
 
 const RenderHumidSensorDetail = (props) =>
 {
-      const render = useRef(false);
+      const [renderPage, setRenderPage] = useState(false);
+
       useEffect(() =>
       {
-            if (!render.current)
-            {
-                  axios.post('http://localhost:5000/sensor_detail', {
-                        id: props.id
-                  })
-                        .then(function (response)
+            axios.post('http://localhost:5000/sensor_detail', {
+                  id: props.id
+            })
+                  .then(function (response)
+                  {
+                        $(".sensor_name").text(response.data[0].TEN);
+                        $(".sensor_min").val(response.data[0].NGUONG_DUOI);
+                        $(".sensor_max").val(response.data[0].NGUONG_TREN);
+                        $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
+                        axios.post('http://localhost:5000/sensor_list/latest_data', {
+                              id: props.id,
+                        }).then(res =>
                         {
-                              console.log(response);
-                              $(".sensor_name").text(response.data[0].TEN);
-                              $(".sensor_min").val(response.data[0].NGUONG_DUOI);
-                              $(".sensor_max").val(response.data[0].NGUONG_TREN);
-                              $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
-                              axios.post('http://localhost:5000/sensor_list/latest_data', {
-                                    id: props.id,
-                              }).then(res =>
+                              if (!('error' in res.data))
                               {
-                                    if (!('error' in res.data))
+                                    if (response.data[0].TRANG_THAI)
+                                          $(".sensor_humid").val(res.data[0].GIA_TRI);
+                              }
+                        }).catch(error => { console.log(error); })
+
+                  })
+                  .catch(function (error)
+                  {
+                        console.log(error);
+                  });
+            axios.post('http://localhost:5000/sensor_history', {
+                  id: props.id
+            })
+                  .then(function (response)
+                  {
+                        // console.log(response)
+
+                        $(`.${ styles.sensor_history }`).empty();
+
+                        const min = parseFloat($(".sensor_min").val());
+                        const max = parseFloat($(".sensor_max").val());
+                        for (let i = 0; i < response.data.length; i++)
+                        {
+                              if (response.data[i].GIA_TRI)
+                              {
+                                    if (response.data[i].GIA_TRI > max)
                                     {
-                                          if (response.data[0].TRANG_THAI)
-                                                $(".sensor_humid").val(res.data[0].GIA_TRI);
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm cao: ${ response.data[i].GIA_TRI }%`).append(` (giới hạn ${ max }%)`).css("color", "red")
+                                                      )
+                                                )
+                                          );
                                     }
-                              }).catch(error => { console.log(error); })
-
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
-                  axios.post('http://localhost:5000/sensor_history', {
-                        id: props.id
-                  })
-                        .then(function (response)
-                        {
-                              console.log(response)
-                              const min = parseFloat($(".sensor_min").val());
-                              const max = parseFloat($(".sensor_max").val());
-                              for (let i = 0; i < response.data.length; i++)
-                              {
-                                    if (response.data[i].GIA_TRI === null)
+                                    else if (response.data[i].GIA_TRI < min)
                                     {
-
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm thấp: ${ response.data[i].GIA_TRI }%`).append(` (giới hạn ${ min }%)`).css("color", "blue")
+                                                      )
+                                                )
+                                          );
                                     }
                                     else
                                     {
-                                          if (response.data[i].GIA_TRI > max)
-                                          {
-                                                $(`.${ styles.sensor_history }`).append(
-                                                      $("<div>").addClass("row").addClass("w-100").append(
-                                                            $("<div>").addClass("col").append(
-                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm cao: ${ response.data[i].GIA_TRI }%`).append(` (giới hạn ${ max }%)`).css("color", "red")
-                                                            )
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm hiện tại: ${ response.data[i].GIA_TRI }%`)
                                                       )
-                                                );
-                                          }
-                                          else if (response.data[i].GIA_TRI < min)
-                                          {
-                                                $(`.${ styles.sensor_history }`).append(
-                                                      $("<div>").addClass("row").addClass("w-100").append(
-                                                            $("<div>").addClass("col").append(
-                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm thấp: ${ response.data[i].GIA_TRI }%`).append(` (giới hạn ${ min }%)`).css("color", "blue")
-                                                            )
-                                                      )
-                                                );
-                                          }
-                                          else
-                                          {
-                                                $(`.${ styles.sensor_history }`).append(
-                                                      $("<div>").addClass("row").addClass("w-100").append(
-                                                            $("<div>").addClass("col").append(
-                                                                  $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ ẩm hiện tại: ${ response.data[i].GIA_TRI }%`)
-                                                            )
-                                                      )
-                                                );
-                                          }
+                                                )
+                                          );
                                     }
                               }
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
-                  render.current = true;
-            }
-      });
+                        }
+                  })
+                  .catch(function (error)
+                  {
+                        console.log(error);
+                  });
+      }, [renderPage]);
 
       const toggleStatus = () =>
       {
@@ -364,14 +352,13 @@ const RenderHumidSensorDetail = (props) =>
                   }).then(res =>
                   {
                         if (!('error' in res.data))
-                        {
                               $(".sensor_humid").val(res.data[0].GIA_TRI);
-                        }
+                        setRenderPage(!renderPage);
                   }).catch(error => { console.log(error); })
             }
       }
 
-      var debounceTimeout1 = 2000;
+      var debounceTimeout1 = 500;
       var debounceTimer1;
 
       const changeMinimum = () =>
@@ -382,6 +369,8 @@ const RenderHumidSensorDetail = (props) =>
                   if ($(".sensor_min").val() === "") $(".sensor_min").val(0);
                   if (parseFloat($(".sensor_min").val()) >= parseFloat($(".sensor_max").val()))
                         $(".sensor_min").val(parseFloat($(".sensor_max").val()) - 1);
+                  if (parseFloat($(".sensor_min").val()) < 0)
+                        $(".sensor_min").val(0);
                   axios.post(
                         'http://localhost:5000/sensor_min', {
                         id: props.id,
@@ -390,7 +379,7 @@ const RenderHumidSensorDetail = (props) =>
             }, debounceTimeout1);
       }
 
-      var debounceTimeout2 = 2000;
+      var debounceTimeout2 = 500;
       var debounceTimer2;
 
       const changeMaximum = () =>
@@ -415,15 +404,15 @@ const RenderHumidSensorDetail = (props) =>
             <>
                   <div className='d-flex flex-column align-items-center justify-content-around w-100 mt-auto' style={ { height: '80%' } }>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
-                                    <strong className={ `${ styles.font } ` }>Tên thiết bị</strong>
+                              <div className="col-md-5 col-5 my-auto">
+                                    <strong className={ `${ styles.font } ` }>Tên cảm biến</strong>
                               </div>
                               <div className="col-md-7 col my-auto">
                                     <p className={ `${ styles.font } sensor_name` }></p>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Trạng thái</strong>
                               </div>
                               <div className="col-md-7 col my-auto">
@@ -433,13 +422,13 @@ const RenderHumidSensorDetail = (props) =>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Độ ẩm hiện tại (%)</strong>
 
                               </div>
                               <div className="col-md-7 col my-auto">
                                     <input type="number" disabled="disabled" style={ {
-                                          width: "60px",
+                                          width: "50px",
                                           backgroundColor: "#D8D8D8",
                                           borderRadius: "10px",
                                           borderWidth: "1px",
@@ -449,14 +438,14 @@ const RenderHumidSensorDetail = (props) =>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Ngưỡng hoạt động (%)</strong>
                               </div>
                               <div className="col-3 my-auto">
                                     <div className="d-flex flex-column flex-md-row">
                                           <strong className={ `${ styles.font }` }>Tối thiểu</strong>
                                           <input type="number" style={ {
-                                                width: "60px",
+                                                width: "50px",
                                                 backgroundColor: "#D8D8D8",
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
@@ -468,7 +457,7 @@ const RenderHumidSensorDetail = (props) =>
                                     <div className="d-flex flex-column flex-md-row">
                                           <strong className={ `${ styles.font }` }>Tối đa</strong>
                                           <input type="number" style={ {
-                                                width: "60px",
+                                                width: "50px",
                                                 backgroundColor: "#D8D8D8",
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
@@ -512,46 +501,49 @@ const RenderHumidSensorDetail = (props) =>
 
 const RenderLightSensorDetail = (props) =>
 {
-      const render = useRef(false);
+      const [renderPage, setRenderPage] = useState(false);
+
       useEffect(() =>
       {
-            if (!render.current)
-            {
-                  axios.post('http://localhost:5000/sensor_detail', {
-                        id: props.id
-                  })
-                        .then(function (response)
+            axios.post('http://localhost:5000/sensor_detail', {
+                  id: props.id
+            })
+                  .then(function (response)
+                  {
+                        $(".sensor_name").text(response.data[0].TEN);
+                        $(".sensor_min").val(response.data[0].NGUONG_DUOI);
+                        $(".sensor_max").val(response.data[0].NGUONG_TREN);
+                        $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
+                        axios.post('http://localhost:5000/sensor_list/latest_data', {
+                              id: props.id,
+                        }).then(res =>
                         {
-                              console.log(response);
-                              $(".sensor_name").text(response.data[0].TEN);
-                              $(".sensor_min").val(response.data[0].NGUONG_DUOI);
-                              $(".sensor_max").val(response.data[0].NGUONG_TREN);
-                              $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
-                              axios.post('http://localhost:5000/sensor_list/latest_data', {
-                                    id: props.id,
-                              }).then(res =>
+                              if (!('error' in res.data))
                               {
-                                    if (!('error' in res.data))
-                                    {
-                                          if (response.data[0].TRANG_THAI)
-                                                $(".sensor_light").val(res.data[0].GIA_TRI);
-                                    }
-                              }).catch(error => { console.log(error); })
+                                    if (response.data[0].TRANG_THAI)
+                                          $(".sensor_light").val(res.data[0].GIA_TRI);
+                              }
+                        }).catch(error => { console.log(error); })
 
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
-                  axios.post('http://localhost:5000/sensor_history', {
-                        id: props.id
                   })
-                        .then(function (response)
+                  .catch(function (error)
+                  {
+                        console.log(error);
+                  });
+            axios.post('http://localhost:5000/sensor_history', {
+                  id: props.id
+            })
+                  .then(function (response)
+                  {
+                        // console.log(response)
+
+                        $(`.${ styles.sensor_history }`).empty();
+
+                        const min = parseFloat($(".sensor_min").val());
+                        const max = parseFloat($(".sensor_max").val());
+                        for (let i = 0; i < response.data.length; i++)
                         {
-                              console.log(response)
-                              const min = parseFloat($(".sensor_min").val());
-                              const max = parseFloat($(".sensor_max").val());
-                              for (let i = 0; i < response.data.length; i++)
+                              if (response.data[i].GIA_TRI)
                               {
                                     if (response.data[i].GIA_TRI > max)
                                     {
@@ -584,14 +576,13 @@ const RenderLightSensorDetail = (props) =>
                                           );
                                     }
                               }
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
-                  render.current = true;
-            }
-      });
+                        }
+                  })
+                  .catch(function (error)
+                  {
+                        console.log(error);
+                  });
+      }, [renderPage]);
 
       const toggleStatus = () =>
       {
@@ -612,11 +603,12 @@ const RenderLightSensorDetail = (props) =>
                         {
                               $(".sensor_light").val(res.data[0].GIA_TRI);
                         }
+                        setRenderPage(!renderPage);
                   }).catch(error => { console.log(error); })
             }
       }
 
-      var debounceTimeout1 = 2000;
+      var debounceTimeout1 = 500;
       var debounceTimer1;
 
       const changeMinimum = () =>
@@ -627,6 +619,8 @@ const RenderLightSensorDetail = (props) =>
                   if ($(".sensor_min").val() === "") $(".sensor_min").val(0);
                   if (parseFloat($(".sensor_min").val()) >= parseFloat($(".sensor_max").val()))
                         $(".sensor_min").val(parseFloat($(".sensor_max").val()) - 1);
+                  if (parseFloat($(".sensor_min").val()) < 0)
+                        $(".sensor_min").val(0);
                   axios.post(
                         'http://localhost:5000/sensor_min', {
                         id: props.id,
@@ -635,7 +629,7 @@ const RenderLightSensorDetail = (props) =>
             }, debounceTimeout1);
       }
 
-      var debounceTimeout2 = 2000;
+      var debounceTimeout2 = 500;
       var debounceTimer2;
 
       const changeMaximum = () =>
@@ -660,15 +654,15 @@ const RenderLightSensorDetail = (props) =>
             <>
                   <div className='d-flex flex-column align-items-center justify-content-around w-100 mt-auto' style={ { height: '80%' } }>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
-                                    <strong className={ `${ styles.font } ` }>Tên thiết bị</strong>
+                              <div className="col-md-5 col-5 my-auto">
+                                    <strong className={ `${ styles.font } ` }>Tên cảm biến</strong>
                               </div>
                               <div className="col-md-7 col my-auto">
                                     <p className={ `${ styles.font } sensor_name` }></p>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Trạng thái</strong>
                               </div>
                               <div className="col-md-7 col my-auto">
@@ -678,13 +672,13 @@ const RenderLightSensorDetail = (props) =>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Cường độ ÁS hiện tại (%)</strong>
 
                               </div>
                               <div className="col-md-7 col my-auto">
                                     <input type="number" disabled="disabled" style={ {
-                                          width: "60px",
+                                          width: "50px",
                                           backgroundColor: "#D8D8D8",
                                           borderRadius: "10px",
                                           borderWidth: "1px",
@@ -694,14 +688,14 @@ const RenderLightSensorDetail = (props) =>
                               </div>
                         </div>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-md-5 col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Ngưỡng hoạt động (%)</strong>
                               </div>
                               <div className="col-3 my-auto">
                                     <div className="d-flex flex-column flex-md-row">
                                           <strong className={ `${ styles.font }` }>Tối thiểu</strong>
                                           <input type="number" style={ {
-                                                width: "60px",
+                                                width: "50px",
                                                 backgroundColor: "#D8D8D8",
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
@@ -713,7 +707,7 @@ const RenderLightSensorDetail = (props) =>
                                     <div className="d-flex flex-column flex-md-row">
                                           <strong className={ `${ styles.font }` }>Tối đa</strong>
                                           <input type="number" style={ {
-                                                width: "60px",
+                                                width: "50px",
                                                 backgroundColor: "#D8D8D8",
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
@@ -757,49 +751,48 @@ const RenderLightSensorDetail = (props) =>
 
 const RenderIRDetail = (props) =>
 {
-      const render = useRef(false);
+      const [renderPage, setRenderPage] = useState(false);
+
       useEffect(() =>
       {
-            if (!render.current)
-            {
-                  axios.post('http://localhost:5000/sensor_detail', {
-                        id: props.id
-                  })
-                        .then(function (response)
-                        {
-                              console.log(response);
-                              $(".sensor_name").text(response.data[0].TEN);
-                              $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
+            axios.post('http://localhost:5000/sensor_detail', {
+                  id: props.id
+            })
+                  .then(function (response)
+                  {
+                        $(".sensor_name").text(response.data[0].TEN);
+                        $(`.${ styles.switch }`).prop("checked", response.data[0].TRANG_THAI);
 
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
-                  axios.post('http://localhost:5000/sensor_history', {
-                        id: props.id
                   })
-                        .then(function (response)
+                  .catch(function (error)
+                  {
+                        console.log(error);
+                  });
+            axios.post('http://localhost:5000/sensor_history', {
+                  id: props.id
+            })
+                  .then(function (response)
+                  {
+                        // console.log(response)
+
+                        $(`.${ styles.ir_sensor_history }`).empty();
+
+                        for (let i = 0; i < response.data.length; i++)
                         {
-                              console.log(response)
-                              for (let i = 0; i < response.data.length; i++)
-                              {
-                                    $(`.${ styles.ir_sensor_history }`).append(
-                                          $("<div>").addClass("row").addClass("w-100").append(
-                                                $("<div>").addClass("col").append(
-                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Phát hiện chuyển động`)
-                                                )
+                              $(`.${ styles.ir_sensor_history }`).append(
+                                    $("<div>").addClass("row").addClass("w-100").append(
+                                          $("<div>").addClass("col").append(
+                                                $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Phát hiện chuyển động`)
                                           )
-                                    );
-                              }
-                        })
-                        .catch(function (error)
-                        {
-                              console.log(error);
-                        });
-                  render.current = true;
-            }
-      });
+                                    )
+                              );
+                        }
+                  })
+                  .catch(function (error)
+                  {
+                        console.log(error);
+                  });
+      }, [renderPage]);
 
       const toggleStatus = () =>
       {
@@ -807,7 +800,11 @@ const RenderIRDetail = (props) =>
                   'http://localhost:5000/sensor_status', {
                   id: props.id,
                   status: $(`.${ styles.switch }`).is(":checked")
-            }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+            }).then(res =>
+            {
+                  console.log(res);
+                  setRenderPage(!renderPage);
+            }).catch(error => { console.log(error); })
       }
 
       return (
@@ -815,8 +812,8 @@ const RenderIRDetail = (props) =>
                   <div className={ `d-flex flex-column align-items-center ${ styles.irdetail } mt-md-5` }>
                         <div className='d-flex flex-column align-items-center justify-content-md-end w-100 mt-5'>
                               <div className="row w-100">
-                                    <div className="col-md-5 col-6 my-auto">
-                                          <strong className={ `${ styles.font } ` }>Tên thiết bị</strong>
+                                    <div className="col-md-5 col-5 my-auto">
+                                          <strong className={ `${ styles.font } ` }>Tên cảm biến</strong>
                                     </div>
                                     <div className="col-md-7 col my-auto">
                                           <p className={ `${ styles.font } sensor_name` }></p>
@@ -825,7 +822,7 @@ const RenderIRDetail = (props) =>
                         </div>
                         <div className='d-flex flex-column align-items-center w-100 mt-md-5 mt-2'>
                               <div className="row w-100">
-                                    <div className="col-md-5 col-6 my-auto">
+                                    <div className="col-md-5 col-5 my-auto">
                                           <strong className={ `${ styles.font }` }>Trạng thái</strong>
                                     </div>
                                     <div className="col-md-7 col my-auto">
@@ -838,7 +835,7 @@ const RenderIRDetail = (props) =>
                   </div >
                   <div className={ `row w-100 ${ styles.irhistory }` } style={ { marginLeft: "0px" } }>
                         <div className="row w-100">
-                              <div className="col-md-5 col-6 my-auto">
+                              <div className="col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Lịch sử hoạt động</strong>
                               </div>
                               <div className="col-md-2 col text-end text-md-center my-auto">
@@ -919,24 +916,25 @@ const SensorDetail = () =>
                   minHeight: "350px",
                   overflow: "auto"
             } }>
-                  <div className={ `h-75 w-75 d-flex flex-column align-items-center ${ styles['sensor_detail'] }` }>
+                  <div className={ `h-75 w-75 ${ styles['sensor_detail'] }` }>
                         <div className="d-flex flex-row justify-content-between align-items-center w-100" style={ { height: "30px" } }>
                               <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } />
                               <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.icons }` } onClick={ goback } />
                         </div>
-                        <div className="w-100 d-flex flex-column align-items-center flex-md-row justify-content-around" style={ { height: "calc(100% - 40px)" } }>
-                              <div className={ `align-items-center mt-0 mt-md-2 ${ styles.image }` }>
-                                    <img id="img_src" alt="sensor_image" className="mt-md-5 mt-0"></img>
+                        <div className="w-100 d-md-flex align-items-center justify-content-around overflow-auto" style={ { height: "calc(100% - 50px)" } }>
+                              <div className={ `mt-0 mt-md-2 ${ styles.image }` }>
+                                    <img id="img_src" alt="sensor_image" className="mt-md-5 mt-0 mx-auto d-block"></img>
                                     <button style={ {
                                           borderRadius: "10px",
                                           backgroundColor: "#4080FF",
                                           color: "white",
-                                          borderColor: "#4080FF"
-                                    } }>
+                                          borderColor: "#4080FF",
+                                          fontSize: '13px'
+                                    } } className='d-block mx-auto mt-1'>
                                           Chọn ảnh
                                     </button>
                               </div>
-                              <div id="sensor_detail_display" className={ `d-flex flex-column ${ styles.detail }` }>
+                              <div id="sensor_detail_display" className={ `d-flex flex-column ${ styles.detail } w-100` }>
                               </div>
                         </div>
                   </div>

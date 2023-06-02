@@ -117,7 +117,7 @@ def get_sensor_history(id):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor(dictionary=True) as cursor:
-            query = "call getHistory('{}')".format(id)
+            query = "call getSensorHistory('{}')".format(id)
             cursor.execute(query)
             result = cursor.fetchall()
             cursor.close()

@@ -14,22 +14,23 @@ const Fan = (props) =>
       const render = useRef(false);
       const increase = (event, id) =>
       {
-            event.preventDefault();
       }
 
       const decrease = (event, id) =>
       {
-            event.preventDefault();
       }
 
       const auto = (event, id) =>
       {
-            event.preventDefault();
+      }
+
+      const toggle = (event, id) =>
+      {
+
       }
 
       useEffect(() =>
       {
-            $(".table_body").empty();
             if (typeof (props.name) === "undefined" || props.name === '')
             {
                   if (!render.current)
@@ -46,13 +47,13 @@ const Fan = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              $(".table_body").empty();
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -64,21 +65,27 @@ const Fan = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
+                                    axios.post('http://localhost:5000/device_list/latest_data', {
+                                          id: response.data[i].MA_TB,
+                                    }).then(res =>
                                     {
-
-                                    }
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      if (!$(`.currentValue_${ response.data[i].MA_TB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); });
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<div>").addClass(styles.button_list)
-                                                .append($("<button>").text("Tăng").addClass(styles.increase).on("click", (event) => { increase(event, response.data[0][i].MA_TB) }))
-                                                .append($("<button>").text("Giảm").addClass(styles.decrease).on("click", (event) => { decrease(event, response.data[0][i].MA_TB) }))
-                                                .append($("<button>").text("Tự động").addClass(styles.auto).on("click", (event) => { auto(event, response.data[0][i].MA_TB) }))
+                                                .append($("<button>").text("Tăng").addClass(styles.increase).on("click", (event) => { increase(event, response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Giảm").addClass(styles.decrease).on("click", (event) => { decrease(event, response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Tự động").addClass(styles.auto).on("click", (event) => { auto(event, response.data[i].MA_TB) }))
                                           )
                                     );
                                     table_row.append($("<td>").addClass("text-center")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).on("click", () => { window.location.href = "./" + response.data[0][i].MA_TB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -97,13 +104,13 @@ const Fan = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              $(".table_body").empty();
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -115,21 +122,27 @@ const Fan = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
+                                    axios.post('http://localhost:5000/device_list/latest_data', {
+                                          id: response.data[i].MA_TB,
+                                    }).then(res =>
                                     {
-
-                                    }
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      if (!$(`.currentValue_${ response.data[i].MA_TB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); });
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<div>").addClass(styles.button_list)
-                                                .append($("<button>").text("Tăng").addClass(styles.increase).on("click", (event) => { increase(event, response.data[0][i].MA_TB) }))
-                                                .append($("<button>").text("Giảm").addClass(styles.decrease).on("click", (event) => { decrease(event, response.data[0][i].MA_TB) }))
-                                                .append($("<button>").text("Tự động").addClass(styles.auto).on("click", (event) => { auto(event, response.data[0][i].MA_TB) }))
+                                                .append($("<button>").text("Tăng").addClass(styles.increase).on("click", (event) => { increase(event, response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Giảm").addClass(styles.decrease).on("click", (event) => { decrease(event, response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Tự động").addClass(styles.auto).on("click", (event) => { auto(event, response.data[i].MA_TB) }))
                                           )
                                     );
                                     table_row.append($("<td>").addClass("text-center")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).on("click", () => { window.location.href = "./" + response.data[0][i].MA_TB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -149,22 +162,23 @@ const Light = (props) =>
 
       const increase = (event, id) =>
       {
-            event.preventDefault();
       }
 
       const decrease = (event, id) =>
       {
-            event.preventDefault();
       }
 
       const auto = (event, id) =>
       {
-            event.preventDefault();
+      }
+
+      const toggle = (event, id) =>
+      {
+
       }
 
       useEffect(() =>
       {
-            $(".table_body").empty();
             if (typeof (props.name) === "undefined" || props.name === '')
             {
                   if (!render.current)
@@ -183,13 +197,13 @@ const Light = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              $(".table_body").empty();
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -201,21 +215,27 @@ const Light = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
+                                    axios.post('http://localhost:5000/device_list/latest_data', {
+                                          id: response.data[i].MA_TB,
+                                    }).then(res =>
                                     {
-
-                                    }
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      if (!$(`.currentValue_${ response.data[i].MA_TB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); });
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<div>").addClass(styles.button_list)
-                                                .append($("<button>").text("Tăng").addClass(styles.increase).on("click", (event) => { increase(event, response.data[0][i].MA_TB) }))
-                                                .append($("<button>").text("Giảm").addClass(styles.decrease).on("click", (event) => { decrease(event, response.data[0][i].MA_TB) }))
-                                                .append($("<button>").text("Tự động").addClass(styles.auto).on("click", (event) => { auto(event, response.data[0][i].MA_TB) }))
+                                                .append($("<button>").text("Tăng").addClass(styles.increase).on("click", (event) => { increase(event, response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Giảm").addClass(styles.decrease).on("click", (event) => { decrease(event, response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Tự động").addClass(styles.auto).on("click", (event) => { auto(event, response.data[i].MA_TB) }))
                                           )
                                     );
                                     table_row.append($("<td>").addClass("text-center")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).on("click", () => { window.location.href = "./" + response.data[0][i].MA_TB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -234,13 +254,13 @@ const Light = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              $(".table_body").empty();
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data[0][i].TRANG_THAI)
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    if (response.data[i].TRANG_THAI)
                                     {
                                           table_row.append($("<td>").addClass("text-center")
                                                 .append($("<button>").text("Tắt").addClass(styles.off))
@@ -252,21 +272,27 @@ const Light = (props) =>
                                                 .append($("<button>").text("Bật").addClass(styles.on))
                                           );
                                     }
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
+                                    table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
+                                    axios.post('http://localhost:5000/device_list/latest_data', {
+                                          id: response.data[i].MA_TB,
+                                    }).then(res =>
                                     {
-
-                                    }
+                                          if (!('error' in res.data))
+                                          {
+                                                if (response.data[i].TRANG_THAI)
+                                                      if (!$(`.currentValue_${ response.data[i].MA_TB }`).children().length)
+                                                            $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                          }
+                                    }).catch(error => { console.log(error); });
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<div>").addClass(styles.button_list)
-                                                .append($("<button>").text("Tăng").addClass(styles.increase).on("click", (event) => { increase(event, response.data[0][i].MA_TB) }))
-                                                .append($("<button>").text("Giảm").addClass(styles.decrease).on("click", (event) => { decrease(event, response.data[0][i].MA_TB) }))
-                                                .append($("<button>").text("Tự động").addClass(styles.auto).on("click", (event) => { auto(event, response.data[0][i].MA_TB) }))
+                                                .append($("<button>").text("Tăng").addClass(styles.increase).on("click", (event) => { increase(event, response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Giảm").addClass(styles.decrease).on("click", (event) => { decrease(event, response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Tự động").addClass(styles.auto).on("click", (event) => { auto(event, response.data[i].MA_TB) }))
                                           )
                                     );
                                     table_row.append($("<td>").addClass("text-center")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).on("click", () => { window.location.href = "./" + response.data[0][i].MA_TB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -286,7 +312,6 @@ const Door = (props) =>
 
       useEffect(() =>
       {
-            $(".table_body").empty();
             if (typeof (props.name) === "undefined" || props.name === '')
             {
                   if (!render.current)
@@ -304,18 +329,27 @@ const Door = (props) =>
                         .then(function (response)
                         {
                               console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+
+                              $(".table_body").empty();
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
-                                    {
-                                    }
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    // table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
+                                    // axios.post('http://localhost:5000/device_list/latest_data', {
+                                    //       id: response.data[i].MA_TB,
+                                    // }).then(res =>
+                                    // {
+                                    //       if (!('error' in res.data))
+                                    //       {
+                                    //             if (response.data[i].TRANG_THAI)
+                                    //                   if (!$(`.currentValue_${ response.data[i].MA_TB }`).children().length)
+                                    //                         $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                    //       }
+                                    // }).catch(error => { console.log(error); });
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_TB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -334,19 +368,26 @@ const Door = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
-                              for (let i = 0; i < response.data[0].length; i++)
+                              $(".table_body").empty();
+                              for (let i = 0; i < response.data.length; i++)
                               {
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
-                                          .append($("<td>").text(response.data[0][i].TEN));
-                                    if (response.data.length === 1)
-                                          table_row.append($("<td>"));
-                                    else
-                                    {
-                                    }
+                                          .append($("<td>").text(response.data[i].TEN));
+                                    // table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
+                                    // axios.post('http://localhost:5000/device_list/latest_data', {
+                                    //       id: response.data[i].MA_TB,
+                                    // }).then(res =>
+                                    // {
+                                    //       if (!('error' in res.data))
+                                    //       {
+                                    //             if (response.data[i].TRANG_THAI)
+                                    //                   if (!$(`.currentValue_${ response.data[i].MA_TB }`).children().length)
+                                    //                         $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
+                                    //       }
+                                    // }).catch(error => { console.log(error); });
                                     table_row.append($("<td>")
-                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[0][i].MA_TB; }))
+                                          .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
                                     );
                                     $(".table_body").append(table_row);
                               }
@@ -407,10 +448,10 @@ const DeviceList = () =>
                               <div className="w-75 d-flex justify-content-start align-items-center" style={ { marginLeft: "10px", position: "relative" } }>
                                     <BsSearch id='scope' className={ `${ styles.search_icon }` } onClick={ search } />
                                     <input className={ `${ styles.search }` } id='search' type='text' placeholder='Find' />
-                                    <button className={ `mx-sm-4 ${ styles.add } d-flex align-items-center` }><TbPlus />Thêm thiết bị</button>
+                                    <button className={ `mx-sm-4 ${ styles.add } d-flex align-items-center` }><TbPlus />Thêm</button>
                               </div>
                               <div className="w-25 d-flex justify-content-end align-items-center">
-                                    <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.close }` } onClick={ goBack } />
+                                    <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "5px" } } className={ `${ styles.close }` } onClick={ goBack } />
                               </div>
                         </div>
                         <div className="w-100 overflow-auto" style={ { height: "calc(100% - 50px)" } }>

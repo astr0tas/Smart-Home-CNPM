@@ -15,7 +15,6 @@ const Device = () =>
       {
             if (render.current)
             {
-                  console.log("Render device page!");
                   $("#device").css("color", "blue");
                   render.current = false;
             }
