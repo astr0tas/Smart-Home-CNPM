@@ -33,20 +33,21 @@ def post_sensor_list():
             return jsonify({'error': 'Failed to get data from database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/sensor_list/find', methods=['POST'])
 def post_sensor_list_by_name():
     data = request.get_json()
     if data:
-        result = sensor.get_sensor_list_by_name(data['type'],data['name'])
+        result = sensor.get_sensor_list_by_name(data['type'], data['name'])
         if result:
             return jsonify(result)
         else:
             return jsonify({'error': 'Failed to get data from database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
+
 @api.route('/sensor_list/latest_data', methods=['POST'])
 def post_sensor_latest_data():
     data = request.get_json()
@@ -71,7 +72,7 @@ def post_sensor_detail():
             return jsonify({'error': 'Failed to get data from database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/sensor_history', methods=['POST'])
 def post_sensor_history():

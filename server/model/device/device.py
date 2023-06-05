@@ -16,7 +16,7 @@ def get_device_list(type):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor(dictionary=True) as cursor:
-            query = "SELECT MA_TB,TEN,TRANG_THAI FROM THIET_BI WHERE MA_TB LIKE '{}%'".format(
+            query = "SELECT MA_TB,TEN,TRANG_THAI,TU_DONG FROM THIET_BI WHERE MA_TB LIKE '{}%'".format(
                 type)
             cursor.execute(query)
             result = cursor.fetchall()
@@ -72,7 +72,7 @@ def get_device_list_by_name(type, name):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor(dictionary=True) as cursor:
-            query = "SELECT MA_TB,TEN,TRANG_THAI FROM THIET_BI WHERE MA_TB LIKE '{}%' AND TEN LIKE '%{}%'".format(
+            query = "SELECT MA_TB,TEN,TRANG_THAI,TU_DONG FROM THIET_BI WHERE MA_TB LIKE '{}%' AND TEN LIKE '%{}%'".format(
                 type, name)
             cursor.execute(query)
             result = cursor.fetchall()
@@ -209,9 +209,9 @@ def update_device_value(id, value):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            print(value, id)
-            query = "UPDATE THIET_BI SET GIA_TRI='{}' WHERE MA_TB='{}'".format(
+            query = "UPDATE THIET_BI SET GIA_TRI='{}' WHERE MA_TB='{}';".format(
                 value, id)
+            cursor.execute(query)
             connection.commit()
             return cursor.rowcount
     except Exception as e:
@@ -220,6 +220,30 @@ def update_device_value(id, value):
     finally:
         connection.close()
 
+
+def update_device_value(id, value): # Not finished
+    try:
+        config = {
+            'user': 'smarthome',
+            'password': 'smarthome123',
+            'host': 'localhost',
+            'database': 'smart_home',
+        }
+        try:
+            connection = mysql.connector.connect(**config)
+        except Exception as e:
+            print("Error connecting to MySQL:", e)
+        with connection.cursor() as cursor:
+            query = "UPDATE THIET_BI SET GIA_TRI='{}' WHERE MA_TB='{}';".format(
+                value, id) # This query is not right
+            cursor.execute(query)
+            connection.commit()
+            return cursor.rowcount
+    except Exception as e:
+        print("Error executing query:", e)
+        return None
+    finally:
+        connection.close()
 
 def update_device_auto(id, value):
     try:
@@ -234,7 +258,6 @@ def update_device_auto(id, value):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            print(value, id)
             query = "UPDATE THIET_BI SET TU_DONG=%s WHERE MA_TB=%s"
             cursor.execute(query, (value, id))
             connection.commit()

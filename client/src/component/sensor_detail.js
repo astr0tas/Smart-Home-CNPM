@@ -880,6 +880,8 @@ const SensorDetail = () =>
             {
                   $("#sensor").css("color", "blue");
                   render.current = true;
+                  if (localStorage.getItem('id') !== null && localStorage.getItem('id').includes("ADMIN"))
+                        $(`.${ styles['device_detail'] }`).removeClass('justify-content-end').addClass('justify-content-between');
                   if (id.includes("HEAT"))
                   {
                         $("#img_src").attr("src", "https://previews.123rf.com/images/vectorhome/vectorhome1907/vectorhome190702084/127670474-temperature-sensor-icon-vector-illustration.jpg");
@@ -917,8 +919,8 @@ const SensorDetail = () =>
                   overflow: "auto"
             } }>
                   <div className={ `h-75 w-75 ${ styles['sensor_detail'] }` }>
-                        <div className="d-flex flex-row justify-content-between align-items-center w-100" style={ { height: "30px" } }>
-                              <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } />
+                        <div className="d-flex flex-row justify-content-end align-items-center w-100" style={ { height: "30px" } }>
+                              { localStorage.getItem('id') !== null && localStorage.getItem('id').includes("ADMIN") && <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } /> }
                               <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.icons }` } onClick={ goback } />
                         </div>
                         <div className="w-100 d-md-flex align-items-center justify-content-around overflow-auto" style={ { height: "calc(100% - 50px)" } }>

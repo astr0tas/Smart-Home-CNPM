@@ -1,3 +1,4 @@
+import axios from "axios";
 import "../css/login.css"
 import React from 'react';
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
@@ -8,6 +9,20 @@ const Login = () =>
       /*
       https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig=
       */
+
+      const handleForm = (e) =>
+      {
+            e.preventDefault();
+            const username = document.getElementsByName("username")[0];
+            const password = document.getElementsByName("password")[0];
+            axios.post("http://localhost:5000/login", { username: username.value, password: password.value })
+                  .then(res =>
+                  {
+                        console.log(res);
+                  })
+                  .catch(err => { console.log(err); })
+      }
+
       return (
             // <div className="login">
             //       <div className="container">
@@ -34,7 +49,7 @@ const Login = () =>
                         <img className="pic" src="https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig=" alt="pic"></img>
                         <div className="d-flex flex-column form">
                               <h1>Đăng nhập</h1>
-                              <form className="d-flex flex-column">
+                              <form className="d-flex flex-column" onSubmit={ handleForm }>
                                     <div className="d-flex align-items-center">
                                           <AiOutlineUser className="icons"></AiOutlineUser>
                                           <input type="text" name='username' placeholder="Tên đăng nhập" className="input"></input>

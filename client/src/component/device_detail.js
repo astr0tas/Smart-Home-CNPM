@@ -27,7 +27,6 @@ const FanDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        console.log(response);
                         setName(response.data[0].TEN);
                         if (onOff.current !== null && onOff.current !== 'undefined')
                               onOff.current.checked = response.data[0].TRANG_THAI;
@@ -52,7 +51,10 @@ const FanDetail = (props) =>
                                           else
                                           {
                                                 if (value.current !== null && value.current !== 'undefined')
+                                                {
                                                       value.current.disabled = true;
+                                                      value.current.value = res.data[0].GIA_TRI;
+                                                }
                                           }
                                     }
                                     else
@@ -62,6 +64,8 @@ const FanDetail = (props) =>
                                                 value.current.disabled = true;
                                                 value.current.value = "";
                                           }
+                                          if (auto.current !== null && auto.current !== "undefined")
+                                                auto.current.disabled = true;
                                           $(`.${ styles.device_history }`).empty();
                                     }
                               }
@@ -76,7 +80,6 @@ const FanDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        console.log(response)
                         for (let i = 0; i < response.data.length; i++)
                         {
                               $(`.${ styles.device_history }`).append(
@@ -96,6 +99,16 @@ const FanDetail = (props) =>
 
       const toggleStatus = (e) =>
       {
+            if (!e.target.checked)
+            {
+                  if (auto.current !== null && auto.current !== "undefined")
+                        auto.current.disabled = true;
+            }
+            else
+            {
+                  if (auto.current !== null && auto.current !== "undefined")
+                        auto.current.disabled = false;
+            }
             axios.post(
                   'http://localhost:5000/device_status', {
                   id: props.id,
@@ -494,7 +507,7 @@ const DoorDetail = (props) =>
                         setName(response.data[0].TEN);
                         if (response.data[0].TRANG_THAI)
                               setStatus({ status_str: "Mở", status_color: "green" });
-                        else if (response.data[0].TRANG_THAI===0)
+                        else if (response.data[0].TRANG_THAI === 0)
                               setStatus({ status_str: "Đóng", status_color: "red" });
                   })
                   .catch(function (error)
@@ -596,6 +609,8 @@ export default function DeviceDetail()
 
       useEffect(() =>
       {
+            if (localStorage.getItem('id') !== null && localStorage.getItem('id').includes("ADMIN"))
+                  $(`.${ styles['device_detail'] }`).removeClass('justify-content-end').addClass('justify-content-between');
             if (type == "fan")
             {
                   if (imgSrc.current !== null && imgSrc.current !== 'undefined')
@@ -625,8 +640,8 @@ export default function DeviceDetail()
                   overflow: "auto"
             } }>
                   <div className={ `h-75 w-75 d-flex flex-column align-items-center ${ styles['device_detail'] }` }>
-                        <div className="d-flex flex-row justify-content-between align-items-center w-100" style={ { height: "30px" } }>
-                              <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } />
+                        <div className="d-flex flex-row justify-content-end align-items-center w-100" style={ { height: "30px" } }>
+                              { localStorage.getItem('id') !== null && localStorage.getItem('id').includes("ADMIN") && <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } /> }
                               <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.icons }` } onClick={ () => { Navigate(-1); } } />
                         </div>
                         <div className="w-100 d-flex flex-column align-items-center flex-md-row justify-content-around" style={ { height: "calc(100% - 40px)" } }>
