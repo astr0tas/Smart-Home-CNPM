@@ -221,7 +221,7 @@ def update_device_value(id, value):
         connection.close()
 
 
-def update_device_value(id, value): # Not finished
+def update_device_value(id, value):
     try:
         config = {
             'user': 'smarthome',
@@ -234,8 +234,7 @@ def update_device_value(id, value): # Not finished
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            query = "UPDATE THIET_BI SET GIA_TRI='{}' WHERE MA_TB='{}';".format(
-                value, id) # This query is not right
+            query = ""  # This query is not right
             cursor.execute(query)
             connection.commit()
             return cursor.rowcount
@@ -244,6 +243,79 @@ def update_device_value(id, value): # Not finished
         return None
     finally:
         connection.close()
+
+
+def device_increase(id, value):
+    try:
+        config = {
+            'user': 'smarthome',
+            'password': 'smarthome123',
+            'host': 'localhost',
+            'database': 'smart_home',
+        }
+        try:
+            connection = mysql.connector.connect(**config)
+        except Exception as e:
+            print("Error connecting to MySQL:", e)
+        with connection.cursor() as cursor:
+            query = ""  # This query is not right
+            cursor.execute(query)
+            connection.commit()
+            return cursor.rowcount
+    except Exception as e:
+        print("Error executing query:", e)
+        return None
+    finally:
+        connection.close()
+
+
+def device_decrease(id, value):
+    try:
+        config = {
+            'user': 'smarthome',
+            'password': 'smarthome123',
+            'host': 'localhost',
+            'database': 'smart_home',
+        }
+        try:
+            connection = mysql.connector.connect(**config)
+        except Exception as e:
+            print("Error connecting to MySQL:", e)
+        with connection.cursor() as cursor:
+            query = ""  # This query is not right
+            cursor.execute(query)
+            connection.commit()
+            return cursor.rowcount
+    except Exception as e:
+        print("Error executing query:", e)
+        return None
+    finally:
+        connection.close()
+
+
+def device_timer(id, start, end):
+    try:
+        config = {
+            'user': 'smarthome',
+            'password': 'smarthome123',
+            'host': 'localhost',
+            'database': 'smart_home',
+        }
+        try:
+            connection = mysql.connector.connect(**config)
+        except Exception as e:
+            print("Error connecting to MySQL:", e)
+        with connection.cursor() as cursor:
+            query = ""  # This query is not right
+            cursor.execute(query)
+            connection.commit()
+            return cursor.rowcount
+    except Exception as e:
+        print("Error executing query:", e)
+        return None
+    finally:
+        connection.close()
+
 
 def update_device_auto(id, value):
     try:

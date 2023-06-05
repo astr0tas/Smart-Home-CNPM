@@ -15,10 +15,32 @@ const Fan = (props) =>
 
       const increase = (id) =>
       {
+            let value = parseFloat($(`.sensorVal_${ id }`).text()) + 5;
+            if (value > 100) value = 100;
+            axios.post(
+                  'http://localhost:5000/device_increase', {
+                  id: id,
+                  value: value
+            }).then(res =>
+            {
+                  console.log(res);
+                  setRender(!render);
+            }).catch(error => { console.log(error); })
       }
 
       const decrease = (id) =>
       {
+            let value = parseFloat($(`.sensorVal_${ id }`).text()) - 5;
+            if (value < 0) value = 0;
+            axios.post(
+                  'http://localhost:5000/device_decrease', {
+                  id: id,
+                  value: value
+            }).then(res =>
+            {
+                  console.log(res);
+                  setRender(!render);
+            }).catch(error => { console.log(error); })
       }
 
       const auto = (id, auto) =>
@@ -34,19 +56,8 @@ const Fan = (props) =>
             }).catch(error => { console.log(error); })
       }
 
-      const toggle = (id, status, auto) =>
+      const toggle = (id, status) =>
       {
-            if (status)
-            {
-                  $(`.off_${ id }`).css("display", "inline-block");
-                  $(`.on_${ id }`).css("display", "none");
-                  $(`.setAuto_${ id }`).css("display", "inline-block");
-                  $(`.sensorVal_${ id }`).css("display", "inline-block");
-                  if (auto)
-                        $(`.value_${ id }`).css("display", "none");
-                  else
-                        $(`.value_${ id }`).css("display", "inline-block");
-            }
             axios.post(
                   'http://localhost:5000/device_status', {
                   id: id,
@@ -82,8 +93,8 @@ const Fan = (props) =>
                                           .append($("<th>").attr("scope", "row").text(i + 1))
                                           .append($("<td>").text(response.data[i].TEN));
                                     table_row.append($("<td>").addClass("text-center")
-                                          .append($("<button>").text("Tắt").addClass(styles.off).addClass(`off_${ response.data[i].MA_TB }`).on("click", e => { toggle(response.data[i].MA_TB, false, response.data[i].TU_DONG); }))
-                                          .append($("<button>").text("Bật").addClass(styles.on).addClass(`on_${ response.data[i].MA_TB }`).on("click", e => { toggle(response.data[i].MA_TB, true, response.data[i].TU_DONG); }))
+                                          .append($("<button>").text("Tắt").addClass(styles.off).addClass(`off_${ response.data[i].MA_TB }`).on("click", () => { toggle(response.data[i].MA_TB, false); }))
+                                          .append($("<button>").text("Bật").addClass(styles.on).addClass(`on_${ response.data[i].MA_TB }`).on("click", () => { toggle(response.data[i].MA_TB, true); }))
                                     );
                                     table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
                                     axios.post('http://localhost:5000/device_list/latest_data', {
@@ -99,9 +110,9 @@ const Fan = (props) =>
                                     }).catch(error => { console.log(error); });
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<div>").addClass(styles.button_list)
-                                                .append($("<button>").text("Tăng").addClass(styles.increase).addClass(`value_${ response.data[i].MA_TB }`).on("click", (event) => { increase(response.data[i].MA_TB) }))
-                                                .append($("<button>").text("Giảm").addClass(styles.decrease).addClass(`value_${ response.data[i].MA_TB }`).on("click", (event) => { decrease(response.data[i].MA_TB) }))
-                                                .append($("<button>").text("Tự động").addClass(styles.auto).addClass(`setAuto_${ response.data[i].MA_TB }`).on("click", (event) => { auto(response.data[i].MA_TB, !response.data[i].TU_DONG) }))
+                                                .append($("<button>").text("Tăng").addClass(styles.increase).addClass(`value_${ response.data[i].MA_TB }`).on("click", () => { increase(response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Giảm").addClass(styles.decrease).addClass(`value_${ response.data[i].MA_TB }`).on("click", () => { decrease(response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Tự động").addClass(styles.auto).addClass(`setAuto_${ response.data[i].MA_TB }`).on("click", () => { auto(response.data[i].MA_TB, !response.data[i].TU_DONG) }))
                                           )
                                     );
                                     table_row.append($("<td>").addClass("text-center")
@@ -150,8 +161,8 @@ const Fan = (props) =>
                                           .append($("<th>").attr("scope", "row").text(i + 1))
                                           .append($("<td>").text(response.data[i].TEN));
                                     table_row.append($("<td>").addClass("text-center")
-                                          .append($("<button>").text("Tắt").addClass(styles.off).addClass(`off_${ response.data[i].MA_TB }`).on("click", e => { toggle(response.data[i].MA_TB, false, response.data[i].TU_DONG); }))
-                                          .append($("<button>").text("Bật").addClass(styles.on).addClass(`on_${ response.data[i].MA_TB }`).on("click", e => { toggle(response.data[i].MA_TB, true, response.data[i].TU_DONG); }))
+                                          .append($("<button>").text("Tắt").addClass(styles.off).addClass(`off_${ response.data[i].MA_TB }`).on("click", () => { toggle(response.data[i].MA_TB, false); }))
+                                          .append($("<button>").text("Bật").addClass(styles.on).addClass(`on_${ response.data[i].MA_TB }`).on("click", () => { toggle(response.data[i].MA_TB, true); }))
                                     );
                                     table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
                                     axios.post('http://localhost:5000/device_list/latest_data', {
@@ -167,9 +178,9 @@ const Fan = (props) =>
                                     }).catch(error => { console.log(error); });
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<div>").addClass(styles.button_list)
-                                                .append($("<button>").text("Tăng").addClass(styles.increase).addClass(`value_${ response.data[i].MA_TB }`).on("click", (event) => { increase(response.data[i].MA_TB) }))
-                                                .append($("<button>").text("Giảm").addClass(styles.decrease).addClass(`value_${ response.data[i].MA_TB }`).on("click", (event) => { decrease(response.data[i].MA_TB) }))
-                                                .append($("<button>").text("Tự động").addClass(styles.auto).addClass(`setAuto_${ response.data[i].MA_TB }`).on("click", (event) => { auto(response.data[i].MA_TB, !response.data[i].TU_DONG) }))
+                                                .append($("<button>").text("Tăng").addClass(styles.increase).addClass(`value_${ response.data[i].MA_TB }`).on("click", () => { increase(response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Giảm").addClass(styles.decrease).addClass(`value_${ response.data[i].MA_TB }`).on("click", () => { decrease(response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Tự động").addClass(styles.auto).addClass(`setAuto_${ response.data[i].MA_TB }`).on("click", () => { auto(response.data[i].MA_TB, !response.data[i].TU_DONG) }))
                                           )
                                     );
                                     table_row.append($("<td>").addClass("text-center")
@@ -212,10 +223,32 @@ const Light = (props) =>
 
       const increase = (id) =>
       {
+            let value = parseFloat($(`.sensorVal_${ id }`).text()) + 5;
+            if (value > 100) value = 100;
+            axios.post(
+                  'http://localhost:5000/device_increase', {
+                  id: id,
+                  value: value
+            }).then(res =>
+            {
+                  console.log(res);
+                  setRender(!render);
+            }).catch(error => { console.log(error); })
       }
 
       const decrease = (id) =>
       {
+            let value = parseFloat($(`.sensorVal_${ id }`).text()) - 5;
+            if (value < 0) value = 0;
+            axios.post(
+                  'http://localhost:5000/device_decrease', {
+                  id: id,
+                  value: value
+            }).then(res =>
+            {
+                  console.log(res);
+                  setRender(!render);
+            }).catch(error => { console.log(error); })
       }
 
       const auto = (id, auto) =>
@@ -231,19 +264,8 @@ const Light = (props) =>
             }).catch(error => { console.log(error); })
       }
 
-      const toggle = (event, id, status, auto) =>
+      const toggle = (id, status) =>
       {
-            if (status)
-            {
-                  $(`.off_${ id }`).css("display", "inline-block");
-                  $(`.on_${ id }`).css("display", "none");
-                  $(`.setAuto_${ id }`).css("display", "inline-block");
-                  $(`.sensorVal_${ id }`).css("display", "inline-block");
-                  if (auto)
-                        $(`.value_${ id }`).css("display", "none");
-                  else
-                        $(`.value_${ id }`).css("display", "inline-block");
-            }
             axios.post(
                   'http://localhost:5000/device_status', {
                   id: id,
@@ -254,6 +276,7 @@ const Light = (props) =>
                   setRender(!render);
             }).catch(error => { console.log(error); })
       }
+
 
       useEffect(() =>
       {
@@ -280,8 +303,8 @@ const Light = (props) =>
                                           .append($("<th>").attr("scope", "row").text(i + 1))
                                           .append($("<td>").text(response.data[i].TEN));
                                     table_row.append($("<td>").addClass("text-center")
-                                          .append($("<button>").text("Tắt").addClass(styles.off).addClass(`off_${ response.data[i].MA_TB }`).on("click", e => { toggle(response.data[i].MA_TB, false, response.data[i].TU_DONG); }))
-                                          .append($("<button>").text("Bật").addClass(styles.on).addClass(`on_${ response.data[i].MA_TB }`).on("click", e => { toggle(response.data[i].MA_TB, true, response.data[i].TU_DONG); }))
+                                          .append($("<button>").text("Tắt").addClass(styles.off).addClass(`off_${ response.data[i].MA_TB }`).on("click", () => { toggle(response.data[i].MA_TB, false); }))
+                                          .append($("<button>").text("Bật").addClass(styles.on).addClass(`on_${ response.data[i].MA_TB }`).on("click", () => { toggle(response.data[i].MA_TB, true); }))
                                     );
                                     table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
                                     axios.post('http://localhost:5000/device_list/latest_data', {
@@ -297,9 +320,9 @@ const Light = (props) =>
                                     }).catch(error => { console.log(error); });
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<div>").addClass(styles.button_list)
-                                                .append($("<button>").text("Tăng").addClass(styles.increase).addClass(`value_${ response.data[i].MA_TB }`).on("click", (event) => { increase(response.data[i].MA_TB) }))
-                                                .append($("<button>").text("Giảm").addClass(styles.decrease).addClass(`value_${ response.data[i].MA_TB }`).on("click", (event) => { decrease(response.data[i].MA_TB) }))
-                                                .append($("<button>").text("Tự động").addClass(styles.auto).addClass(`setAuto_${ response.data[i].MA_TB }`).on("click", (event) => { auto(response.data[i].MA_TB, !response.data[i].TU_DONG) }))
+                                                .append($("<button>").text("Tăng").addClass(styles.increase).addClass(`value_${ response.data[i].MA_TB }`).on("click", () => { increase(response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Giảm").addClass(styles.decrease).addClass(`value_${ response.data[i].MA_TB }`).on("click", () => { decrease(response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Tự động").addClass(styles.auto).addClass(`setAuto_${ response.data[i].MA_TB }`).on("click", () => { auto(response.data[i].MA_TB, !response.data[i].TU_DONG) }))
                                           )
                                     );
                                     table_row.append($("<td>").addClass("text-center")
@@ -308,8 +331,8 @@ const Light = (props) =>
                                     $(".table_body").append(table_row);
                                     if (response.data[i].TRANG_THAI)
                                     {
-                                          $(`.off_${ response.data[i].MA_TB }`).css("display", "none");
-                                          $(`.on_${ response.data[i].MA_TB }`).css("display", "inline-block");
+                                          $(`.on_${ response.data[i].MA_TB }`).css("display", "none");
+                                          $(`.off_${ response.data[i].MA_TB }`).css("display", "inline-block");
                                           $(`.setAuto_${ response.data[i].MA_TB }`).css("display", "inline-block");
                                           $(`.sensorVal_${ response.data[i].MA_TB }`).css("display", "inline-block");
                                           if (response.data[i].TU_DONG)
@@ -319,8 +342,8 @@ const Light = (props) =>
                                     }
                                     else
                                     {
-                                          $(`.on_${ response.data[i].MA_TB }`).css("display", "none");
-                                          $(`.off_${ response.data[i].MA_TB }`).css("display", "inline-block");
+                                          $(`.off_${ response.data[i].MA_TB }`).css("display", "none");
+                                          $(`.on_${ response.data[i].MA_TB }`).css("display", "inline-block");
                                           $(`.value_${ response.data[i].MA_TB }`).css("display", "none");
                                           $(`.setAuto_${ response.data[i].MA_TB }`).css("display", "none");
                                           $(`.sensorVal_${ response.data[i].MA_TB }`).css("display", "none");
@@ -348,8 +371,8 @@ const Light = (props) =>
                                           .append($("<th>").attr("scope", "row").text(i + 1))
                                           .append($("<td>").text(response.data[i].TEN));
                                     table_row.append($("<td>").addClass("text-center")
-                                          .append($("<button>").text("Tắt").addClass(styles.off).addClass(`off_${ response.data[i].MA_TB }`).on("click", e => { toggle(response.data[i].MA_TB, false, response.data[i].TU_DONG); }))
-                                          .append($("<button>").text("Bật").addClass(styles.on).addClass(`on_${ response.data[i].MA_TB }`).on("click", e => { toggle(response.data[i].MA_TB, true, response.data[i].TU_DONG); }))
+                                          .append($("<button>").text("Tắt").addClass(styles.off).addClass(`off_${ response.data[i].MA_TB }`).on("click", () => { toggle(response.data[i].MA_TB, false); }))
+                                          .append($("<button>").text("Bật").addClass(styles.on).addClass(`on_${ response.data[i].MA_TB }`).on("click", () => { toggle(response.data[i].MA_TB, true); }))
                                     );
                                     table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
                                     axios.post('http://localhost:5000/device_list/latest_data', {
@@ -365,9 +388,9 @@ const Light = (props) =>
                                     }).catch(error => { console.log(error); });
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<div>").addClass(styles.button_list)
-                                                .append($("<button>").text("Tăng").addClass(styles.increase).addClass(`value_${ response.data[i].MA_TB }`).on("click", (event) => { increase(response.data[i].MA_TB) }))
-                                                .append($("<button>").text("Giảm").addClass(styles.decrease).addClass(`value_${ response.data[i].MA_TB }`).on("click", (event) => { decrease(response.data[i].MA_TB) }))
-                                                .append($("<button>").text("Tự động").addClass(styles.auto).addClass(`setAuto_${ response.data[i].MA_TB }`).on("click", (event) => { auto(response.data[i].MA_TB, !response.data[i].TU_DONG) }))
+                                                .append($("<button>").text("Tăng").addClass(styles.increase).addClass(`value_${ response.data[i].MA_TB }`).on("click", () => { increase(response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Giảm").addClass(styles.decrease).addClass(`value_${ response.data[i].MA_TB }`).on("click", () => { decrease(response.data[i].MA_TB) }))
+                                                .append($("<button>").text("Tự động").addClass(styles.auto).addClass(`setAuto_${ response.data[i].MA_TB }`).on("click", () => { auto(response.data[i].MA_TB, !response.data[i].TU_DONG) }))
                                           )
                                     );
                                     table_row.append($("<td>").addClass("text-center")
@@ -376,8 +399,8 @@ const Light = (props) =>
                                     $(".table_body").append(table_row);
                                     if (response.data[i].TRANG_THAI)
                                     {
-                                          $(`.off_${ response.data[i].MA_TB }`).css("display", "none");
-                                          $(`.on_${ response.data[i].MA_TB }`).css("display", "inline-block");
+                                          $(`.on_${ response.data[i].MA_TB }`).css("display", "none");
+                                          $(`.off_${ response.data[i].MA_TB }`).css("display", "inline-block");
                                           $(`.setAuto_${ response.data[i].MA_TB }`).css("display", "inline-block");
                                           $(`.sensorVal_${ response.data[i].MA_TB }`).css("display", "inline-block");
                                           if (response.data[i].TU_DONG)
@@ -387,8 +410,8 @@ const Light = (props) =>
                                     }
                                     else
                                     {
-                                          $(`.on_${ response.data[i].MA_TB }`).css("display", "none");
-                                          $(`.off_${ response.data[i].MA_TB }`).css("display", "inline-block");
+                                          $(`.off_${ response.data[i].MA_TB }`).css("display", "none");
+                                          $(`.on_${ response.data[i].MA_TB }`).css("display", "inline-block");
                                           $(`.value_${ response.data[i].MA_TB }`).css("display", "none");
                                           $(`.setAuto_${ response.data[i].MA_TB }`).css("display", "none");
                                           $(`.sensorVal_${ response.data[i].MA_TB }`).css("display", "none");
@@ -414,10 +437,8 @@ const Door = (props) =>
                   $(".header")
                         .append($("<th>").attr("scope", "col").addClass("col-1").addClass(styles.table_header).text("#"))
                         .append($("<th>").attr("scope", "col").addClass("col-2").addClass(styles.table_header).text("Tên thiết bị"))
-                        .append($("<th>").attr("scope", "col").addClass("col-1").addClass("text-center").addClass(styles.table_header).text("Bật/tắt"))
-                        .append($("<th>").attr("scope", "col").addClass("col-2").addClass("text-center").addClass(styles.table_header).text("Tốc độ (%)"))
-                        .append($("<th>").attr("scope", "col").addClass("col-4").addClass("text-center").addClass(styles.table_header).text("Điều khiển"))
-                        .append($("<th>").attr("scope", "col").addClass("col-2").addClass("text-center").addClass(styles.table_header).text("Tác vụ"));
+                        .append($("<th>").attr("scope", "col").addClass("col-1").addClass("text-center").addClass(styles.table_header).text("Trạng thái"))
+                        .append($("<th>").attr("scope", "col").addClass("col-1").addClass("text-center").addClass(styles.table_header).text("Tác vụ"));
 
                   axios.post('http://localhost:5000/device_list', {
                         type: "DOOR",
@@ -432,6 +453,7 @@ const Door = (props) =>
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
                                           .append($("<td>").text(response.data[i].TEN));
+                                    const td = $("<td>").addClass("text-center");
                                     // table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
                                     // axios.post('http://localhost:5000/device_list/latest_data', {
                                     //       id: response.data[i].MA_TB,
@@ -444,7 +466,8 @@ const Door = (props) =>
                                     //                         $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                                     //       }
                                     // }).catch(error => { console.log(error); });
-                                    table_row.append($("<td>")
+                                    table_row.append(td);
+                                    table_row.append($("<td>").addClass("text-center")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
                                     );
                                     $(".table_body").append(table_row);
@@ -470,6 +493,7 @@ const Door = (props) =>
                                     let table_row = $("<tr>")
                                           .append($("<th>").attr("scope", "row").text(i + 1))
                                           .append($("<td>").text(response.data[i].TEN));
+                                    const td = $("<td>").addClass("text-center");
                                     // table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
                                     // axios.post('http://localhost:5000/device_list/latest_data', {
                                     //       id: response.data[i].MA_TB,
@@ -482,7 +506,8 @@ const Door = (props) =>
                                     //                         $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
                                     //       }
                                     // }).catch(error => { console.log(error); });
-                                    table_row.append($("<td>")
+                                    table_row.append(td);
+                                    table_row.append($("<td>").addClass("text-center")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
                                     );
                                     $(".table_body").append(table_row);

@@ -98,6 +98,45 @@ def post_update_device_value():
             return jsonify({'error': 'Failed to update data to database'})
     else:
         return jsonify({'error': 'No data received'})
+    
+
+@api.route('/device_increase', methods=['POST'])
+def post_device_increase():
+    data = request.get_json()
+    if data:
+        result = device.device_increase(data['id'], data['value'])
+        if result:
+            return jsonify({"message": "Database updated!"})
+        else:
+            return jsonify({'error': 'Failed to update data to database'})
+    else:
+        return jsonify({'error': 'No data received'})
+    
+
+@api.route('/device_decrease', methods=['POST'])
+def post_device_decrease():
+    data = request.get_json()
+    if data:
+        result = device.device_decrease(data['id'], data['value'])
+        if result:
+            return jsonify({"message": "Database updated!"})
+        else:
+            return jsonify({'error': 'Failed to update data to database'})
+    else:
+        return jsonify({'error': 'No data received'})
+    
+
+@api.route('/device_timer', methods=['POST'])
+def post_device_timer():
+    data = request.get_json()
+    if data:
+        result = device.device_timer(data['id'], data['start'],data['end'])
+        if result:
+            return jsonify({"message": "Database updated!"})
+        else:
+            return jsonify({'error': 'Failed to update data to database'})
+    else:
+        return jsonify({'error': 'No data received'})
 
 
 @api.route('/device_history', methods=['POST'])

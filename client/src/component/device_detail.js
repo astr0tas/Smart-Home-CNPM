@@ -32,6 +32,28 @@ const FanDetail = (props) =>
                               onOff.current.checked = response.data[0].TRANG_THAI;
                         if (auto.current !== null && auto.current !== 'undefined')
                               auto.current.checked = response.data[0].TU_DONG;
+                        if (response.data[0].TRANG_THAI)
+                        {
+                              if (auto.current !== null && auto.current !== "undefined")
+                                    auto.current.disabled = false;
+                              if (value.current !== null && value.current !== 'undefined')
+                              {
+                                    if (!response.data[0].TU_DONG)
+                                          value.current.disabled = false;
+                                    else
+                                          value.current.disabled = true;
+                              }
+                        }
+                        else
+                        {
+                              if (value.current !== null && value.current !== 'undefined')
+                              {
+                                    value.current.disabled = true;
+                                    value.current.value = "";
+                              }
+                              if (auto.current !== null && auto.current !== "undefined")
+                                    auto.current.disabled = true;
+                        }
                         axios.post('http://localhost:5000/device_list/latest_data', {
                               id: props.id,
                         }).then(res =>
@@ -40,33 +62,8 @@ const FanDetail = (props) =>
                               {
                                     if (response.data[0].TRANG_THAI)
                                     {
-                                          if (!response.data[0].TU_DONG)
-                                          {
-                                                if (value.current !== null && value.current !== 'undefined')
-                                                {
-                                                      value.current.disabled = false;
-                                                      value.current.value = res.data[0].GIA_TRI;
-                                                }
-                                          }
-                                          else
-                                          {
-                                                if (value.current !== null && value.current !== 'undefined')
-                                                {
-                                                      value.current.disabled = true;
-                                                      value.current.value = res.data[0].GIA_TRI;
-                                                }
-                                          }
-                                    }
-                                    else
-                                    {
                                           if (value.current !== null && value.current !== 'undefined')
-                                          {
-                                                value.current.disabled = true;
-                                                value.current.value = "";
-                                          }
-                                          if (auto.current !== null && auto.current !== "undefined")
-                                                auto.current.disabled = true;
-                                          $(`.${ styles.device_history }`).empty();
+                                                value.current.value = res.data[0].GIA_TRI;
                                     }
                               }
                         }).catch(error => { console.log(error); })
@@ -99,16 +96,6 @@ const FanDetail = (props) =>
 
       const toggleStatus = (e) =>
       {
-            if (!e.target.checked)
-            {
-                  if (auto.current !== null && auto.current !== "undefined")
-                        auto.current.disabled = true;
-            }
-            else
-            {
-                  if (auto.current !== null && auto.current !== "undefined")
-                        auto.current.disabled = false;
-            }
             axios.post(
                   'http://localhost:5000/device_status', {
                   id: props.id,
@@ -151,6 +138,22 @@ const FanDetail = (props) =>
                         setRender(!render);
                   }).catch(error => { console.log(error); })
             }, 500);
+      }
+
+      const setTime = () =>
+      {
+            const start = $('.timeStart').val(), end = $('.timeEnd').val();
+            if (start !== '' && end !== '')
+            {
+                  axios.post('http://localhost:5000/device_timer', {
+                        id: props.id,
+                        start: start,
+                        end: end
+                  }).then(res =>
+                  {
+                        console.log(res);
+                  }).catch(err => { console.log(err); })
+            }
       }
 
       return (
@@ -208,7 +211,7 @@ const FanDetail = (props) =>
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
                                                 paddingLeft: "10px"
-                                          } } className='ms-md-3' />
+                                          } } className={ `ms-md-3 timeStart` } onChange={ setTime } />
                                     </div>
                               </div>
                               <div className="col-2 my-auto">
@@ -219,7 +222,7 @@ const FanDetail = (props) =>
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
                                                 paddingLeft: "10px"
-                                          } } className='ms-md-3' />
+                                          } } className='ms-md-3 timeEnd' onChange={ setTime } />
                                     </div>
                               </div>
                         </div>
@@ -274,12 +277,33 @@ const LightDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        console.log(response);
                         setName(response.data[0].TEN);
                         if (onOff.current !== null && onOff.current !== 'undefined')
                               onOff.current.checked = response.data[0].TRANG_THAI;
                         if (auto.current !== null && auto.current !== 'undefined')
                               auto.current.checked = response.data[0].TU_DONG;
+                        if (response.data[0].TRANG_THAI)
+                        {
+                              if (auto.current !== null && auto.current !== "undefined")
+                                    auto.current.disabled = false;
+                              if (value.current !== null && value.current !== 'undefined')
+                              {
+                                    if (!response.data[0].TU_DONG)
+                                          value.current.disabled = false;
+                                    else
+                                          value.current.disabled = true;
+                              }
+                        }
+                        else
+                        {
+                              if (value.current !== null && value.current !== 'undefined')
+                              {
+                                    value.current.disabled = true;
+                                    value.current.value = "";
+                              }
+                              if (auto.current !== null && auto.current !== "undefined")
+                                    auto.current.disabled = true;
+                        }
                         axios.post('http://localhost:5000/device_list/latest_data', {
                               id: props.id,
                         }).then(res =>
@@ -288,28 +312,8 @@ const LightDetail = (props) =>
                               {
                                     if (response.data[0].TRANG_THAI)
                                     {
-                                          if (!response.data[0].TU_DONG)
-                                          {
-                                                if (value.current !== null && value.current !== 'undefined')
-                                                {
-                                                      value.current.disabled = false;
-                                                      value.current.value = res.data[0].GIA_TRI;
-                                                }
-                                          }
-                                          else
-                                          {
-                                                if (value.current !== null && value.current !== 'undefined')
-                                                      value.current.disabled = true;
-                                          }
-                                    }
-                                    else
-                                    {
                                           if (value.current !== null && value.current !== 'undefined')
-                                          {
-                                                value.current.disabled = true;
-                                                value.current.value = "";
-                                          }
-                                          $(`.${ styles.device_history }`).empty();
+                                                value.current.value = res.data[0].GIA_TRI;
                                     }
                               }
                         }).catch(error => { console.log(error); })
@@ -323,7 +327,6 @@ const LightDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        console.log(response)
                         for (let i = 0; i < response.data.length; i++)
                         {
                               $(`.${ styles.device_history }`).append(
@@ -387,6 +390,22 @@ const LightDetail = (props) =>
             }, 500);
       }
 
+      const setTime = () =>
+      {
+            const start = $('.timeStart').val(), end = $('.timeEnd').val();
+            if (start !== '' && end !== '')
+            {
+                  axios.post('http://localhost:5000/device_timer', {
+                        id: props.id,
+                        start: start,
+                        end: end
+                  }).then(res =>
+                  {
+                        console.log(res);
+                  }).catch(err => { console.log(err); })
+            }
+      }
+
       return (
             <>
                   <div className='d-flex flex-column align-items-center justify-content-around w-100 mt-5 h-50'>
@@ -442,7 +461,7 @@ const LightDetail = (props) =>
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
                                                 paddingLeft: "10px"
-                                          } } className='ms-md-3' />
+                                          } } className='ms-md-3 timeStart' onChange={ setTime } />
                                     </div>
                               </div>
                               <div className="col-2 my-auto">
@@ -453,7 +472,7 @@ const LightDetail = (props) =>
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
                                                 paddingLeft: "10px"
-                                          } } className='ms-md-3' />
+                                          } } className='ms-md-3 timeEnd' onChange={ setTime } />
                                     </div>
                               </div>
                         </div>
@@ -505,10 +524,18 @@ const DoorDetail = (props) =>
                   .then(function (response)
                   {
                         setName(response.data[0].TEN);
-                        if (response.data[0].TRANG_THAI)
-                              setStatus({ status_str: "Mở", status_color: "green" });
-                        else if (response.data[0].TRANG_THAI === 0)
-                              setStatus({ status_str: "Đóng", status_color: "red" });
+                        axios.post('http://localhost:5000/device_list/latest_data', {
+                              id: props.id,
+                        }).then(res =>
+                        {
+                              if (!('error' in res.data))
+                              {
+                                    if (response.data[0].TRANG_THAI)
+                                          setStatus({ status_str: "Mở", status_color: "green" });
+                                    else if (response.data[0].TRANG_THAI === 0)
+                                          setStatus({ status_str: "Đóng", status_color: "red" });
+                              }
+                        }).catch(error => { console.log(error); })
                   })
                   .catch(function (error)
                   {
@@ -609,6 +636,7 @@ export default function DeviceDetail()
 
       useEffect(() =>
       {
+            $("#device").css("color", "blue");
             if (localStorage.getItem('id') !== null && localStorage.getItem('id').includes("ADMIN"))
                   $(`.${ styles['device_detail'] }`).removeClass('justify-content-end').addClass('justify-content-between');
             if (type == "fan")
