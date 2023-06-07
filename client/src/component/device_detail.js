@@ -637,7 +637,7 @@ export default function DeviceDetail()
       useEffect(() =>
       {
             $("#device").css("color", "blue");
-            if (localStorage.getItem('id') !== null && localStorage.getItem('id').includes("ADMIN"))
+            if (localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN"))
                   $(`.${ styles['device_detail'] }`).removeClass('justify-content-end').addClass('justify-content-between');
             if (type == "fan")
             {
@@ -669,7 +669,7 @@ export default function DeviceDetail()
             } }>
                   <div className={ `h-75 w-75 d-flex flex-column align-items-center ${ styles['device_detail'] }` }>
                         <div className="d-flex flex-row justify-content-end align-items-center w-100" style={ { height: "30px" } }>
-                              { localStorage.getItem('id') !== null && localStorage.getItem('id').includes("ADMIN") && <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } /> }
+                              { localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN") && <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } /> }
                               <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.icons }` } onClick={ () => { Navigate(-1); } } />
                         </div>
                         <div className="w-100 d-flex flex-column align-items-center flex-md-row justify-content-around" style={ { height: "calc(100% - 40px)" } }>

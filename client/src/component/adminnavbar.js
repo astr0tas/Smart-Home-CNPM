@@ -3,7 +3,7 @@ import { React, useEffect, useRef } from 'react';
 import { BsFillBellFill, BsFillPersonFill, BsThermometerHalf } from "react-icons/bs";
 import { TiLightbulb } from "react-icons/ti";
 import { FaUserCircle } from "react-icons/fa";
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import $ from 'jquery';
 import { AiOutlineMenu } from "react-icons/ai";
 
@@ -12,6 +12,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 function AdminNavbar()
 {
       const render = useRef(false);
+      const Navigate = useNavigate();
 
       const toggleMenu = () =>
       {
@@ -34,6 +35,8 @@ function AdminNavbar()
 
       useEffect(() =>
       {
+            if (localStorage.getItem('username') === null || localStorage.getItem('username') === 'undefined')
+                  Navigate('/');
             if (!render.current)
             {
                   render.current = true;

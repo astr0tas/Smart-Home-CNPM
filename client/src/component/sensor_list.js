@@ -661,7 +661,7 @@ const SensorList = () =>
                               <div className="w-75 d-flex justify-content-start align-items-center" style={ { marginLeft: "10px", position: "relative" } }>
                                     <BsSearch id='scope' className={ `${ styles.search_icon }` } onClick={ search } />
                                     <input className={ `${ styles.search }` } id='search' type='text' placeholder='Find' />
-                                    { localStorage.getItem('id') !== null && localStorage.getItem('id').includes("ADMIN") && <button className={ `mx-sm-4 ${ styles.add } d-flex align-items-center` }><TbPlus />Thêm</button>}
+                                    { localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN") && <button className={ `mx-sm-4 ${ styles.add } d-flex align-items-center` }><TbPlus />Thêm</button>}
                               </div>
                               <div className="w-25 d-flex justify-content-end align-items-center">
                                     <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "5px" } } className={ `${ styles.close }` } onClick={ goBack } />
