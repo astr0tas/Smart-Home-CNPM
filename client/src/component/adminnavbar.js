@@ -61,14 +61,14 @@ function AdminNavbar()
                         <AiOutlineMenu size={ 25 } className="dropdown" onClick={ toggleMenu } type='button'></AiOutlineMenu>
                         <div className='d-flex flex-column flex-md-row align-items-center nav h-100 w-100'>
                               <AiOutlineMenu size={ 25 } className="dropdown" onClick={ toggleMenu } type='button'></AiOutlineMenu>
-                              <img className='smart-home' src="https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig="></img>
+                              <img alt="" className='smart-home' src="https://media.istockphoto.com/id/1218148871/vector/smart-home-emblem-for-digital-technologies-vector-illustration-eps-10.jpg?s=612x612&w=0&k=20&c=XBQEUXQu4VQhH6G-JgjGwUTiHsNqsL1UdA4PGWbvPig="></img>
                               <div className='d-flex flex-column flex-md-row align-items-center justify-content-around tabs'>
                                     <a href='/admin/device' id="device" className='d-flex align-items-center tab'><TiLightbulb></TiLightbulb>Thiết bị</a>
                                     <a href='/admin/sensor' id="sensor" className='d-flex align-items-center tab'><BsThermometerHalf></BsThermometerHalf>Cảm biến</a>
                                     <a href='#' id="notice" className='d-flex align-items-center tab'><BsFillBellFill></BsFillBellFill>Thông báo</a>
                                     <a href='#' id="account" className='d-flex align-items-center tab'><BsFillPersonFill></BsFillPersonFill>Tài khoản</a>
                               </div>
-                              <FaUserCircle className='userpic' />
+                              <a href='/admin/info' style={{color:'black'}} id='info'><FaUserCircle className='userpic' /></a>
                         </div>
                   </div>
                   <div className='page'>

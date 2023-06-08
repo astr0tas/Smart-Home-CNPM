@@ -639,14 +639,14 @@ export default function DeviceDetail()
             $("#device").css("color", "blue");
             if (localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN"))
                   $(`.${ styles['device_detail'] }`).removeClass('justify-content-end').addClass('justify-content-between');
-            if (type == "fan")
+            if (type === "fan")
             {
                   if (imgSrc.current !== null && imgSrc.current !== 'undefined')
                         imgSrc.current.src = "https://static.vecteezy.com/system/resources/previews/000/351/514/original/charging-fan-vector-icon.jpg";
                   if (target.current !== null && target.current !== 'undefined')
                         ReactDOM.createRoot(target.current).render(<FanDetail id={ id } />);
             }
-            else if (type == "light")
+            else if (type === "light")
             {
                   if (imgSrc.current !== null && imgSrc.current !== 'undefined')
                         imgSrc.current.src = "https://img.freepik.com/premium-vector/lighting-lamp-symbol-icon-image_625678-62.jpg?w=2000";

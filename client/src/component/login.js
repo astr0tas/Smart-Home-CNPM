@@ -2,7 +2,7 @@ import "../css/login.css"
 import React, { useEffect, useState } from 'react';
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import axios from 'axios';
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 
@@ -40,6 +40,18 @@ const Login = () =>
                   })
                   .catch(err => { console.log(err); })
       };
+
+      useEffect(() =>
+      {
+            if (localStorage.getItem('username') !== null && localStorage.getItem('username') !== 'undefined')
+            {
+                  if (localStorage.getItem('type') === 'ADMIN')
+                        Navigate('./admin/device');
+                  else
+                        Navigate('./device');
+            }
+      })
+
       return (
             <div className="login w-100 h-100 d-flex justify-content-center align-items-center">
                   <div className="w-75 h-75 login-board d-flex justify-content-center align-items-center">

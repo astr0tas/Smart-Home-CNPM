@@ -20,23 +20,25 @@ INSERT INTO CAM_BIEN(MA_CB,TEN,TRANG_THAI,NGUONG_DUOI,NGUONG_TREN) VALUES('LIGHT
 INSERT INTO CAM_BIEN(MA_CB,TEN,TRANG_THAI,NGUONG_DUOI,NGUONG_TREN) VALUES('LIGHT_INTENSE03','Cảm biến ánh sáng phòng ngủ 1',true,40,90);
 INSERT INTO CAM_BIEN(MA_CB,TEN,TRANG_THAI,NGUONG_DUOI,NGUONG_TREN) VALUES('LIGHT_INTENSE04','Cảm biến ánh sáng phòng ngủ 2',false,40,90);
 
-	INSERT INTO THIET_BI VALUES('FAN01','Quạt phòng khách',true,false,NULL);
-	INSERT INTO THIET_BI VALUES('FAN02','Quạt nhà bếp',false,false,NULL);
-	INSERT INTO THIET_BI VALUES('FAN03','Quạt phòng ngủ 1',false,false,NULL);
-	INSERT INTO THIET_BI VALUES('FAN04','Quạt phòng ngủ 2',true,false,NULL);
+	INSERT INTO THIET_BI VALUES('FAN01','Quạt phòng khách',true,false);
+	INSERT INTO THIET_BI VALUES('FAN02','Quạt nhà bếp',false,false);
+	INSERT INTO THIET_BI VALUES('FAN03','Quạt phòng ngủ 1',false,false);
+	INSERT INTO THIET_BI VALUES('FAN04','Quạt phòng ngủ 2',true,false);
 
-	INSERT INTO THIET_BI VALUES('LIGHT01','Đèn phòng khách',true,false,NULL);
-	INSERT INTO THIET_BI VALUES('LIGHT02','Đèn nhà bếp',true,false,NULL);
-	INSERT INTO THIET_BI VALUES('LIGHT03','Đèn phòng ngủ 1',false,false,NULL);
-	INSERT INTO THIET_BI VALUES('LIGHT04','Đèn phòng ngủ 2',true,false,NULL);
+	INSERT INTO THIET_BI VALUES('LIGHT01','Đèn phòng khách',true,false);
+	INSERT INTO THIET_BI VALUES('LIGHT02','Đèn nhà bếp',true,false);
+	INSERT INTO THIET_BI VALUES('LIGHT03','Đèn phòng ngủ 1',false,false);
+	INSERT INTO THIET_BI VALUES('LIGHT04','Đèn phòng ngủ 2',true,false);
 
-	INSERT INTO THIET_BI VALUES('DOOR01','Cửa trước',null,null,NULL);
-	INSERT INTO THIET_BI VALUES('DOOR02','Cửa sau',null,null,NULL);
-	INSERT INTO THIET_BI VALUES('DOOR03','Cửa hông 1',null,null,NULL);
-	INSERT INTO THIET_BI VALUES('DOOR04','Cửa hông 2',null,null,NULL);
+	INSERT INTO THIET_BI VALUES('DOOR01','Cửa trước',null,null);
+	INSERT INTO THIET_BI VALUES('DOOR02','Cửa sau',null,null);
+	INSERT INTO THIET_BI VALUES('DOOR03','Cửa hông 1',null,null);
+	INSERT INTO THIET_BI VALUES('DOOR04','Cửa hông 2',null,null);
 
 
 -- select * from DU_LIEU_CAM_BIEN(MA_CB,TEN,TRANG_THAI,NGUONG_DUOI,NGUONG_TREN) where ma_cb='HEAT01' order by THOI_GIAN desc;
 -- select * from CAM_BIEN(MA_CB,TEN,TRANG_THAI,NGUONG_DUOI,NGUONG_TREN);
 
-INSERT INTO `du_lieu_thiet_bi` (`MA_TB`, `MA`, `THOI_GIAN`, `GIA_TRI`) VALUES('FAN01','ASDCXZSWEQ','2023-05-26 09:51:19',55.5);
+INSERT INTO `du_lieu_thiet_bi` (`MA_TB`, `THOI_GIAN`, `GIA_TRI`) VALUES('FAN01','2023-05-26 09:51:19',55.5);
+
+insert into USER values('ADMIN','át min','Nam','0123456789','admin','admin123','0123456789','admin@gmail.com','2002-01-01',true),('USER01','du sờ','Nam','1234567890','user','user123','1234567890','user@gmail.com','2002-01-01',false);

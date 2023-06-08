@@ -22,38 +22,31 @@ function App()
         <Routes>
           <Route index element={ <Login /> } />
           <Route element={ <UserNavbar /> }>
-
+            <Route path="/info" element={ <Info /> } />
             <Route>
               <Route path="/device" element={ <Device /> } />
-
-
               <Route path="/device/:type/list" element={ <DeviceList /> } />
+              <Route path="/device/:type/:id" element={ <DeviceDetail /> } />
             </Route>
-
             <Route>
               <Route path="/sensor" element={ <Sensor /> } />
+              <Route path="/sensor/:type/list" element={ <SensorList /> } />
               <Route path='/sensor/:type/:id' element={ <SensorDetail /> } />
             </Route>
-
           </Route>
-
           <Route path="/admin">
             <Route element={ <AdminNavbar /> }>
-
               <Route path="info" element={ <Info /> } />
-              
               <Route>
                 <Route path="device" element={ <Device /> } />
                 <Route path="device/:type/list" element={ <DeviceList /> } />
                 <Route path="device/:type/:id" element={ <DeviceDetail /> } />
               </Route>
-
               <Route>
                 <Route path="sensor" element={ <Sensor /> } />
                 <Route path="sensor/:type/list" element={ <SensorList /> } />
                 <Route path='sensor/:type/:id' element={ <SensorDetail /> } />
               </Route>
-
             </Route>
           </Route>
         </Routes>

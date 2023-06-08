@@ -1,90 +1,108 @@
-import "../css/device.css";
-import { useEffect, useRef, React } from "react";
+import styles from '../css/info.module.css';
+import { useEffect, React, useState } from "react";
 import $ from 'jquery';
 import { useNavigate } from "react-router-dom";
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const Info = () =>
 {
-      const render = useRef(true);
-      const Nav = useNavigate();
+      const Navigate = useNavigate();
+      const [name, setName] = useState("N/A");
+      const [gender, setGender] = useState("N/A");
+      const [date, setDate] = useState("N/A");
+      const [ssn, setSSN] = useState("N/A");
+      const [email, setEmail] = useState("N/A");
+      const [phone, setPhone] = useState("N/A");
+
+      const [oldName, setOldName] = useState("N/A");
+      const [oldGender, setOldGender] = useState("N/A");
+      const [oldDate, setOldate] = useState("N/A");
+      const [oldSSN, setOldSSN] = useState("N/A");
+      const [oldEmail, setOldEmail] = useState("N/A");
+      const [oldPhone, setOldPhone] = useState("N/A");
+
+      const [acc, setAcc] = useState("N/A");
+      const [pass, setPass] = useState("");
+      const [repass, setRepass] = useState("");
+      const [wrong, setWrong] = useState(false);
 
 
       useEffect(() =>
       {
-            if (render.current)
-            {
-                  console.log("Render device page!");
-                  $("#device").css("color", "blue");
-                  render.current = false;
-            }
-      })
+            $("#info").css("color", "blue");
+            $(`.${ styles.input }`).prop("disabled", true);
+      }, []);
 
-      const handleClick = (event, class_name) =>
+      const update = () =>
       {
-            event.preventDefault();
-            $("." + class_name).css("color", "rgb(123, 123, 123)");
-            setTimeout(() =>
+            if (repass !== pass)
+                  setWrong(true);
+            else
             {
-                  $("." + class_name).css("color", "black");
-                  setTimeout(() =>
-                  {
-                        Nav("./" + class_name + "/list");
-                  }, 0);
-            }, 100);
+                  setWrong(false);
+                  $(`.updateButton`).css("display", "inline");
+                  $(`.${ styles.optionButtons }`).css("display", "none");
+                  $(`.${ styles.input }`).prop("disabled", true);
+            }
+      }
+
+      const logout = () =>
+      {
+            localStorage.removeItem('username');
+            localStorage.removeItem('type');
+            Navigate('/');
       }
 
       return (
-            <div className="h-100 w-100 d-flex flex-column justify-content-center align-items-center device-page" style={ {
-                  minHeight: "700px",
+            <div className="h-100 w-100 d-flex flex-column justify-content-center align-items-center" style={ {
                   overflow: "auto"
             } }>
-                  <div className="h-75 w-75 device-page-board d-flex flex-column overflow-auto h-auto" style={ { minHeight: "750px" } }>
-                        <div className="d-flex justify-content-center select-device">
-                              <h1>Thông tin cá nhân</h1>
+                  <div className={ `h-75 w-75 d-flex flex-column overflow-auto h-auto ${ styles.board }` }>
+                        <h1 className='text-center'>Thông tin cá nhân</h1>
+                        <div className="d-flex flex-column flex-md-row w-100 flex-grow-1 justify-content-md-around align-items-md-center my-auto">
+                              <div className="col-md-6">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png" alt="Avatar" className={ `mx-auto d-block ${ styles.img }` } />
+                                    <input type='file' className={ `${ styles.optionButtons } mx-auto` }></input>
+                                    <button className={ `${ styles.cancel } mt-5 d-block mx-auto` } onClick={ logout }>Log out</button>
+                              </div>
+                              <div className="col-md-6">
+                                    <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Name" value={ name } onChange={ e => { setName(e.target.value); } } />
+                                    <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Giới tính" value={ gender } />
+                                    <input type="date" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Ngày sinh" value={ date } onChange={ e => { setDate(e.target.value); } } />
+                                    <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Số CCCD" value={ ssn } onChange={ e => { setSSN(e.target.value); } } />
+                                    <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Email" value={ email } onChange={ e => { setEmail(e.target.value); } } />
+                                    <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="SĐT" value={ phone } onChange={ e => { setPhone(e.target.value); } } />
+                                    <input type="text" className={ `${ styles.special } my-3 mx-md-0 mx-auto d-block` } placeholder="Tài khoản" disabled value={ acc } />
+                                    <input type="password" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Mật khẩu" value={ pass } onChange={ e => { setPass(e.target.value); } } />
+                                    <input type="password" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Nhập lại mật khẩu" value={ repass } onChange={ e => { setRepass(e.target.value); } } />
+                                    { wrong && <div className="d-flex align-items-center" style={ { color: "red", fontSize: "1rem" } }><AiOutlineCloseCircle />Mật khẩu không khớp!</div> }
+                              </div>
                         </div>
-                        <div className="d-flex flex-column flex-md-row w-100 h-75 justify-content-around align-items-center m-auto">
-                        <div className="col-6 d-flex flex-column justify-content-center align-items-center">
-                              <img src="https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png" alt="Avatar" />
-                              <button>Chọn file</button>
-                        </div>
-                        <div className="col-6">
-                        <div style={{width: '630px', height: '60px', backgroundColor: 'white', padding: '10px', borderRadius: '10px'}}>
-                              <input type="text" style={{width: '100%', height: '100%', borderRadius: '50px', border: '1px solid black', padding: '5px'}} placeholder="Name" />
-                        </div>
-
-
-                        <div style={{display: 'inline-block', width: '300px', height: '60px', backgroundColor: 'white', padding: '10px', borderRadius: '10px'}}>
-                              <input type="text" style={{width: '100%', height: '100%', borderRadius: '50px', border: '1px solid black', padding: '5px', marginLeft: '0px'}} placeholder="Giới tính" />
-                        </div>
-                        <div style={{display: 'inline-block', width: '300px', height: '60px', backgroundColor: 'white', padding: '10px', borderRadius: '10px'}}>
-                              <input type="text" style={{width: '100%', height: '100%', borderRadius: '50px', border: '1px solid black', padding: '5px', marginRight: '0px'}} placeholder="Năm sinh" />
-                        </div>
-                              
-                        
-                        <div style={{width: '630px', height: '60px', backgroundColor: 'white', padding: '10px', borderRadius: '10px'}}>
-                              <input type="text" style={{width: '100%', height: '100%', borderRadius: '50px', border: '1px solid black', padding: '5px'}} placeholder="Số CCCD" />
-                        </div>
-                        <div style={{width: '630px', height: '60px', backgroundColor: 'white', padding: '10px', borderRadius: '10px'}}>
-                              <input type="text" style={{width: '100%', height: '100%', borderRadius: '50px', border: '1px solid black', padding: '5px'}} placeholder="Email" />
-                        </div>
-                        <div style={{width: '630px', height: '60px', backgroundColor: 'white', padding: '10px', borderRadius: '10px'}}>
-                              <input type="text" style={{width: '100%', height: '100%', borderRadius: '50px', border: '1px solid black', padding: '5px'}} placeholder="SĐT" />
-                        </div>
-                        <div style={{width: '630px', height: '60px', backgroundColor: 'white', padding: '10px', borderRadius: '10px'}}>
-                              <input type="text" style={{width: '100%', height: '100%', borderRadius: '50px', border: '1px solid black', padding: '5px'}} placeholder="Tài khoản" />
-                        </div>
-                        <div style={{width: '630px', height: '60px', backgroundColor: 'white', padding: '10px', borderRadius: '10px'}}>
-                              <input type="text" style={{width: '100%', height: '100%', borderRadius: '50px', border: '1px solid black', padding: '5px'}} placeholder="Mật khẩu" />
-                        </div>
-                        </div>
-                        
-                        </div>
-                        <div style={{ display: 'flex',  justifyContent: 'center', padding: '15px' }}>
-                              <button style={{ width: '300px', height: '40px', backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '15px', marginRight: '50px', }}>Hủy bỏ</button>
-                              <button style={{ width: '300px', height: '40px', backgroundColor: 'blue', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '15px', marginLeft: '50px' }}>Xác nhận</button>
+                        <div className='mb-3 mx-auto'>
+                              <button className={ `${ styles.update } updateButton` } onClick={ () =>
+                              {
+                                    $(`.updateButton`).css("display", "none");
+                                    $(`.${ styles.optionButtons }`).css("display", "block");
+                                    $(`.${ styles.input }`).prop("disabled", false);
+                              } }>Cập nhật</button>
+                              <div className={ `${ styles.optionButtons }` }>
+                                    <button className={ `${ styles.cancel } me-2` } onClick={ () =>
+                                    {
+                                          $(`.updateButton`).css("display", "inline");
+                                          $(`.${ styles.optionButtons }`).css("display", "none");
+                                          $(`.${ styles.input }`).prop("disabled", true);
+                                          setWrong(false);
+                                          setName(oldName);
+                                          setGender(oldGender);
+                                          setDate(oldDate);
+                                          setEmail(oldEmail);
+                                          setSSN(oldSSN);
+                                          setPhone(oldPhone);
+                                    } }>Hủy bỏ</button>
+                                    <button className={ `${ styles.confirm } ms-2` } onClick={ update }>Xác nhận</button>
+                              </div>
                         </div>
                   </div>
-                  
             </div>
       );
 }
