@@ -23,7 +23,8 @@ def login(username,password):
     finally:
         connection.close()
 
-def change(username,password,verify):
+
+def change(username, password, verify):
     try:
         config = {
             'user': 'smarthome',
@@ -36,9 +37,9 @@ def change(username,password,verify):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            if password==verify:
+            if password == verify:
                 query = "update user set MAT_KHAU=%s where TAI_KHOAN=%s"
-                cursor.execute(query, (password,username))
+                cursor.execute(query, (password, username))
                 connection.commit()
                 return cursor.rowcount
     except Exception as e:

@@ -10,6 +10,7 @@ import DeviceList from './component/device_list';
 import SensorList from './component/sensor_list';
 import Info from './component/info';
 import DeviceDetail from './component/device_detail';
+import Change from './component/change';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -21,6 +22,7 @@ function App()
       <BrowserRouter>
         <Routes>
           <Route index element={ <Login /> } />
+          <Route path='/forgotPassword' element={ <Change /> } />
           <Route element={ <UserNavbar /> }>
             <Route path="/info" element={ <Info /> } />
             <Route>

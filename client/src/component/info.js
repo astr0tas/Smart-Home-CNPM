@@ -3,6 +3,8 @@ import { useEffect, React, useState } from "react";
 import $ from 'jquery';
 import { useNavigate } from "react-router-dom";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import axios from 'axios';
+import { formDate } from '../tools/time';
 
 const Info = () =>
 {
@@ -20,18 +22,35 @@ const Info = () =>
       const [oldSSN, setOldSSN] = useState("N/A");
       const [oldEmail, setOldEmail] = useState("N/A");
       const [oldPhone, setOldPhone] = useState("N/A");
-
-      const [acc, setAcc] = useState("N/A");
       const [pass, setPass] = useState("");
       const [repass, setRepass] = useState("");
       const [wrong, setWrong] = useState(false);
+
+      const [render, setRender] = useState(false);
 
 
       useEffect(() =>
       {
             $("#info").css("color", "blue");
             $(`.${ styles.input }`).prop("disabled", true);
-      }, []);
+            axios.post('http://localhost:5000/getInfo', { username: localStorage.getItem('username') })
+                  .then(res =>
+                  {
+                        setName(res.data[0].ten);
+                        setOldName(res.data[0].ten);
+                        setDate(formDate(res.data[0].ngay_sinh));
+                        setOldate(formDate(res.data[0].ngay_sinh));
+                        setSSN(res.data[0].cccd);
+                        setOldSSN(res.data[0].cccd);
+                        setEmail(res.data[0].email);
+                        setOldEmail(res.data[0].email);
+                        setPhone(res.data[0].sdt);
+                        setOldPhone(res.data[0].sdt);
+                        setGender(res.data[0].gioi_tinh);
+                        setOldGender(res.data[0].gioi_tinh);
+                  })
+                  .catch(err => { console.log(err); });
+      }, [render]);
 
       const update = () =>
       {
@@ -43,6 +62,16 @@ const Info = () =>
                   $(`.updateButton`).css("display", "inline");
                   $(`.${ styles.optionButtons }`).css("display", "none");
                   $(`.${ styles.input }`).prop("disabled", true);
+                  $(`.${ styles.password }`).css("display", "none");
+                  axios.post('http://localhost:5000/updateInfo', { username: localStorage.getItem('username'), name: name, gender: gender, date: date, phone: phone, ssn: ssn, email: email, password: pass })
+                        .then(res =>
+                        {
+                              console.log(res);
+                              setRender(!render);
+                              setPass("");
+                              setRepass("");
+                        })
+                        .catch(err => { console.log(err); })
             }
       }
 
@@ -67,14 +96,14 @@ const Info = () =>
                               </div>
                               <div className="col-md-6">
                                     <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Name" value={ name } onChange={ e => { setName(e.target.value); } } />
-                                    <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Giới tính" value={ gender } />
+                                    <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Giới tính" value={ gender } onChange={ e => { setGender(e.target.value); } } />
                                     <input type="date" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Ngày sinh" value={ date } onChange={ e => { setDate(e.target.value); } } />
                                     <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Số CCCD" value={ ssn } onChange={ e => { setSSN(e.target.value); } } />
                                     <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Email" value={ email } onChange={ e => { setEmail(e.target.value); } } />
                                     <input type="text" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="SĐT" value={ phone } onChange={ e => { setPhone(e.target.value); } } />
-                                    <input type="text" className={ `${ styles.special } my-3 mx-md-0 mx-auto d-block` } placeholder="Tài khoản" disabled value={ acc } />
-                                    <input type="password" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Mật khẩu" value={ pass } onChange={ e => { setPass(e.target.value); } } />
-                                    <input type="password" className={ `${ styles.input } my-3 mx-md-0 mx-auto d-block` } placeholder="Nhập lại mật khẩu" value={ repass } onChange={ e => { setRepass(e.target.value); } } />
+                                    <input type="text" className={ `${ styles.special } my-3 mx-md-0 mx-auto d-block` } placeholder="Tài khoản" readOnly disabled value={ localStorage.getItem('username') } />
+                                    <input type="password" className={ `${ styles.input } my-3 mx-md-0 mx-auto  ${ styles.password }` } placeholder="Mật khẩu" value={ pass } onChange={ e => { setPass(e.target.value); } } />
+                                    <input type="password" className={ `${ styles.input } my-3 mx-md-0 mx-auto  ${ styles.password }` } placeholder="Nhập lại mật khẩu" value={ repass } onChange={ e => { setRepass(e.target.value); } } />
                                     { wrong && <div className="d-flex align-items-center" style={ { color: "red", fontSize: "1rem" } }><AiOutlineCloseCircle />Mật khẩu không khớp!</div> }
                               </div>
                         </div>
@@ -84,6 +113,7 @@ const Info = () =>
                                     $(`.updateButton`).css("display", "none");
                                     $(`.${ styles.optionButtons }`).css("display", "block");
                                     $(`.${ styles.input }`).prop("disabled", false);
+                                    $(`.${ styles.password }`).css("display", "block");
                               } }>Cập nhật</button>
                               <div className={ `${ styles.optionButtons }` }>
                                     <button className={ `${ styles.cancel } me-2` } onClick={ () =>
@@ -91,6 +121,7 @@ const Info = () =>
                                           $(`.updateButton`).css("display", "inline");
                                           $(`.${ styles.optionButtons }`).css("display", "none");
                                           $(`.${ styles.input }`).prop("disabled", true);
+                                          $(`.${ styles.password }`).css("display", "none");
                                           setWrong(false);
                                           setName(oldName);
                                           setGender(oldGender);

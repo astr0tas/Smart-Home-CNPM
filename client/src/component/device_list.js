@@ -20,7 +20,8 @@ const Fan = (props) =>
             axios.post(
                   'http://localhost:5000/device_increase', {
                   id: id,
-                  value: value
+                  value: value,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -35,7 +36,8 @@ const Fan = (props) =>
             axios.post(
                   'http://localhost:5000/device_decrease', {
                   id: id,
-                  value: value
+                  value: value,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -48,7 +50,8 @@ const Fan = (props) =>
             axios.post(
                   'http://localhost:5000/device_auto', {
                   id: id,
-                  auto: auto
+                  auto: auto,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -61,7 +64,8 @@ const Fan = (props) =>
             axios.post(
                   'http://localhost:5000/device_status', {
                   id: id,
-                  status: status
+                  status: status,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -228,7 +232,8 @@ const Light = (props) =>
             axios.post(
                   'http://localhost:5000/device_increase', {
                   id: id,
-                  value: value
+                  value: value,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -243,7 +248,8 @@ const Light = (props) =>
             axios.post(
                   'http://localhost:5000/device_decrease', {
                   id: id,
-                  value: value
+                  value: value,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -256,7 +262,8 @@ const Light = (props) =>
             axios.post(
                   'http://localhost:5000/device_auto', {
                   id: id,
-                  auto: auto
+                  auto: auto,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -269,7 +276,8 @@ const Light = (props) =>
             axios.post(
                   'http://localhost:5000/device_status', {
                   id: id,
-                  status: status
+                  status: status,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);

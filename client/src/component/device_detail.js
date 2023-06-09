@@ -79,13 +79,61 @@ const FanDetail = (props) =>
                   {
                         for (let i = 0; i < response.data.length; i++)
                         {
-                              $(`.${ styles.device_history }`).append(
-                                    $("<div>").addClass("row").addClass("w-100").append(
-                                          $("<div>").addClass("col").append(
-                                                $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Tốc độ quạt hiện tại: ${ response.data[i].GIA_TRI }`)
-                                          )
-                                    )
-                              );
+                              if (response.data[i].GIA_TRI !== null)
+                              {
+                                    if (response.data[i].TEN !== null)
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } thiết lập tốc độ quạt ${ response.data[i].GIA_TRI }%`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Tốc độ quạt hiện tại: ${ response.data[i].GIA_TRI }%`)
+                                                      )
+                                                )
+                                          );
+                              }
+                              else if (response.data[i].TRANG_THAI !== null)
+                              {
+                                    if (response.data[i].TRANG_THAI)
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } bật quạt`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } tắt quạt`)
+                                                      )
+                                                )
+                                          );
+                              }
+                              else if (response.data[i].TU_DONG !== null)
+                                    if (response.data[i].TU_DONG)
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } bật chế độ tự động`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } tắt chế độ tự động`)
+                                                      )
+                                                )
+                                          );
                         }
                   })
                   .catch(function (error)
@@ -99,7 +147,8 @@ const FanDetail = (props) =>
             axios.post(
                   'http://localhost:5000/device_status', {
                   id: props.id,
-                  status: e.target.checked
+                  status: e.target.checked,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -112,7 +161,8 @@ const FanDetail = (props) =>
             axios.post(
                   'http://localhost:5000/device_auto', {
                   id: props.id,
-                  auto: e.target.checked
+                  auto: e.target.checked,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -131,7 +181,8 @@ const FanDetail = (props) =>
                   axios.post(
                         'http://localhost:5000/device_value', {
                         id: props.id,
-                        value: e.target.value
+                        value: e.target.value,
+                        username: localStorage.getItem('username')
                   }).then(res =>
                   {
                         console.log(res);
@@ -148,7 +199,8 @@ const FanDetail = (props) =>
                   axios.post('http://localhost:5000/device_timer', {
                         id: props.id,
                         start: start,
-                        end: end
+                        end: end,
+                        username: localStorage.getItem('username')
                   }).then(res =>
                   {
                         console.log(res);
@@ -329,13 +381,61 @@ const LightDetail = (props) =>
                   {
                         for (let i = 0; i < response.data.length; i++)
                         {
-                              $(`.${ styles.device_history }`).append(
-                                    $("<div>").addClass("row").addClass("w-100").append(
-                                          $("<div>").addClass("col").append(
-                                                $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Tốc độ quạt hiện tại: ${ response.data[i].GIA_TRI }`)
-                                          )
-                                    )
-                              );
+                              if (response.data[i].GIA_TRI !== null)
+                              {
+                                    if (response.data[i].TEN !== null)
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } thiết lập độ sáng ${ response.data[i].GIA_TRI }%`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Độ sáng hiện tại: ${ response.data[i].GIA_TRI }%`)
+                                                      )
+                                                )
+                                          );
+                              }
+                              else if (response.data[i].TRANG_THAI !== null)
+                              {
+                                    if (response.data[i].TRANG_THAI)
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } bật đèn`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } tắt đèn`)
+                                                      )
+                                                )
+                                          );
+                              }
+                              else if (response.data[i].TU_DONG !== null)
+                                    if (response.data[i].TU_DONG)
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } bật chế độ tự động`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.device_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } tắt chế độ tự động`)
+                                                      )
+                                                )
+                                          );
                         }
                   })
                   .catch(function (error)
@@ -349,7 +449,8 @@ const LightDetail = (props) =>
             axios.post(
                   'http://localhost:5000/device_status', {
                   id: props.id,
-                  status: e.target.checked
+                  status: e.target.checked,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -362,7 +463,8 @@ const LightDetail = (props) =>
             axios.post(
                   'http://localhost:5000/device_auto', {
                   id: props.id,
-                  auto: e.target.checked
+                  auto: e.target.checked,
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -381,7 +483,8 @@ const LightDetail = (props) =>
                   axios.post(
                         'http://localhost:5000/device_value', {
                         id: props.id,
-                        value: e.target.value
+                        value: e.target.value,
+                        username: localStorage.getItem('username')
                   }).then(res =>
                   {
                         console.log(res);
@@ -398,7 +501,8 @@ const LightDetail = (props) =>
                   axios.post('http://localhost:5000/device_timer', {
                         id: props.id,
                         start: start,
-                        end: end
+                        end: end,
+                        username: localStorage.getItem('username')
                   }).then(res =>
                   {
                         console.log(res);
@@ -547,16 +651,16 @@ const DoorDetail = (props) =>
                   .then(function (response)
                   {
                         console.log(response)
-                        for (let i = 0; i < response.data.length; i++)
-                        {
-                              $(`.${ styles.device_history }`).append(
-                                    $("<div>").addClass("row").addClass("w-100").append(
-                                          $("<div>").addClass("col").append(
-                                                $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Tốc độ quạt hiện tại: ${ response.data[i].GIA_TRI }`)
-                                          )
-                                    )
-                              );
-                        }
+                        // for (let i = 0; i < response.data.length; i++)
+                        // {
+                        //       $(`.${ styles.device_history }`).append(
+                        //             $("<div>").addClass("row").addClass("w-100").append(
+                        //                   $("<div>").addClass("col").append(
+                        //                         $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Tốc độ quạt hiện tại: ${ response.data[i].GIA_TRI }`)
+                        //                   )
+                        //             )
+                        //       );
+                        // }
                   })
                   .catch(function (error)
                   {
@@ -669,7 +773,7 @@ export default function DeviceDetail()
             } }>
                   <div className={ `h-75 w-75 d-flex flex-column align-items-center ${ styles['device_detail'] }` }>
                         <div className="d-flex flex-row justify-content-end align-items-center w-100" style={ { height: "30px" } }>
-                              { localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN") && <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } /> }
+                              { localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN") && <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons } me-auto` } /> }
                               <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.icons }` } onClick={ () => { Navigate(-1); } } />
                         </div>
                         <div className="w-100 d-flex flex-column align-items-center flex-md-row justify-content-around" style={ { height: "calc(100% - 40px)" } }>

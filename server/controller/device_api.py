@@ -21,7 +21,7 @@ def post_device_list():
             return jsonify({'error': 'Failed to get data from database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/device_list/find', methods=['POST'])
 def post_device_list_by_name():
@@ -35,6 +35,7 @@ def post_device_list_by_name():
     else:
         return jsonify({'error': 'No data received'})
 
+
 @api.route('/device_detail', methods=['POST'])
 def post_device_detail():
     data = request.get_json()
@@ -46,7 +47,7 @@ def post_device_detail():
             return jsonify({'error': 'Failed to get data from database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/device_list/latest_data', methods=['POST'])
 def post_device_latest_data():
@@ -59,78 +60,91 @@ def post_device_latest_data():
             return jsonify({'error': 'Failed to get data from database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/device_status', methods=['POST'])
 def post_update_device_status():
     data = request.get_json()
     if data:
-        result = device.update_device_status(data['id'], data['status'])
+        id = device.getUserID(data['username'])
+        id = id[0]['ma_user']
+        result = device.update_device_status(data['id'], data['status'], id)
         if result:
             return jsonify({"message": "Database updated!"})
         else:
             return jsonify({'error': 'Failed to update data to database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/device_auto', methods=['POST'])
 def post_update_device_auto():
     data = request.get_json()
     if data:
-        result = device.update_device_auto(data['id'], data['auto'])
+        id = device.getUserID(data['username'])
+        id = id[0]['ma_user']
+        result = device.update_device_auto(data['id'], data['auto'], id)
         if result:
             return jsonify({"message": "Database updated!"})
         else:
             return jsonify({'error': 'Failed to update data to database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/device_value', methods=['POST'])
 def post_update_device_value():
     data = request.get_json()
     if data:
-        result = device.update_device_value(data['id'], data['value'])
+        id = device.getUserID(data['username'])
+        id = id[0]['ma_user']
+        result = device.update_device_value(data['id'], data['value'], id)
         if result:
             return jsonify({"message": "Database updated!"})
         else:
             return jsonify({'error': 'Failed to update data to database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/device_increase', methods=['POST'])
 def post_device_increase():
     data = request.get_json()
     if data:
-        result = device.device_increase(data['id'], data['value'])
+        id = device.getUserID(data['username'])
+        id = id[0]['ma_user']
+        result = device.device_increase(data['id'], data['value'], id)
         if result:
             return jsonify({"message": "Database updated!"})
         else:
             return jsonify({'error': 'Failed to update data to database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/device_decrease', methods=['POST'])
 def post_device_decrease():
     data = request.get_json()
     if data:
-        result = device.device_decrease(data['id'], data['value'])
+        id = device.getUserID(data['username'])
+        id = id[0]['ma_user']
+        result = device.device_decrease(data['id'], data['value'], id)
         if result:
             return jsonify({"message": "Database updated!"})
         else:
             return jsonify({'error': 'Failed to update data to database'})
     else:
         return jsonify({'error': 'No data received'})
-    
+
 
 @api.route('/device_timer', methods=['POST'])
 def post_device_timer():
     data = request.get_json()
     if data:
-        result = device.device_timer(data['id'], data['start'],data['end'])
+        id = device.getUserID(data['username'])
+        id = id[0]['ma_user']
+        result = device.device_timer(
+            data['id'], data['start'], data['end'], id)
         if result:
             return jsonify({"message": "Database updated!"})
         else:

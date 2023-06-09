@@ -172,7 +172,7 @@ def get_device_data(id):
         connection.close()
 
 
-def update_device_status(id, status):
+def update_device_status(id, status, userID):
     try:
         config = {
             'user': 'smarthome',
@@ -187,6 +187,8 @@ def update_device_status(id, status):
         with connection.cursor() as cursor:
             query = "UPDATE THIET_BI SET TRANG_THAI=%s WHERE MA_TB=%s"
             cursor.execute(query, (status, id))
+            query = "insert into THIET_LAP_THIET_BI values(now(),%s,%s,%s,null,null,null,null)"
+            cursor.execute(query, (userID, id, status))
             connection.commit()
             return cursor.rowcount
     except Exception as e:
@@ -196,7 +198,7 @@ def update_device_status(id, status):
         connection.close()
 
 
-def update_device_value(id, value):
+def update_device_value(id, value, userID):
     try:
         config = {
             'user': 'smarthome',
@@ -209,8 +211,11 @@ def update_device_value(id, value):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            query = "UPDATE THIET_BI SET GIA_TRI='{}' WHERE MA_TB='{}';".format(
-                value, id)
+            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL,NULL,NULL)".format(
+                userID, id, value)
+            cursor.execute(query)
+            query = "insert into DU_LIEU_THIET_BI values('{}',now(),'{}')".format(
+                id, value)
             cursor.execute(query)
             connection.commit()
             return cursor.rowcount
@@ -221,7 +226,63 @@ def update_device_value(id, value):
         connection.close()
 
 
-def update_device_value(id, value):
+def device_increase(id, value, userID):
+    try:
+        config = {
+            'user': 'smarthome',
+            'password': 'smarthome123',
+            'host': 'localhost',
+            'database': 'smart_home',
+        }
+        try:
+            connection = mysql.connector.connect(**config)
+        except Exception as e:
+            print("Error connecting to MySQL:", e)
+        with connection.cursor() as cursor:
+            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL,NULL,NULL)".format(
+                userID, id, value)
+            cursor.execute(query)
+            query = "insert into DU_LIEU_THIET_BI values('{}',now(),'{}')".format(
+                id, value)
+            cursor.execute(query)
+            connection.commit()
+            return cursor.rowcount
+    except Exception as e:
+        print("Error executing query:", e)
+        return None
+    finally:
+        connection.close()
+
+
+def device_decrease(id, value, userID):
+    try:
+        config = {
+            'user': 'smarthome',
+            'password': 'smarthome123',
+            'host': 'localhost',
+            'database': 'smart_home',
+        }
+        try:
+            connection = mysql.connector.connect(**config)
+        except Exception as e:
+            print("Error connecting to MySQL:", e)
+        with connection.cursor() as cursor:
+            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL,NULL,NULL)".format(
+                userID, id, value)
+            cursor.execute(query)
+            query = "insert into DU_LIEU_THIET_BI values('{}',now(),'{}')".format(
+                id, value)
+            cursor.execute(query)
+            connection.commit()
+            return cursor.rowcount
+    except Exception as e:
+        print("Error executing query:", e)
+        return None
+    finally:
+        connection.close()
+
+
+def device_timer(id, start, end, userID):
     try:
         config = {
             'user': 'smarthome',
@@ -245,79 +306,7 @@ def update_device_value(id, value):
         connection.close()
 
 
-def device_increase(id, value):
-    try:
-        config = {
-            'user': 'smarthome',
-            'password': 'smarthome123',
-            'host': 'localhost',
-            'database': 'smart_home',
-        }
-        try:
-            connection = mysql.connector.connect(**config)
-        except Exception as e:
-            print("Error connecting to MySQL:", e)
-        with connection.cursor() as cursor:
-            query = ""  # This query is not right
-            cursor.execute(query)
-            connection.commit()
-            return cursor.rowcount
-    except Exception as e:
-        print("Error executing query:", e)
-        return None
-    finally:
-        connection.close()
-
-
-def device_decrease(id, value):
-    try:
-        config = {
-            'user': 'smarthome',
-            'password': 'smarthome123',
-            'host': 'localhost',
-            'database': 'smart_home',
-        }
-        try:
-            connection = mysql.connector.connect(**config)
-        except Exception as e:
-            print("Error connecting to MySQL:", e)
-        with connection.cursor() as cursor:
-            query = ""  # This query is not right
-            cursor.execute(query)
-            connection.commit()
-            return cursor.rowcount
-    except Exception as e:
-        print("Error executing query:", e)
-        return None
-    finally:
-        connection.close()
-
-
-def device_timer(id, start, end):
-    try:
-        config = {
-            'user': 'smarthome',
-            'password': 'smarthome123',
-            'host': 'localhost',
-            'database': 'smart_home',
-        }
-        try:
-            connection = mysql.connector.connect(**config)
-        except Exception as e:
-            print("Error connecting to MySQL:", e)
-        with connection.cursor() as cursor:
-            query = ""  # This query is not right
-            cursor.execute(query)
-            connection.commit()
-            return cursor.rowcount
-    except Exception as e:
-        print("Error executing query:", e)
-        return None
-    finally:
-        connection.close()
-
-
-def update_device_auto(id, value):
+def update_device_auto(id, value, userID):
     try:
         config = {
             'user': 'smarthome',
@@ -332,6 +321,8 @@ def update_device_auto(id, value):
         with connection.cursor() as cursor:
             query = "UPDATE THIET_BI SET TU_DONG=%s WHERE MA_TB=%s"
             cursor.execute(query, (value, id))
+            query = "insert into THIET_LAP_THIET_BI values(now(),%s,%s,NULL,NULL,%s,NULL,NULL)"
+            cursor.execute(query, (userID, id, value))
             connection.commit()
             return cursor.rowcount
     except Exception as e:
@@ -355,6 +346,34 @@ def get_device_history(id):
             print("Error connecting to MySQL:", e)
         with connection.cursor(dictionary=True) as cursor:
             query = "call getDeviceHistory('{}')".format(id)
+            cursor.execute(query)
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+    except Exception as e:
+        print("Error executing query:", e)
+        return None
+
+    # Close the connection
+    finally:
+        connection.close()
+
+
+def getUserID(username):
+    try:
+        config = {
+            'user': 'smarthome',
+            'password': 'smarthome123',
+            'host': 'localhost',
+            'database': 'smart_home',
+        }
+        try:
+            connection = mysql.connector.connect(**config)
+        except Exception as e:
+            print("Error connecting to MySQL:", e)
+        with connection.cursor(dictionary=True) as cursor:
+            query = "select ma_user from user where tai_khoan='{}'".format(
+                username)
             cursor.execute(query)
             result = cursor.fetchall()
             cursor.close()

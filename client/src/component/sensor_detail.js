@@ -44,8 +44,6 @@ const RenderHeatSensorDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        // console.log(response)
-
                         $(`.${ styles.sensor_history }`).empty();
 
                         const min = parseFloat($(".sensor_min").val());
@@ -85,6 +83,45 @@ const RenderHeatSensorDetail = (props) =>
                                           );
                                     }
                               }
+                              else if (response.data[i].TRANG_THAI !== null)
+                              {
+                                    if (response.data[i].TRANG_THAI)
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } bật cảm biến`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } tắt cảm biến`)
+                                                      )
+                                                )
+                                          );
+                              }
+                              else if (response.data[i].NGUONG_DUOI !== null)
+                              {
+                                    $(`.${ styles.sensor_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } thiết lập ngưỡng dưới ${ response.data[i].NGUONG_DUOI }`).append($('<sup>').text('o')).append('C')
+                                                )
+                                          )
+                                    );
+                              }
+                              else if (response.data[i].NGUONG_TREN !== null)
+                              {
+                                    $(`.${ styles.sensor_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } thiết lập ngưỡng trên ${ response.data[i].NGUONG_TREN }`).append($('<sup>').text('o')).append('C')
+                                                )
+                                          )
+                                    );
+                              }
                         }
                   })
                   .catch(function (error)
@@ -98,8 +135,9 @@ const RenderHeatSensorDetail = (props) =>
             axios.post(
                   'http://localhost:5000/sensor_status', {
                   id: props.id,
-                  status: $(`.${ styles.switch }`).is(":checked")
-            }).then(res => { console.log(res); }).catch(error => { console.log(error); })
+                  status: $(`.${ styles.switch }`).is(":checked"),
+                  username: localStorage.getItem('username')
+            }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             if (!$(`.${ styles.switch }`).is(":checked"))
                   $(".sensor_temp").val("");
             else
@@ -129,8 +167,9 @@ const RenderHeatSensorDetail = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_min', {
                         id: props.id,
-                        value: parseFloat($(".sensor_min").val())
-                  }).then(res => { console.log(res); }).catch(error => { console.log(error); })
+                        value: parseFloat($(".sensor_min").val()),
+                        username: localStorage.getItem('username')
+                  }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             }, debounceTimeout1);
       }
 
@@ -147,8 +186,9 @@ const RenderHeatSensorDetail = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_max', {
                         id: props.id,
-                        value: parseFloat($(".sensor_max").val())
-                  }).then(res => { console.log(res); }).catch(error => { console.log(error); })
+                        value: parseFloat($(".sensor_max").val()),
+                        username: localStorage.getItem('username')
+                  }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             }, debounceTimeout2);
       }
 
@@ -287,7 +327,6 @@ const RenderHumidSensorDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        // console.log(response)
 
                         $(`.${ styles.sensor_history }`).empty();
 
@@ -328,6 +367,45 @@ const RenderHumidSensorDetail = (props) =>
                                           );
                                     }
                               }
+                              else if (response.data[i].TRANG_THAI !== null)
+                              {
+                                    if (response.data[i].TRANG_THAI)
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } bật cảm biến`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } tắt cảm biến`)
+                                                      )
+                                                )
+                                          );
+                              }
+                              else if (response.data[i].NGUONG_DUOI !== null)
+                              {
+                                    $(`.${ styles.sensor_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } thiết lập ngưỡng dưới ${ response.data[i].NGUONG_DUOI }%`)
+                                                )
+                                          )
+                                    );
+                              }
+                              else if (response.data[i].NGUONG_TREN !== null)
+                              {
+                                    $(`.${ styles.sensor_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } thiết lập ngưỡng trên ${ response.data[i].NGUONG_TREN }%`)
+                                                )
+                                          )
+                                    );
+                              }
                         }
                   })
                   .catch(function (error)
@@ -341,8 +419,9 @@ const RenderHumidSensorDetail = (props) =>
             axios.post(
                   'http://localhost:5000/sensor_status', {
                   id: props.id,
-                  status: $(`.${ styles.switch }`).is(":checked")
-            }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  status: $(`.${ styles.switch }`).is(":checked"),
+                  username: localStorage.getItem('username')
+            }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             if (!$(`.${ styles.switch }`).is(":checked"))
                   $(".sensor_humid").val("");
             else
@@ -374,8 +453,9 @@ const RenderHumidSensorDetail = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_min', {
                         id: props.id,
-                        value: parseFloat($(".sensor_min").val())
-                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                        value: parseFloat($(".sensor_min").val()),
+                        username: localStorage.getItem('username')
+                  }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             }, debounceTimeout1);
       }
 
@@ -395,8 +475,9 @@ const RenderHumidSensorDetail = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_max', {
                         id: props.id,
-                        value: parseFloat($(".sensor_max").val())
-                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                        value: parseFloat($(".sensor_max").val()),
+                        username: localStorage.getItem('username')
+                  }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             }, debounceTimeout2);
       }
 
@@ -535,8 +616,6 @@ const RenderLightSensorDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        // console.log(response)
-
                         $(`.${ styles.sensor_history }`).empty();
 
                         const min = parseFloat($(".sensor_min").val());
@@ -576,6 +655,45 @@ const RenderLightSensorDetail = (props) =>
                                           );
                                     }
                               }
+                              else if (response.data[i].TRANG_THAI !== null)
+                              {
+                                    if (response.data[i].TRANG_THAI)
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } bật cảm biến`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } tắt cảm biến`)
+                                                      )
+                                                )
+                                          );
+                              }
+                              else if (response.data[i].NGUONG_DUOI !== null)
+                              {
+                                    $(`.${ styles.sensor_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } thiết lập ngưỡng dưới ${ response.data[i].NGUONG_DUOI }%`)
+                                                )
+                                          )
+                                    );
+                              }
+                              else if (response.data[i].NGUONG_TREN !== null)
+                              {
+                                    $(`.${ styles.sensor_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } thiết lập ngưỡng trên ${ response.data[i].NGUONG_TREN }%`)
+                                                )
+                                          )
+                                    );
+                              }
                         }
                   })
                   .catch(function (error)
@@ -589,8 +707,9 @@ const RenderLightSensorDetail = (props) =>
             axios.post(
                   'http://localhost:5000/sensor_status', {
                   id: props.id,
-                  status: $(`.${ styles.switch }`).is(":checked")
-            }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                  status: $(`.${ styles.switch }`).is(":checked"),
+                  username: localStorage.getItem('username')
+            }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             if (!$(`.${ styles.switch }`).is(":checked"))
                   $(".sensor_light").val("");
             else
@@ -624,8 +743,9 @@ const RenderLightSensorDetail = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_min', {
                         id: props.id,
-                        value: parseFloat($(".sensor_min").val())
-                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                        value: parseFloat($(".sensor_min").val()),
+                        username: localStorage.getItem('username')
+                  }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             }, debounceTimeout1);
       }
 
@@ -645,8 +765,9 @@ const RenderLightSensorDetail = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_max', {
                         id: props.id,
-                        value: parseFloat($(".sensor_max").val())
-                  }).then(res => { console.log(res) }).catch(error => { console.log(error); })
+                        value: parseFloat($(".sensor_max").val()),
+                        username: localStorage.getItem('username')
+                  }).then(res => { console.log(res); setRenderPage(!renderPage); }).catch(error => { console.log(error); })
             }, debounceTimeout2);
       }
 
@@ -773,19 +894,37 @@ const RenderIRDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        // console.log(response)
-
                         $(`.${ styles.ir_sensor_history }`).empty();
 
                         for (let i = 0; i < response.data.length; i++)
                         {
-                              $(`.${ styles.ir_sensor_history }`).append(
-                                    $("<div>").addClass("row").addClass("w-100").append(
-                                          $("<div>").addClass("col").append(
-                                                $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Phát hiện chuyển động`)
+                              if (response.data[i].GIA_TRI)
+                                    $(`.${ styles.ir_sensor_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Phát hiện chuyển động`)
+                                                )
                                           )
-                                    )
-                              );
+                                    );
+                              else if (response.data[i].TRANG_THAI !== null)
+                              {
+                                    if (response.data[i].TRANG_THAI)
+                                          $(`.${ styles.ir_sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } bật cảm biến`)
+                                                      )
+                                                )
+                                          );
+                                    else
+                                          $(`.${ styles.ir_sensor_history }`).append(
+                                                $("<div>").addClass("row").addClass("w-100").append(
+                                                      $("<div>").addClass("col").append(
+                                                            $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } tắt cảm biến`)
+                                                      )
+                                                )
+                                          );
+                              }
                         }
                   })
                   .catch(function (error)
@@ -799,7 +938,8 @@ const RenderIRDetail = (props) =>
             axios.post(
                   'http://localhost:5000/sensor_status', {
                   id: props.id,
-                  status: $(`.${ styles.switch }`).is(":checked")
+                  status: $(`.${ styles.switch }`).is(":checked"),
+                  username: localStorage.getItem('username')
             }).then(res =>
             {
                   console.log(res);
@@ -920,7 +1060,7 @@ const SensorDetail = () =>
             } }>
                   <div className={ `h-75 w-75 ${ styles['sensor_detail'] }` }>
                         <div className="d-flex flex-row justify-content-end align-items-center w-100" style={ { height: "30px" } }>
-                              { localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN") && <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons }` } /> }
+                              { localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN") && <BsFillTrashFill size={ 25 } style={ { marginLeft: "15px" } } className={ `${ styles.icons } me-auto` } /> }
                               <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "10px" } } className={ `${ styles.icons }` } onClick={ goback } />
                         </div>
                         <div className="w-100 d-md-flex align-items-center justify-content-around overflow-auto" style={ { height: "calc(100% - 50px)" } }>

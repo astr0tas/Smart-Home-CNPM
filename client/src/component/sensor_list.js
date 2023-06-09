@@ -22,7 +22,8 @@ const Tempature = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_status', {
                         id: MA_CB,
-                        status: false
+                        status: false,
+                        username: localStorage.getItem('username')
                   }).then(res => { console.log(res) }).catch(error => { console.log(error); })
                   $(`.button_${ MA_CB }`).text("Tắt").attr('value', false).removeClass(styles.on).addClass(styles.off);
                   $(`.currentValue_${ MA_CB }`).empty();
@@ -32,7 +33,8 @@ const Tempature = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_status', {
                         id: MA_CB,
-                        status: true
+                        status: true,
+                        username: localStorage.getItem('username')
                   }).then(res => { console.log(res) }).catch(error => { console.log(error); })
                   $(`.button_${ MA_CB }`).text("Bật").attr('value', true).removeClass(styles.off).addClass(styles.on);
                   axios.post('http://localhost:5000/sensor_list/latest_data', {
@@ -172,7 +174,8 @@ const Humid = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_status', {
                         id: MA_CB,
-                        status: false
+                        status: false,
+                        username: localStorage.getItem('username')
                   }).then(res => { console.log(res) }).catch(error => { console.log(error); })
                   $(`.button_${ MA_CB }`).text("Tắt").attr('value', false).removeClass(styles.on).addClass(styles.off);
                   $(`.currentValue_${ MA_CB }`).empty();
@@ -182,7 +185,8 @@ const Humid = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_status', {
                         id: MA_CB,
-                        status: true
+                        status: true,
+                        username: localStorage.getItem('username')
                   }).then(res => { console.log(res) }).catch(error => { console.log(error); })
                   $(`.button_${ MA_CB }`).text("Bật").attr('value', true).removeClass(styles.off).addClass(styles.on);
                   axios.post('http://localhost:5000/sensor_list/latest_data', {
@@ -322,7 +326,8 @@ const LightSensor = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_status', {
                         id: MA_CB,
-                        status: false
+                        status: false,
+                        username: localStorage.getItem('username')
                   }).then(res => { console.log(res) }).catch(error => { console.log(error); })
                   $(`.button_${ MA_CB }`).text("Tắt").attr('value', false).removeClass(styles.on).addClass(styles.off);
                   $(`.currentValue_${ MA_CB }`).empty();
@@ -332,7 +337,8 @@ const LightSensor = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_status', {
                         id: MA_CB,
-                        status: true
+                        status: true,
+                        username: localStorage.getItem('username')
                   }).then(res => { console.log(res) }).catch(error => { console.log(error); })
                   $(`.button_${ MA_CB }`).text("Bật").attr('value', true).removeClass(styles.off).addClass(styles.on);
                   axios.post('http://localhost:5000/sensor_list/latest_data', {
@@ -472,7 +478,8 @@ const InfraredSensor = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_status', {
                         id: MA_CB,
-                        status: false
+                        status: false,
+                        username: localStorage.getItem('username')
                   }).then(res => { console.log(res) }).catch(error => { console.log(error); })
                   $(`.button_${ MA_CB }`).text("Tắt").attr('value', false).removeClass(styles.on).addClass(styles.off);
                   $(`.currentValue_${ MA_CB }`).empty();
@@ -482,7 +489,8 @@ const InfraredSensor = (props) =>
                   axios.post(
                         'http://localhost:5000/sensor_status', {
                         id: MA_CB,
-                        status: true
+                        status: true,
+                        username: localStorage.getItem('username')
                   }).then(res => { console.log(res) }).catch(error => { console.log(error); })
                   $(`.button_${ MA_CB }`).text("Bật").attr('value', true).removeClass(styles.off).addClass(styles.on);
                   axios.post('http://localhost:5000/sensor_list/latest_data', {
@@ -661,7 +669,7 @@ const SensorList = () =>
                               <div className="w-75 d-flex justify-content-start align-items-center" style={ { marginLeft: "10px", position: "relative" } }>
                                     <BsSearch id='scope' className={ `${ styles.search_icon }` } onClick={ search } />
                                     <input className={ `${ styles.search }` } id='search' type='text' placeholder='Find' />
-                                    { localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN") && <button className={ `mx-sm-4 ${ styles.add } d-flex align-items-center` }><TbPlus />Thêm</button>}
+                                    { localStorage.getItem('type') !== null && localStorage.getItem('type').includes("ADMIN") && <button className={ `mx-sm-4 ${ styles.add } d-flex align-items-center` }><TbPlus />Thêm</button> }
                               </div>
                               <div className="w-25 d-flex justify-content-end align-items-center">
                                     <AiOutlineCloseCircle size={ 30 } style={ { marginRight: "5px" } } className={ `${ styles.close }` } onClick={ goBack } />
