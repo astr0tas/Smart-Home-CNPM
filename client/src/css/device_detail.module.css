@@ -60,10 +60,6 @@
       margin-bottom: 0;
 }
 
-/* .irdetail {
-      height: 30%;
-} */
-
 .switch {
       width: 50px !important;
       height: 25px !important;
@@ -73,15 +69,16 @@
       cursor: pointer;
 }
 
-/* .ir_device_history {
-      overflow: scroll;
-      height: 50%;
-      width: 56%;
+.reset {
+      font-size: 1rem;
+      border-radius: 10px;
+      color: white;
+      background-color: rgb(0, 102, 255);
 }
 
-.irhistory {
-      margin-top: 10% !important;
-} */
+.reset:active {
+      background-color: rgb(127, 175, 246);
+}
 
 @media only screen and (max-width:1300px) {
 
@@ -108,14 +105,6 @@
 }
 
 @media only screen and (max-width:767px) {
-      /* .irdetail {
-            height: 15%;
-      }
-
-      .irhistory {
-            margin-top: 20% !important;
-      } */
-
       .detail {
             height: 80%;
             min-height: 0;
@@ -154,21 +143,9 @@
             width: 94%
       }
 
-      /* .ir_device_history {
-            overflow: scroll;
-            height: 65%;
-            width: 94%
-      } */
-}
-
-@media only screen and (max-width:576px) {
-      /* .irhistory {
-            margin-top: 30% !important;
+      .reset {
+            font-size: 0.7rem;
       }
-
-      .ir_device_history {
-            overflow: scroll;
-            height: 60%;
-            width: 94%
-      } */
 }
+
+@media only screen and (max-width:576px) {}

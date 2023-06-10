@@ -453,8 +453,6 @@ const Door = (props) =>
                   })
                         .then(function (response)
                         {
-                              console.log(response);
-
                               $(".table_body").empty();
                               for (let i = 0; i < response.data.length; i++)
                               {
@@ -462,18 +460,18 @@ const Door = (props) =>
                                           .append($("<th>").attr("scope", "row").text(i + 1))
                                           .append($("<td>").text(response.data[i].TEN));
                                     const td = $("<td>").addClass("text-center");
-                                    // table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
-                                    // axios.post('http://localhost:5000/device_list/latest_data', {
-                                    //       id: response.data[i].MA_TB,
-                                    // }).then(res =>
-                                    // {
-                                    //       if (!('error' in res.data))
-                                    //       {
-                                    //             if (response.data[i].TRANG_THAI)
-                                    //                   if (!$(`.currentValue_${ response.data[i].MA_TB }`).children().length)
-                                    //                         $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
-                                    //       }
-                                    // }).catch(error => { console.log(error); });
+                                    axios.post('http://localhost:5000/device_list/latest_data', {
+                                          id: response.data[i].MA_TB,
+                                    }).then(res =>
+                                    {
+                                          if (!('error' in res.data))
+                                          {
+                                                if (res.data[0].GIA_TRI)
+                                                      td.append($("<p>").text(`Mở`).addClass(styles.current_value).css("color", "red"));
+                                                else if (res.data[0].GIA_TRI !== null && !res.data[0].GIA_TRI)
+                                                      td.append($("<p>").text(`Đóng`).addClass(styles.current_value).css("color", "green"));
+                                          }
+                                    }).catch(error => { console.log(error); });
                                     table_row.append(td);
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))
@@ -502,18 +500,18 @@ const Door = (props) =>
                                           .append($("<th>").attr("scope", "row").text(i + 1))
                                           .append($("<td>").text(response.data[i].TEN));
                                     const td = $("<td>").addClass("text-center");
-                                    // table_row.append($("<td>").addClass("text-center").addClass(`currentValue_${ response.data[i].MA_TB }`));
-                                    // axios.post('http://localhost:5000/device_list/latest_data', {
-                                    //       id: response.data[i].MA_TB,
-                                    // }).then(res =>
-                                    // {
-                                    //       if (!('error' in res.data))
-                                    //       {
-                                    //             if (response.data[i].TRANG_THAI)
-                                    //                   if (!$(`.currentValue_${ response.data[i].MA_TB }`).children().length)
-                                    //                         $(`.currentValue_${ response.data[i].MA_TB }`).append($("<p>").text(res.data[0].GIA_TRI).addClass(styles.current_value));
-                                    //       }
-                                    // }).catch(error => { console.log(error); });
+                                    axios.post('http://localhost:5000/device_list/latest_data', {
+                                          id: response.data[i].MA_TB,
+                                    }).then(res =>
+                                    {
+                                          if (!('error' in res.data))
+                                          {
+                                                if (res.data[0].GIA_TRI)
+                                                      td.append($("<p>").text(`Mở`).addClass(styles.current_value).css("color", "red"));
+                                                else if (res.data[0].GIA_TRI !== null && !res.data[0].GIA_TRI)
+                                                      td.append($("<p>").text(`Đóng`).addClass(styles.current_value).css("color", "green"));
+                                          }
+                                    }).catch(error => { console.log(error); });
                                     table_row.append(td);
                                     table_row.append($("<td>").addClass("text-center")
                                           .append($("<button>").text("Chi tiết").addClass(styles.detail).addClass("m-0").on("click", () => { window.location.href = "./" + response.data[i].MA_TB; }))

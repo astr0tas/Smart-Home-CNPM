@@ -140,6 +140,7 @@ const FanDetail = (props) =>
                   {
                         console.log(error);
                   });
+
       }, [render]);
 
       const toggleStatus = (e) =>
@@ -171,7 +172,6 @@ const FanDetail = (props) =>
       }
 
       let timer;
-
       const changeValue = (e) =>
       {
             clearTimeout(timer);
@@ -189,23 +189,6 @@ const FanDetail = (props) =>
                         setRender(!render);
                   }).catch(error => { console.log(error); })
             }, 500);
-      }
-
-      const setTime = () =>
-      {
-            const start = $('.timeStart').val(), end = $('.timeEnd').val();
-            if (start !== '' && end !== '')
-            {
-                  axios.post('http://localhost:5000/device_timer', {
-                        id: props.id,
-                        start: start,
-                        end: end,
-                        username: localStorage.getItem('username')
-                  }).then(res =>
-                  {
-                        console.log(res);
-                  }).catch(err => { console.log(err); })
-            }
       }
 
       return (
@@ -233,48 +216,25 @@ const FanDetail = (props) =>
                               <div className="col-3 my-auto">
                                     <div className="d-flex flex-column flex-md-row">
                                           <strong className={ `${ styles.font }` }>Tốc độ (%)</strong>
+                                    </div>
+                              </div>
+                              <div className="col-4 col-md-2 my-auto">
+                                    <div className="d-flex flex-column flex-md-row align-items-md-center">
                                           <input type="number" style={ {
                                                 width: "60px",
                                                 backgroundColor: "#D8D8D8",
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
                                                 paddingLeft: "10px"
-                                          } } className='ms-md-3' ref={ value } onChange={ changeValue } />
+                                          } } ref={ value } onChange={ changeValue } />
                                     </div>
                               </div>
-                              <div className="col-9 my-auto">
+                              <div className="col my-auto">
                                     <div className="d-flex flex-column flex-md-row align-items-md-center">
                                           <strong className={ `${ styles.font }` }>Tự động</strong>
                                           <div className="form-check form-switch ms-md-3">
                                                 <input className={ `form-check-input ${ styles.switch }` } type="checkbox" role="switch" onChange={ toggleAuto } ref={ auto }></input>
                                           </div>
-                                    </div>
-                              </div>
-                        </div>
-                        <div className="row w-100">
-                              <div className="col-3 my-auto">
-                                    <strong className={ `${ styles.font }` }>Hẹn giờ</strong>
-                              </div>
-                              <div className="col-2 my-auto">
-                                    <div className="d-flex flex-column flex-md-row">
-                                          <strong className={ `${ styles.font }` }>Từ</strong>
-                                          <input type="time" style={ {
-                                                backgroundColor: "#D8D8D8",
-                                                borderRadius: "10px",
-                                                borderWidth: "1px",
-                                                paddingLeft: "10px"
-                                          } } className={ `ms-md-3 timeStart` } onChange={ setTime } />
-                                    </div>
-                              </div>
-                              <div className="col-2 my-auto">
-                                    <div className="d-flex flex-column flex-md-row align-items-md-center">
-                                          <strong className={ `${ styles.font }` }>đến</strong>
-                                          <input type="time" style={ {
-                                                backgroundColor: "#D8D8D8",
-                                                borderRadius: "10px",
-                                                borderWidth: "1px",
-                                                paddingLeft: "10px"
-                                          } } className='ms-md-3 timeEnd' onChange={ setTime } />
                                     </div>
                               </div>
                         </div>
@@ -315,7 +275,6 @@ const LightDetail = (props) =>
 {
       const [name, setName] = useState("N/A");
       const [render, setRender] = useState(false);
-
       const onOff = useRef(null);
       const auto = useRef(null);
       const value = useRef(null);
@@ -356,6 +315,7 @@ const LightDetail = (props) =>
                               if (auto.current !== null && auto.current !== "undefined")
                                     auto.current.disabled = true;
                         }
+
                         axios.post('http://localhost:5000/device_list/latest_data', {
                               id: props.id,
                         }).then(res =>
@@ -488,26 +448,10 @@ const LightDetail = (props) =>
                   }).then(res =>
                   {
                         console.log(res);
+
                         setRender(!render);
                   }).catch(error => { console.log(error); })
             }, 500);
-      }
-
-      const setTime = () =>
-      {
-            const start = $('.timeStart').val(), end = $('.timeEnd').val();
-            if (start !== '' && end !== '')
-            {
-                  axios.post('http://localhost:5000/device_timer', {
-                        id: props.id,
-                        start: start,
-                        end: end,
-                        username: localStorage.getItem('username')
-                  }).then(res =>
-                  {
-                        console.log(res);
-                  }).catch(err => { console.log(err); })
-            }
       }
 
       return (
@@ -535,48 +479,25 @@ const LightDetail = (props) =>
                               <div className="col-3 my-auto">
                                     <div className="d-flex flex-column flex-md-row">
                                           <strong className={ `${ styles.font }` }>Độ sáng (%)</strong>
+                                    </div>
+                              </div>
+                              <div className="col-4 col-md-2 my-auto">
+                                    <div className="d-flex flex-column flex-md-row align-items-md-center">
                                           <input type="number" style={ {
                                                 width: "60px",
                                                 backgroundColor: "#D8D8D8",
                                                 borderRadius: "10px",
                                                 borderWidth: "1px",
                                                 paddingLeft: "10px"
-                                          } } className='ms-md-3' ref={ value } onChange={ changeValue } />
+                                          } } ref={ value } onChange={ changeValue } />
                                     </div>
                               </div>
-                              <div className="col-9 my-auto">
+                              <div className="col my-auto">
                                     <div className="d-flex flex-column flex-md-row align-items-md-center">
                                           <strong className={ `${ styles.font }` }>Tự động</strong>
                                           <div className="form-check form-switch ms-md-3">
                                                 <input className={ `form-check-input ${ styles.switch }` } type="checkbox" role="switch" onChange={ toggleAuto } ref={ auto }></input>
                                           </div>
-                                    </div>
-                              </div>
-                        </div>
-                        <div className="row w-100">
-                              <div className="col-3 my-auto">
-                                    <strong className={ `${ styles.font }` }>Hẹn giờ</strong>
-                              </div>
-                              <div className="col-2 my-auto">
-                                    <div className="d-flex flex-column flex-md-row">
-                                          <strong className={ `${ styles.font }` }>Từ</strong>
-                                          <input type="time" style={ {
-                                                backgroundColor: "#D8D8D8",
-                                                borderRadius: "10px",
-                                                borderWidth: "1px",
-                                                paddingLeft: "10px"
-                                          } } className='ms-md-3 timeStart' onChange={ setTime } />
-                                    </div>
-                              </div>
-                              <div className="col-2 my-auto">
-                                    <div className="d-flex flex-column flex-md-row align-items-md-center">
-                                          <strong className={ `${ styles.font }` }>đến</strong>
-                                          <input type="time" style={ {
-                                                backgroundColor: "#D8D8D8",
-                                                borderRadius: "10px",
-                                                borderWidth: "1px",
-                                                paddingLeft: "10px"
-                                          } } className='ms-md-3 timeEnd' onChange={ setTime } />
                                     </div>
                               </div>
                         </div>
@@ -616,7 +537,6 @@ const LightDetail = (props) =>
 const DoorDetail = (props) =>
 {
       const [name, setName] = useState("N/A");
-      const [status, setStatus] = useState({ status_str: "", status_color: "" });
 
       useEffect(() =>
       {
@@ -634,10 +554,10 @@ const DoorDetail = (props) =>
                         {
                               if (!('error' in res.data))
                               {
-                                    if (response.data[0].TRANG_THAI)
-                                          setStatus({ status_str: "Mở", status_color: "green" });
-                                    else if (response.data[0].TRANG_THAI === 0)
-                                          setStatus({ status_str: "Đóng", status_color: "red" });
+                                    if (res.data[0].GIA_TRI)
+                                          $(`.doorStatus`).val("Mở").css("color", "red");
+                                    else if (res.data[0].GIA_TRI === 0)
+                                          $(`.doorStatus`).val("Đóng").css("color", "green");
                               }
                         }).catch(error => { console.log(error); })
                   })
@@ -650,17 +570,25 @@ const DoorDetail = (props) =>
             })
                   .then(function (response)
                   {
-                        console.log(response)
-                        // for (let i = 0; i < response.data.length; i++)
-                        // {
-                        //       $(`.${ styles.device_history }`).append(
-                        //             $("<div>").addClass("row").addClass("w-100").append(
-                        //                   $("<div>").addClass("col").append(
-                        //                         $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - Tốc độ quạt hiện tại: ${ response.data[i].GIA_TRI }`)
-                        //                   )
-                        //             )
-                        //       );
-                        // }
+                        for (let i = 0; i < response.data.length; i++)
+                        {
+                              if (response.data[i].GIA_TRI && response.data[i].TEN)
+                                    $(`.${ styles.device_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } đã mở cửa`)
+                                                )
+                                          )
+                                    );
+                              else if (response.data[i].GIA_TRI !== null && !response.data[i].GIA_TRI && response.data[i].TEN)
+                                    $(`.${ styles.device_history }`).append(
+                                          $("<div>").addClass("row").addClass("w-100").append(
+                                                $("<div>").addClass("col").append(
+                                                      $("<p>").addClass(styles.history_font).text(`${ formatDateAndTime(response.data[i].THOI_GIAN) } - ${ response.data[i].TEN } đã đóng cửa`)
+                                                )
+                                          )
+                                    );
+                        }
                   })
                   .catch(function (error)
                   {
@@ -690,9 +618,8 @@ const DoorDetail = (props) =>
                                           backgroundColor: "#D8D8D8",
                                           borderRadius: "10px",
                                           borderWidth: "1px",
-                                          paddingLeft: "10px",
-                                          color: status.status_color
-                                    } } className='ms-md-3' disabled value={ status.status_str } />
+                                          textAlign:"center"
+                                    } } className='ms-md-3 doorStatus' disabled />
                               </div>
                         </div>
                   </div >

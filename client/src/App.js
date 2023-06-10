@@ -11,6 +11,8 @@ import SensorList from './component/sensor_list';
 import Info from './component/info';
 import DeviceDetail from './component/device_detail';
 import Change from './component/change';
+import AccoutList from './component/account_list';
+import AddAccount from './component/add_account';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -48,6 +50,10 @@ function App()
                 <Route path="sensor" element={ <Sensor /> } />
                 <Route path="sensor/:type/list" element={ <SensorList /> } />
                 <Route path='sensor/:type/:id' element={ <SensorDetail /> } />
+              </Route>
+              <Route>
+                <Route path="accounts" element={ <AccoutList /> } />
+                <Route path='accounts/add' element={ <AddAccount /> } />
               </Route>
             </Route>
           </Route>

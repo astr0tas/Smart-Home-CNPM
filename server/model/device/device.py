@@ -281,31 +281,6 @@ def device_decrease(id, value, userID):
     finally:
         connection.close()
 
-
-def device_timer(id, start, end, userID):
-    try:
-        config = {
-            'user': 'smarthome',
-            'password': 'smarthome123',
-            'host': 'localhost',
-            'database': 'smart_home',
-        }
-        try:
-            connection = mysql.connector.connect(**config)
-        except Exception as e:
-            print("Error connecting to MySQL:", e)
-        with connection.cursor() as cursor:
-            query = ""  # This query is not right
-            cursor.execute(query)
-            connection.commit()
-            return cursor.rowcount
-    except Exception as e:
-        print("Error executing query:", e)
-        return None
-    finally:
-        connection.close()
-
-
 def update_device_auto(id, value, userID):
     try:
         config = {

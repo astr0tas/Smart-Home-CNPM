@@ -66,7 +66,7 @@ function AdminNavbar()
                                     <a href='/admin/device' id="device" className='d-flex align-items-center tab'><TiLightbulb></TiLightbulb>Thiết bị</a>
                                     <a href='/admin/sensor' id="sensor" className='d-flex align-items-center tab'><BsThermometerHalf></BsThermometerHalf>Cảm biến</a>
                                     <a href='#' id="notice" className='d-flex align-items-center tab'><BsFillBellFill></BsFillBellFill>Thông báo</a>
-                                    <a href='#' id="account" className='d-flex align-items-center tab'><BsFillPersonFill></BsFillPersonFill>Tài khoản</a>
+                                    <a href='/admin/accounts' id="account" className='d-flex align-items-center tab'><BsFillPersonFill></BsFillPersonFill>Tài khoản</a>
                               </div>
                               <a href='/admin/info' style={{color:'black'}} id='info'><FaUserCircle className='userpic' /></a>
                         </div>

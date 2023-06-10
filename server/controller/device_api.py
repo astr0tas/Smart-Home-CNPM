@@ -136,23 +136,6 @@ def post_device_decrease():
     else:
         return jsonify({'error': 'No data received'})
 
-
-@api.route('/device_timer', methods=['POST'])
-def post_device_timer():
-    data = request.get_json()
-    if data:
-        id = device.getUserID(data['username'])
-        id = id[0]['ma_user']
-        result = device.device_timer(
-            data['id'], data['start'], data['end'], id)
-        if result:
-            return jsonify({"message": "Database updated!"})
-        else:
-            return jsonify({'error': 'Failed to update data to database'})
-    else:
-        return jsonify({'error': 'No data received'})
-
-
 @api.route('/device_history', methods=['POST'])
 def post_device_history():
     data = request.get_json()
