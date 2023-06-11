@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-06-11T14:50:22.482Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="7QtRuvGORF4fFlCTWlPe" version="21.3.7" type="github">
+<mxfile host="app.diagrams.net" modified="2023-06-11T14:51:55.424Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="eQ27yR-47rl4k5sA2ENO" version="21.3.7" type="github">
   <diagram name="Page-1" id="Gs4qEUFltZ7bUWOozk17">
     <mxGraphModel dx="2358" dy="1268" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -20,10 +20,7 @@
           <mxGeometry x="605.5" y="1580" width="106" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Ebhskz-XtMlUNa1snjmE-5" value="Bật/tắt&amp;nbsp;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="522" y="1360" width="74" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="Ebhskz-XtMlUNa1snjmE-6" value="Thiết lập hẹn giờ tự động" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="413" y="1360" width="82" height="70" as="geometry" />
+          <mxGeometry x="490" y="1360" width="74" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Ebhskz-XtMlUNa1snjmE-7" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;fillColor=#dae8fc;strokeColor=#006aff;startArrow=none;" parent="1" source="Ebhskz-XtMlUNa1snjmE-1" target="Ebhskz-XtMlUNa1snjmE-2" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -75,12 +72,6 @@
             <mxPoint x="680" y="1540" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Ebhskz-XtMlUNa1snjmE-14" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="1" source="Ebhskz-XtMlUNa1snjmE-6" target="kh4QaWCAT5zSmjW3qF8s-1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="559" y="1674" as="sourcePoint" />
-            <mxPoint x="395" y="1583" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="Ebhskz-XtMlUNa1snjmE-15" value="Danh sách tài khoản người dùng" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="532" y="1290" width="160" height="60" as="geometry" />
         </mxCell>
@@ -95,7 +86,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Ebhskz-XtMlUNa1snjmE-17" value="Thiết lập thông số" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="350.5" y="1430" width="80" height="70" as="geometry" />
+          <mxGeometry x="380" y="1405" width="80" height="70" as="geometry" />
         </mxCell>
         <mxCell id="Ebhskz-XtMlUNa1snjmE-18" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="1" source="Ebhskz-XtMlUNa1snjmE-17" target="kh4QaWCAT5zSmjW3qF8s-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -352,15 +343,6 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="872" y="1733" as="sourcePoint" />
             <mxPoint x="800" y="1749" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="2bszB42qfSscd5xxnwQu-1" value="Cập nhật tài khoản" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="730" y="1360" width="106" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="2bszB42qfSscd5xxnwQu-2" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="1" source="2bszB42qfSscd5xxnwQu-1" target="Ebhskz-XtMlUNa1snjmE-15" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="810" y="1338" as="sourcePoint" />
-            <mxPoint x="702" y="1333" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
