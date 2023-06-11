@@ -244,16 +244,6 @@ const FanDetail = (props) =>
                               <div className="col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Lịch sử hoạt động</strong>
                               </div>
-                              <div className="col-md-2 col text-end text-md-center my-auto">
-                                    <button style={ {
-                                          borderRadius: "10px",
-                                          backgroundColor: "#4080FF",
-                                          color: "white",
-                                          borderColor: "#4080FF"
-                                    } } className={ `${ styles.font }` }>
-                                          Thống kê
-                                    </button>
-                              </div>
                         </div>
                         <div className="row w-100">
                               <div className="col-md-7 col">
@@ -507,16 +497,6 @@ const LightDetail = (props) =>
                               <div className="col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Lịch sử hoạt động</strong>
                               </div>
-                              <div className="col-md-2 col text-end text-md-center my-auto">
-                                    <button style={ {
-                                          borderRadius: "10px",
-                                          backgroundColor: "#4080FF",
-                                          color: "white",
-                                          borderColor: "#4080FF"
-                                    } } className={ `${ styles.font }` }>
-                                          Thống kê
-                                    </button>
-                              </div>
                         </div>
                         <div className="row w-100">
                               <div className="col-md-7 col">
@@ -627,16 +607,6 @@ const DoorDetail = (props) =>
                         <div className="row w-100">
                               <div className="col-5 my-auto">
                                     <strong className={ `${ styles.font }` }>Lịch sử hoạt động</strong>
-                              </div>
-                              <div className="col-md-2 col text-end text-md-center my-auto">
-                                    <button style={ {
-                                          borderRadius: "10px",
-                                          backgroundColor: "#4080FF",
-                                          color: "white",
-                                          borderColor: "#4080FF"
-                                    } } className={ `${ styles.font }` }>
-                                          Thống kê
-                                    </button>
                               </div>
                         </div>
                         <div className="row w-100">
