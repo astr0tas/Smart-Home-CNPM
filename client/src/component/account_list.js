@@ -23,11 +23,11 @@ const Accout = (props) =>
 
       return (
             <tr>
-                  <td scope="col" className={ `col-1` }>{ props.i }</td>
-                  <td scope="col" className={ `col-3 ` }>{ props.ten }</td>
-                  <td scope="col" className={ `col-3` }>{ props.email }</td>
-                  <td scope="col" className={ `col-3` }>{ props.sdt }</td>
-                  <td scope="col" className={ `col-1` }><button className={ `${ styles.decrease }` } onClick={ deleteAccount }>Xóa</button></td>
+                  <td className={ `col-1` }>{ props.i }</td>
+                  <td className={ `col-3 ` }>{ props.ten }</td>
+                  <td className={ `col-3` }>{ props.email }</td>
+                  <td className={ `col-3` }>{ props.sdt }</td>
+                  <td className={ `col-1` }><button className={ `${ styles.decrease }` } onClick={ deleteAccount }>Xóa</button></td>
             </tr>
       );
 }

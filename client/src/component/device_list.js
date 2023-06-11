@@ -218,7 +218,7 @@ const Fan = (props) =>
                               console.log(error);
                         });
             }
-      }, [render]);
+      }, [render,props.name]);
 }
 
 const Light = (props) =>
@@ -525,7 +525,7 @@ const Door = (props) =>
                               console.log(error);
                         });
             }
-      }, [])
+      }, [props.name])
 }
 
 const DeviceList = () =>

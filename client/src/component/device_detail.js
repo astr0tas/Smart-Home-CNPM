@@ -141,7 +141,7 @@ const FanDetail = (props) =>
                         console.log(error);
                   });
 
-      }, [render]);
+      }, [render, props.id]);
 
       const toggleStatus = (e) =>
       {
@@ -402,7 +402,7 @@ const LightDetail = (props) =>
                   {
                         console.log(error);
                   });
-      }, [render]);
+      }, [render, props.id]);
 
       const toggleStatus = (e) =>
       {
@@ -594,7 +594,7 @@ const DoorDetail = (props) =>
                   {
                         console.log(error);
                   });
-      }, []);
+      }, [props.id]);
 
 
       return (
@@ -618,7 +618,7 @@ const DoorDetail = (props) =>
                                           backgroundColor: "#D8D8D8",
                                           borderRadius: "10px",
                                           borderWidth: "1px",
-                                          textAlign:"center"
+                                          textAlign: "center"
                                     } } className='ms-md-3 doorStatus' disabled />
                               </div>
                         </div>
@@ -691,7 +691,7 @@ export default function DeviceDetail()
                   if (target.current !== null && target.current !== 'undefined')
                         ReactDOM.createRoot(target.current).render(<DoorDetail id={ id } />);
             }
-      }, []);
+      }, [id,type]);
 
       return (
             <div className='h-100 w-100 d-flex flex-column justify-content-center align-items-center' style={ {

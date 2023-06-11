@@ -128,7 +128,7 @@ const RenderHeatSensorDetail = (props) =>
                   {
                         console.log(error);
                   });
-      }, [renderPage]);
+      }, [renderPage, props.id]);
 
       const toggleStatus = () =>
       {
@@ -412,7 +412,7 @@ const RenderHumidSensorDetail = (props) =>
                   {
                         console.log(error);
                   });
-      }, [renderPage]);
+      }, [renderPage, props.id]);
 
       const toggleStatus = () =>
       {
@@ -700,7 +700,7 @@ const RenderLightSensorDetail = (props) =>
                   {
                         console.log(error);
                   });
-      }, [renderPage]);
+      }, [renderPage, props.id]);
 
       const toggleStatus = () =>
       {
@@ -931,7 +931,7 @@ const RenderIRDetail = (props) =>
                   {
                         console.log(error);
                   });
-      }, [renderPage]);
+      }, [renderPage, props.id]);
 
       const toggleStatus = () =>
       {
