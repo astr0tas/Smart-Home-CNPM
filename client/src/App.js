@@ -13,6 +13,7 @@ import DeviceDetail from './component/device_detail';
 import Change from './component/change';
 import AccoutList from './component/account_list';
 import AddAccount from './component/add_account';
+import Notification from './component/notification';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -37,6 +38,7 @@ function App()
               <Route path="/sensor/:type/list" element={ <SensorList /> } />
               <Route path='/sensor/:type/:id' element={ <SensorDetail /> } />
             </Route>
+            <Route path="/notification" element={ <Notification /> } />
           </Route>
           <Route path="/admin">
             <Route element={ <AdminNavbar /> }>
@@ -55,6 +57,7 @@ function App()
                 <Route path="accounts" element={ <AccoutList /> } />
                 <Route path='accounts/add' element={ <AddAccount /> } />
               </Route>
+              <Route path="notification" element={ <Notification /> } />
             </Route>
           </Route>
         </Routes>

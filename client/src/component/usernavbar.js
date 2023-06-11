@@ -65,7 +65,7 @@ function UserNavbar()
                               <div className='d-flex flex-column flex-md-row align-items-center justify-content-around tabs'>
                                     <a href='/device' id="device" className='d-flex align-items-center tab'><TiLightbulb></TiLightbulb>Thiết bị</a>
                                     <a href='/sensor' id="sensor" className='d-flex align-items-center tab'><BsThermometerHalf></BsThermometerHalf>Cảm biến</a>
-                                    <a href='#' id="notice" className='d-flex align-items-center tab'><BsFillBellFill></BsFillBellFill>Thông báo</a>
+                                    <a href='/notification' id="notice" className='d-flex align-items-center tab'><BsFillBellFill></BsFillBellFill>Thông báo</a>
                               </div>
                               <a href='/admin/info' style={ { color: 'black' } }><FaUserCircle className='userpic' /></a>
                         </div>

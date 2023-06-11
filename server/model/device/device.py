@@ -187,7 +187,7 @@ def update_device_status(id, status, userID):
         with connection.cursor() as cursor:
             query = "UPDATE THIET_BI SET TRANG_THAI=%s WHERE MA_TB=%s"
             cursor.execute(query, (status, id))
-            query = "insert into THIET_LAP_THIET_BI values(now(),%s,%s,%s,null,null,null,null)"
+            query = "insert into THIET_LAP_THIET_BI values(now(),%s,%s,%s,null,null)"
             cursor.execute(query, (userID, id, status))
             connection.commit()
             return cursor.rowcount
@@ -211,7 +211,7 @@ def update_device_value(id, value, userID):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL,NULL,NULL)".format(
+            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL)".format(
                 userID, id, value)
             cursor.execute(query)
             query = "insert into DU_LIEU_THIET_BI values('{}',now(),'{}')".format(
@@ -239,7 +239,7 @@ def device_increase(id, value, userID):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL,NULL,NULL)".format(
+            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL)".format(
                 userID, id, value)
             cursor.execute(query)
             query = "insert into DU_LIEU_THIET_BI values('{}',now(),'{}')".format(
@@ -267,7 +267,7 @@ def device_decrease(id, value, userID):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL,NULL,NULL)".format(
+            query = "insert into THIET_LAP_THIET_BI values(NOW(),'{}','{}',NULL,'{}',NULL)".format(
                 userID, id, value)
             cursor.execute(query)
             query = "insert into DU_LIEU_THIET_BI values('{}',now(),'{}')".format(
@@ -280,6 +280,7 @@ def device_decrease(id, value, userID):
         return None
     finally:
         connection.close()
+
 
 def update_device_auto(id, value, userID):
     try:
@@ -296,7 +297,7 @@ def update_device_auto(id, value, userID):
         with connection.cursor() as cursor:
             query = "UPDATE THIET_BI SET TU_DONG=%s WHERE MA_TB=%s"
             cursor.execute(query, (value, id))
-            query = "insert into THIET_LAP_THIET_BI values(now(),%s,%s,NULL,NULL,%s,NULL,NULL)"
+            query = "insert into THIET_LAP_THIET_BI values(now(),%s,%s,NULL,NULL,%s)"
             cursor.execute(query, (userID, id, value))
             connection.commit()
             return cursor.rowcount
