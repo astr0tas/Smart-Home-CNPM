@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-03-23T05:42:06.659Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="kJlO33r0bg18JxOACSJo" version="21.0.10" type="github">
+<mxfile host="app.diagrams.net" modified="2023-06-11T14:50:22.482Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="7QtRuvGORF4fFlCTWlPe" version="21.3.7" type="github">
   <diagram name="Page-1" id="Gs4qEUFltZ7bUWOozk17">
-    <mxGraphModel dx="1500" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2358" dy="1268" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -354,19 +354,10 @@
             <mxPoint x="800" y="1749" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="kh4QaWCAT5zSmjW3qF8s-9" value="Thiết lập khoảng thời gian gửi dữ liệu" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="495" y="1620" width="135" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="kh4QaWCAT5zSmjW3qF8s-10" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="1" source="kh4QaWCAT5zSmjW3qF8s-9" target="kh4QaWCAT5zSmjW3qF8s-4" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="459" y="1688" as="sourcePoint" />
-            <mxPoint x="492" y="1742" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="2bszB42qfSscd5xxnwQu-1" value="Cập nhật tài khoản" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="2bszB42qfSscd5xxnwQu-1" value="Cập nhật tài khoản" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="730" y="1360" width="106" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="2bszB42qfSscd5xxnwQu-2" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" edge="1" parent="1" source="2bszB42qfSscd5xxnwQu-1" target="Ebhskz-XtMlUNa1snjmE-15">
+        <mxCell id="2bszB42qfSscd5xxnwQu-2" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="1" source="2bszB42qfSscd5xxnwQu-1" target="Ebhskz-XtMlUNa1snjmE-15" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="810" y="1338" as="sourcePoint" />
             <mxPoint x="702" y="1333" as="targetPoint" />
