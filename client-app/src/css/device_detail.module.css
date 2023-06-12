@@ -1,0 +1,151 @@
+.device_detail {
+      border: 2px solid black;
+      border-radius: 20px;
+      background-color: white;
+      min-height: 300px;
+      overflow: auto;
+}
+
+.icons {
+      color: red;
+}
+
+.icons:hover {
+      cursor: pointer;
+}
+
+.icons:active {
+      color: rgb(255, 145, 145);
+}
+
+.image {
+      display: flex;
+      flex-direction: column;
+      width: 25%;
+      height: 100%;
+      margin-left: 30px;
+}
+
+.image>img {
+      height: 60%;
+      width: 90%;
+      border: 2px solid black;
+      border-radius: 10px;
+}
+
+.image>button {
+      margin-top: 5%;
+}
+
+.detail {
+      width: calc(75% - 30px);
+      min-height: 350px;
+      overflow: auto;
+      height: 100%;
+}
+
+.device_history {
+      overflow: scroll;
+      height: 40%;
+      width: 56%;
+}
+
+.history_font {
+      font-size: 15px;
+      margin-bottom: 10px;
+}
+
+.font {
+      font-size: 18px;
+      margin-bottom: 0;
+}
+
+.switch {
+      width: 50px !important;
+      height: 25px !important;
+}
+
+.switch:hover {
+      cursor: pointer;
+}
+
+.reset {
+      font-size: 1rem;
+      border-radius: 10px;
+      color: white;
+      background-color: rgb(0, 102, 255);
+}
+
+.reset:active {
+      background-color: rgb(127, 175, 246);
+}
+
+@media only screen and (max-width:1300px) {
+
+      .font,
+      .history_font {
+            font-size: 15px;
+      }
+}
+
+@media only screen and (max-width:1200px) {
+
+      .font,
+      .history_font {
+            font-size: 13px;
+      }
+}
+
+@media only screen and (max-width:1100px) {
+
+      .font,
+      .history_font {
+            font-size: 11px;
+      }
+}
+
+@media only screen and (max-width:767px) {
+      .detail {
+            height: 80%;
+            min-height: 0;
+      }
+
+      .history_font {
+            font-size: 12px;
+      }
+
+      .font {
+            font-size: 10px;
+      }
+
+      .image {
+            width: 100%;
+            height: 20%;
+            margin-left: 0;
+      }
+
+      .image>img {
+            height: 100%;
+            width: 20%;
+      }
+
+      .image>button {
+            margin-top: 5px;
+      }
+
+      .detail {
+            width: 100%;
+      }
+
+      .device_history {
+            overflow: scroll;
+            height: 30%;
+            width: 94%
+      }
+
+      .reset {
+            font-size: 0.7rem;
+      }
+}
+
+@media only screen and (max-width:576px) {}

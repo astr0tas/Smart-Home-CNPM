@@ -1,0 +1,151 @@
+.close {
+      color: red;
+}
+
+.close:active {
+      color: rgb(255, 137, 137);
+}
+
+.close:hover {
+      cursor: pointer;
+}
+
+.search_icon {
+      position: absolute;
+      margin-left: 5px;
+      height: 20px;
+      width: 20px;
+}
+
+.search_icon:hover {
+      cursor: pointer;
+}
+
+.search_icon:active {
+      color: gray;
+}
+
+.search {
+      width: 40%;
+      min-width: 80px;
+      padding-left: 30px;
+      border: 2px solid black;
+      border-radius: 10px;
+      max-width: 200px;
+}
+
+.add {
+      background-color: #4080FF;
+      color: white;
+      border: 1px solid black;
+      border-radius: 5px;
+}
+
+.add:active {
+      background-color: #8eb4ff;
+}
+
+.off,
+.decrease {
+      color: white;
+      background-color: red;
+      border: 1px solid black;
+      border-radius: 5px;
+}
+
+.off:active,
+.decrease:active {
+      background-color: rgb(255, 137, 137);
+}
+
+.on,
+.increase {
+      background-color: #4080FF;
+      color: white;
+      border: 1px solid black;
+      border-radius: 5px;
+}
+
+.increase {
+      margin-right: 10px;
+}
+
+.on:active,
+.increase:active {
+      background-color: #8eb4ff;
+}
+
+.auto {
+      background-color: #0BB563;
+      color: white;
+      border: 1px solid black;
+      border-radius: 5px;
+      margin-left: 10px;
+}
+
+.auto:active {
+      background-color: #87f8c1;
+}
+
+.detail {
+      background-color: #49ACC1;
+      color: white;
+      border: 1px solid black;
+      border-radius: 5px;
+      margin-left: 10px;
+}
+
+.detail:active {
+      background-color: #adecfa;
+}
+
+.current_value {
+      border: 1px solid black;
+      border-radius: 20px;
+      width: 50px;
+      margin: 0;
+      display: inline-block;
+}
+
+@media only screen and (max-width:995px) {
+      .button_list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+      }
+
+      .increase {
+            margin: 0;
+            margin-bottom: 5px;
+      }
+
+      .auto {
+            margin: 0;
+            margin-top: 5px;
+      }
+
+      .table_header {
+            font-size: 13px;
+      }
+}
+
+@media only screen and (max-width:767px) {
+      .table_header {
+            font-size: 11px;
+      }
+
+      .add,
+      .search {
+            font-size: 13px;
+      }
+
+      .add {
+            margin-left: 5px;
+            margin-right: 5px;
+      }
+
+      .search_icon {
+            height: 15px;
+            width: 15px;
+      }
+}

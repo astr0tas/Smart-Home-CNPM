@@ -1,0 +1,57 @@
+.device-page .select-device {
+      margin: auto;
+}
+
+.device-page .device-page-board {
+      border: 2px solid black;
+      border-radius: 20px;
+      background-color: white;
+}
+
+.device-page .devices {
+      border: 2px solid black;
+      border-radius: 20px;
+      color: black;
+      text-decoration: none;
+      width: 20%;
+      height: 50%;
+}
+
+.device-page .device_image {
+      margin: 10px;
+      height: 80%;
+      width: 80%;
+      max-height: 150px;
+      max-width: 150px;
+}
+
+.device-page .devices:hover {
+      cursor: pointer;
+}
+
+.device-page .devices>p {
+      font-size: 20px;
+}
+
+@media only screen and (max-width:767px) {
+      .device-page .devices {
+            width: 50%;
+            height: 30%;
+      }
+
+      .device-page .devices>p {
+            font-size: 15px;
+      }
+}
+
+@media only screen and (max-height:500px) {
+      .device-page .devices {
+            min-height: 90px;
+            margin-bottom: 10px;
+      }
+
+      .device-page .select-device {
+            margin-bottom: 0;
+            margin-top: 10px;
+      }
+}

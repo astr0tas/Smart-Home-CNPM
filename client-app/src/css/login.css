@@ -1,0 +1,158 @@
+.login .login-board {
+      border: 2px solid black;
+      border-radius: 20px;
+      background-color: white;
+}
+
+.login .pic {
+      width: 50%;
+      height: 100%;
+}
+
+.login .form {
+      width: 40%;
+      height: 60%;
+      justify-content: center;
+      align-items: center;
+}
+
+.login .input {
+      padding: 10px 0 10px 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      border-radius: 25px;
+      background-color: bisque;
+      font-size: 25px;
+      padding-left: 50px;
+}
+
+.login .forgot {
+      font-size: 25px;
+}
+
+.login .forgot:active {
+      color: rgb(122, 122, 255)
+}
+
+.login .icons {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      margin-bottom: 20px;
+      margin-left: 5px;
+}
+
+.login .submit {
+      margin: 10px 10px 20px 10px;
+      padding: 10px;
+      width: 100%;
+      border-radius: 30px;
+      color: white;
+      background-color: black;
+      font-size: 25px;
+}
+
+.login .submit:hover {
+      cursor: pointer;
+}
+
+.login .submit:active {
+      color: white;
+      background-color: dimgray;
+}
+
+.login .form form {
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+}
+
+.login .errorMessage {
+      font-size: 1.2rem;
+}
+
+@media only screen and (max-width:1200px) and (min-height:871px) {
+      .login .pic {
+            width: 300px;
+            height: 300px;
+      }
+}
+
+@media only screen and (max-width:767px) {
+      .login .pic {
+            display: none;
+      }
+
+      .login .form {
+            width: 100%;
+            height: auto;
+      }
+
+      .login .icons {
+            width: 30px;
+            height: 30px;
+      }
+
+      .login .input {
+            padding-left: 30px;
+      }
+
+      .login .errorMessage {
+            font-size: 1rem;
+      }
+}
+
+@media only screen and (max-width:320px) {
+      .login .input {
+            font-size: 20px;
+      }
+
+      .login .submit {
+            font-size: 20px;
+      }
+
+      .login .forgot {
+            font-size: 20px;
+      }
+
+      .login .errorMessage {
+            font-size: 0.8rem;
+      }
+}
+
+@media only screen and (max-height:1079px) {
+      .login .form {
+            height: 75%;
+      }
+}
+
+@media only screen and (max-height:870px) {
+      .login .form {
+            height: 100%;
+      }
+
+      .login .form form {
+            height: auto;
+      }
+}
+
+@media only screen and (max-height:870px) and (min-width:768px) {
+      .login .pic {
+            height: 60%;
+            width: 60%;
+      }
+
+      .login .form {
+            width: 100%;
+            height: auto;
+      }
+
+      .login .icons {
+            width: 30px;
+            height: 30px;
+      }
+
+      .login .input {
+            padding-left: 30px;
+      }
+}

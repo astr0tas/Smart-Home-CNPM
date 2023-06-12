@@ -1,0 +1,55 @@
+.sensor-page .sensor-page-board {
+      border: 2px solid black;
+      border-radius: 20px;
+      background-color: white;
+}
+
+.sensor-page .sensors {
+      border: 2px solid black;
+      border-radius: 20px;
+      color: black;
+      text-decoration: none;
+      width: 40%;
+      height: 35%;
+      min-height: 100px;
+}
+
+.sensor-page .sensors:hover {
+      cursor: pointer;
+}
+
+.sensor-page .sensor_image {
+      height: 80%;
+      width: 80%;
+      max-height: 150px;
+      max-width: 150px;
+      min-width: 40px;
+      min-height: 40px;
+}
+
+.sensor-page .sensors>p {
+      font-size: 20px;
+}
+
+.sensor-page .select-sensor {
+      margin: auto;
+}
+
+@media only screen and (max-width:767px) {
+
+      .sensor-page .sensors {
+            width: 70%;
+      }
+
+      .sensor-page .group {
+            height: 100%;
+      }
+
+      .sensor-page .select-sensor {
+            margin: 0;
+      }
+
+      .sensor-page .sensors>p {
+            font-size: 15px;
+      }
+}
