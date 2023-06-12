@@ -185,8 +185,8 @@ def update_device_status(id, status, userID):
         except Exception as e:
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
-            query = "UPDATE THIET_BI SET TRANG_THAI=%s WHERE MA_TB=%s"
-            cursor.execute(query, (status, id))
+            query = "UPDATE THIET_BI SET TRANG_THAI=%s, THAY_DOI=%s WHERE MA_TB=%s"
+            cursor.execute(query, (status, 1, id))
             query = "insert into THIET_LAP_THIET_BI values(now(),%s,%s,%s,null,null)"
             cursor.execute(query, (userID, id, status))
             connection.commit()

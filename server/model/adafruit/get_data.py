@@ -14,21 +14,20 @@ import datetime
 # import feedparser
 
 # Kết nối đến Adafruit IO
-AIO_USERNAME = "anhkhoa0186"
-AIO_KEY = "aio_CwgT43BTdkJNrXWCzyeXe8CpYVMU"
+AIO_USERNAME = "pttien"
+AIO_KEY = "aio_Nuxj07CUcyksstE56eZ0reVGSGfg"
 client1 = Adafruit_IO.Client(AIO_USERNAME, AIO_KEY)
 client = MQTTClient(AIO_USERNAME, AIO_KEY)
 
 # Kết nối đến MySQL
 mydb = mysql.connector.connect(
     host="localhost",
-    user="root",
-    password="",
-    database="smart_home_sensor"
+    user="smarthome",
+    password="smarthome123",
+    database="smart_home"
 )
 
-
-def connected1(client):
+"""def connected1(client):
     print("Ket noi thanh cong...")
     client.subscribe("yolo-temp")
     client.subscribe("yolo-humi")
@@ -52,11 +51,11 @@ client.on_disconnect = disconnected1
 client.on_message = message1
 client.on_subscribe = subscribe1
 client.connect()
-client.loop_background()
+client.loop_background()"""
 
-def generate_random_string():
+"""def generate_random_string():
     length = 10
-    """Generate a random string of given length consisting of uppercase letters and digits"""
+    Generate a random string of given length consisting of uppercase letters and digits
     chars = string.ascii_uppercase + string.digits
     return ''.join(random.choice(chars) for _ in range(length))
 def Regenerate_random_string(mydb):
@@ -64,26 +63,26 @@ def Regenerate_random_string(mydb):
     cursor = mydb.cursor()
 
     # Tạo chuỗi ngẫu nhiên ban đầu
-    random_string = generate_random_string(10)
+    random_string = generate_random_string()
 
    # Truy vấn và kiểm tra xem giá trị ngẫu nhiên mới tạo ra có trùng với giá trị trong cột thứ 2 trên bất kỳ hàng nào trong bảng hay không
     while True:
-        query = "SELECT * FROM du_lieu_cam_bien WHERE MA = %s"
+        query = "SELECT * FROM du_lieu_cam_bien WHERE MA_CB = %s"
         cursor.execute(query, (random_string,))
         row = cursor.fetchone()
         if row is None:
           break
         else:
-          random_string = generate_random_string(10)
+          random_string = generate_random_string(10)"""
 
 
-def sensor_process():
-  count = 10
-  while count:
-    random_string = generate_random_string()
+def sensor_process_up():
+  
+  while True:
+    #random_string = generate_random_string()
     # kiem tra trung lap cua gia tri random, neu trung thi random lai
-    Regenerate_random_string(mydb)
-    # get sensor in feed
+    #Regenerate_random_string(mydb)
+    # get sensor in feed2
     temp_feed = client1.feeds("yolo-temp")
     humi_feed = client1.feeds("yolo-humi")
     light_feed = client1.feeds("yolo-light")
@@ -96,76 +95,104 @@ def sensor_process():
     value_move = client1.receive(move_feed.key)
     
     # feed status
-    temp_status_feed = client1.feeds("yolo-tem-status")
-    humi_status_feed = client1.feeds("yolo-humi-status")
-    light_status_feed = client1.feeds("yolo-light-status")
-    move_status_feed = client1.feeds("yolo-move-status")
+    temp01_status_feed = client1.feeds("temp01-status")
+    humi01_status_feed = client1.feeds("humid01-status")
+    light01_status_feed = client1.feeds("light01-status")
+    move01_status_feed = client1.feeds("ir01-status")
+   
     
     # value in feed status
-    value_status_temp = client1.receive(temp_status_feed.key)
-    value_status_humi = client1.receive(humi_status_feed.key)
-    value_status_light = client1.receive(light_status_feed.key)
-    value_status_move = client1.receive(move_status_feed.key)
+    value01_status_temp = client1.receive(temp01_status_feed.key)
+    value01_status_humi = client1.receive(humi01_status_feed.key)
+    value01_status_light = client1.receive(light01_status_feed.key)
+    value01_status_move = client1.receive(move01_status_feed.key)
+    
  
     # get_status
     # lấy ngày giờ hiện tại trong máy tính
     dt1 = datetime.datetime.now()
-    # client . publish ("temp", value )
     
     cursor = mydb.cursor()
 
-    if(value_status_temp):
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('HEAT01', random_string, dt1, value_temp.value))
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('HEAT02', random_string, dt1, value_temp.value-0.5))
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('HEAT03', random_string, dt1, value_temp.value+0.5))
-    if(value_status_humi):
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('HUMID01', random_string, dt1, value_humi.value))
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('HUMID02', random_string, dt1, value_humi.value-1))
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('HUMID03', random_string, dt1, value_humi.value+1))
-    if(value_status_light):
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('LIGHT_INTENSE01', random_string, dt1, value_light.value))
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('LIGHT_INTENSE02', random_string, dt1, value_light.value-0.5))
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('LIGHT_INTENSE03', random_string, dt1, value_light.value+0.5))
-    if(value_status_move):
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('IR01', random_string, dt1, value_move.value))
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('IR02', random_string, dt1, value_move.value-0.5))
-            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB,MA, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s,%s)",('IR03', random_string, dt1, value_move.value+0.5))
-                    
-    mydb.commit()
-
-    count -= 1
-    time.sleep(10)
-# lấy giá trị mới nhất
+    if(value01_status_temp):
+            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s)",('HEAT01', dt1, value_temp.value))
     
+    if(value01_status_humi):
+            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s)",('HUMID01', dt1, value_humi.value))
+         
+    if(value01_status_light):        
+            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s)",('LIGHT_INTENSE01', dt1, value_light.value))
+  
+    if(value01_status_move):
+            cursor.execute("INSERT INTO du_lieu_cam_bien (MA_CB, THOI_GIAN, GIA_TRI) VALUES (%s,%s,%s)",('IR01', dt1, value_move.value))
+                     
+    mydb.commit()
+    time.sleep(30)
+# lấy giá trị mới nhất
+
+def sensor_process_down():
+    cursor = mydb.cursor() 
+
+    while True: 
+        cursor.execute("SELECT * FROM cam_bien WHERE THAY_DOI = (%s)", (1,))
+        result = cursor.fetchall()
+
+        for row in result:
+            if row[0] == 'HEAT01':  # MA_CB
+                client1.send_data('temp01-status', row[2]) 
+                cursor.execute("UPDATE cam_bien SET THAY_DOI = (%s) WHERE MA_CB = (%s)", (0, row[0])) 
+            elif row[0] == 'HUMID01':  # MA_CB
+                client1.send_data('humid01-status', row[2]) 
+                cursor.execute("UPDATE cam_bien SET THAY_DOI = (%s) WHERE MA_CB = (%s)", (0, row[0])) 
+            elif row[0] == 'IR01':  # MA_CB
+                client1.send_data('ir01-status', row[2]) 
+                cursor.execute("UPDATE cam_bien SET THAY_DOI = (%s) WHERE MA_CB = (%s)", (0, row[0])) 
+            elif row[0] == 'LIGHT_INTENSE01':  # MA_CB
+                client1.send_data('light01-status', row[2]) 
+                cursor.execute("UPDATE cam_bien SET THAY_DOI = (%s) WHERE MA_CB = (%s)", (0, row[0])) 
+        mydb.commit()
+        #time.sleep(0.5)
     
 def device_process():
-    while True:
-        cursor = mydb.cursor()
-        cursor.execute("SELECT * from thiet_lap_thiet_bi WHERE change = '1' ");
-        row = cursor.fetchone()
-          # Set up your Adafruit IO credentials
-        # Get the feed object for the specified feed key
-        feed = client1.feeds("yolo_cua")
+    cursor = mydb.cursor() 
 
-        # Set the data you want to publish
-        data = row['status'];
+    while True: 
+        # status
+        cursor.execute("SELECT * FROM thiet_bi WHERE THAY_DOI = (%s)", (1,))
+        result = cursor.fetchall()
 
-        # Publish the data to the feed
-        try:
-           client1.publish(feed.key, data)
-           print("Data published successfully to feed '{}'".format(feed.name))
-        except Exception as e:
-           print("Failed to publish data:", e)
+        for row in result:
+            if row[0] == 'FAN01':  # MA_CB
+                client1.send_data('fan01-status', row[2]) 
+                cursor.execute("UPDATE thiet_bi SET THAY_DOI = (%s) WHERE MA_TB = (%s)", (0, row[0])) 
+            elif row[0] == 'LIGHT01':  # MA_CB
+                client1.send_data('led01-status', row[2]) 
+                cursor.execute("UPDATE thiet_bi SET THAY_DOI = (%s) WHERE MA_TB = (%s)", (0, row[0])) 
+                cursor.execute("SELECT * FROM thiet_bi WHERE THAY_DOI = (%s)", (1,))
         
-        cursor.execute("UPDATE thiet_lap_thiet_bi SET change ='0' WHERE change = '1' ");
+      # auto??        
+        """   cursor.execute("SELECT * FROM thiet_bi)
+        result = cursor.fetchall()
+
+        for row in result:
+            if row[0] == 'FAN01':  # MA_CB
+                client1.send_data('fan01-auto', row[1]) 
+            elif row[0] == 'LIGHT01':  # MA_CB
+                client1.send_data('led01-auto', row[1]) 
+        mydb.commit()
+        #time.sleep(0.5)"""
+      #
      
 def child_process():
-    p1 = multiprocessing.Process(target=sensor_process)
+    p1 = multiprocessing.Process(target=sensor_process_up)
     p2 = multiprocessing.Process(target=device_process)
+    p3 = multiprocessing.Process(target=sensor_process_down)
     p1.start()
     p2.start()
+    p3.start()
     p1.join()
     p2.join()
+    p3.join()
     
 
 if __name__ == '__main__':

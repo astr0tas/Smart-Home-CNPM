@@ -69,8 +69,8 @@ def update_sensor_status(id, status, userID):
             print("Error connecting to MySQL:", e)
         with connection.cursor() as cursor:
             print(id, status)
-            query = "UPDATE CAM_BIEN SET TRANG_THAI=%s WHERE MA_CB=%s"
-            cursor.execute(query, (status, id))
+            query = "UPDATE CAM_BIEN SET TRANG_THAI=%s, THAY_DOI=%s WHERE MA_CB=%s"
+            cursor.execute(query, (status, 1, id))
             query = "insert into THIET_LAP_CAM_BIEN values(now(),%s,%s,%s,null,null)"
             cursor.execute(query, (userID, id, status))
             connection.commit()
